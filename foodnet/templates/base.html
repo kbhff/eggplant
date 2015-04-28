@@ -1,15 +1,27 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
-    <meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="{% static "css/foodnet.css" %}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{title}}</title>
+<meta charset="utf-8">
 </head>
 <body>
 
-<div id="container">
-    {% block main %}
-    {% endblock %}
-</div>
+	<div id="container">{% block content %} {% endblock %}</div>
 
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

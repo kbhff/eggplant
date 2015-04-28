@@ -61,3 +61,7 @@ target/
 
 # Vagrant
 .vagrant/
+
+# collected static files
+/foodnet/static
+

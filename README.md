@@ -13,6 +13,7 @@ Clone the project, cd into the foodnet folder and then run the followin:
     vagrant up
     vagrant ssh
     python manage.py migrate
+    python manage.py test
     python manage.py createsuperuser
     python manage.py runserver 0:8000
 
