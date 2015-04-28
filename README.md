@@ -1,16 +1,37 @@
 # Foodnet
-FoodNet is an open source web application that provides simple and flexible infrastructure for organizing food coops and other local community-driven projects.
+FoodNet is an open source web application that provides simple and flexible 
+infrastructure for organizing food coops and other local
+community-driven projects.
 
 
 ## How to get started
-The easiers way to get started contributing to this project is to download and install [Vagrant](http://vagrantup.com/), clone the project, cd into the foodnet folder and then run **vagrant up**. This will download and bootstrap an ubuntu 14.04 box and allow you to get started by using the following commands:
+The easiers way to get started contributing to this project is to 
+download and install git and [Vagrant](http://vagrantup.com/), 
+Clone the project, cd into the foodnet folder and then run the followin: 
 
-* vagrant ssh
-* python manage.py migrate
-* python manage.py createsuperuser
-* python manage.py runserver 0:8000
 
-This will start the django development serve. The project should now be available at [http://192.168.33.28:8000/]()
+    vagrant up
+    vagrant ssh
+    python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver 0:8000
+
+This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
+start the django development server. The project should now be 
+available at [http://192.168.33.28:8000/]()
+
 
 ## How to contribute
-Write code, Write tests. Have fun.
+
+The list of tickets is available on our Taiga project:
+[http://taiga.socialsquare.dk/project/foodnet/backlog]()
+
+The techical discussion takes place on slack:
+[https://foodnet.slack.com/messages/teamblue/]()
+
+The design and organisational issues can also be raised on slack in teamgrean:
+[https://foodnet.slack.com/messages/teamgreen/]()
+
+We decided to follow pep8 and use unix line endings.
+
+*Write code, Write tests, Have fun.*
