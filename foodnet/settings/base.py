@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'django_extensions',
 
     # Project apps.
+    'foodnet.membership',
+    'foodnet.dashboard',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,13 +118,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+# please use `collectstatic` command
 STATIC_URL = '/static/'
-
-# Additional locations of static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'assets'),
 )
-print(BASE_DIR, __file__)
 
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
@@ -160,7 +161,7 @@ LOGGING = {
             'class': 'logging.NullHandler',
         },
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG' if DEBUG else 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'default',
         },
@@ -183,9 +184,13 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        '': {
+        'django.db': {
             'handlers': ['console', ],
             'level': 'INFO',
+        },
+        'foodnet': {
+            'handlers': ['console', ],
+            'level': 'DEBUG' if DEBUG else 'INFO',
         }
     }
 }
