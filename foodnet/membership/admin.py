@@ -7,7 +7,6 @@ from .models import User, UserProfile
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
-    verbose_name_plural = 'UserProfiles'
 
 
 class UserAdmin(UserAdmin):

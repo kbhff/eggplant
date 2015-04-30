@@ -15,18 +15,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Division',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('shortname', models.CharField(max_length=4)),
                 ('name', models.CharField(max_length=255)),
-                ('type', models.CharField(max_length=255)),
-                ('webmembers', models.BooleanField()),
+                ('category', models.CharField(max_length=255)),
+                ('allow_webmembers', models.BooleanField()),
                 ('contact', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='DivisionMembers',
+            name='DivisionMember',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('start', models.DateTimeField(auto_now_add=True)),
                 ('exit', models.DateTimeField()),
                 ('active', models.BooleanField(default=True)),
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Member',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('number', models.PositiveSmallIntegerField()),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
@@ -44,14 +44,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('middlename', models.CharField(max_length=255)),
-                ('adr1', models.CharField(max_length=255)),
-                ('adr2', models.CharField(max_length=255)),
-                ('streetno', models.CharField(max_length=255)),
-                ('floor', models.CharField(max_length=255)),
-                ('door', models.CharField(max_length=255)),
-                ('zip', models.CharField(max_length=255)),
+                ('address', models.TextField(max_length=2000)),
+                ('postcode', models.CharField(max_length=255)),
                 ('city', models.CharField(max_length=255)),
                 ('tel', models.CharField(max_length=255)),
                 ('tel2', models.CharField(max_length=255)),
@@ -64,12 +60,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='divisionmembers',
+            model_name='divisionmember',
             name='member',
             field=models.ForeignKey(to='membership.Member'),
         ),
         migrations.AlterUniqueTogether(
-            name='divisionmembers',
+            name='divisionmember',
             unique_together=set([('member', 'division')]),
         ),
     ]
