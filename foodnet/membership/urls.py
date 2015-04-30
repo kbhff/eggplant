@@ -3,11 +3,9 @@
 from django.conf import settings
 from django.conf.urls import patterns, url
 
-all_urls = [
-    'foodnet.membership.views',
-    url(r'profile/$',
-        'profile',
-        name="profile"),
-]
+from foodnet.membership import views
 
-urlpatterns = patterns(*all_urls)
+
+urlpatterns = [
+    url(r'profile/$', views.profile, name="profile"),
+]
