@@ -24,13 +24,16 @@ available at [http://192.168.33.28:8000/]()
 
 ## How to contribute
 
+Read project description, organisation and goals on our GitHub project page:
+[http://kbhff.github.io/foodnet/]()
+
 The list of tickets is available on our Taiga project:
 [http://taiga.socialsquare.dk/project/foodnet/backlog]()
 
-The techical discussion takes place on slack:
+The techical discussion takes place on Slack:
 [https://foodnet.slack.com/messages/teamblue/]()
 
-The design and organisational issues can also be raised on slack in teamgrean:
+The design and organisational issues can also be raised on Slack in #teamgreen:
 [https://foodnet.slack.com/messages/teamgreen/]()
 
 We decided to follow pep8 and use unix line endings.
