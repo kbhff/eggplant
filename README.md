@@ -19,7 +19,7 @@ Clone the project, cd into the foodnet folder and then run the followin:
 
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
 start the django development server. The project should now be 
-available at [http://192.168.33.28:8000/]()
+available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 
 
 ## How to contribute
