@@ -24,7 +24,7 @@ class UserProfile(models.Model):
     tel2 = models.CharField(max_length=255)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     birthday = models.DateField(null=True)
-    privacy = models.BooleanField()
+    privacy = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     changed = models.DateTimeField(auto_now=True)
 

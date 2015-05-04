@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Division',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('shortname', models.CharField(max_length=4)),
                 ('name', models.CharField(max_length=255)),
                 ('category', models.CharField(max_length=255)),
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DivisionMember',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('start', models.DateTimeField(auto_now_add=True)),
                 ('exit', models.DateTimeField()),
                 ('active', models.BooleanField(default=True)),
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Member',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('number', models.PositiveSmallIntegerField()),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
@@ -44,16 +44,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('middlename', models.CharField(max_length=255)),
                 ('address', models.TextField(max_length=2000)),
                 ('postcode', models.CharField(max_length=255)),
                 ('city', models.CharField(max_length=255)),
                 ('tel', models.CharField(max_length=255)),
                 ('tel2', models.CharField(max_length=255)),
-                ('sex', models.CharField(choices=[('f', 'female'), ('m', 'male')], max_length=1)),
+                ('sex', models.CharField(max_length=1, choices=[('f', 'female'), ('m', 'male')])),
                 ('birthday', models.DateField(null=True)),
-                ('privacy', models.BooleanField()),
+                ('privacy', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('changed', models.DateTimeField(auto_now=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
