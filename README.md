@@ -30,6 +30,8 @@ Read project description, organisation and goals on our GitHub project page:
 The list of tickets is available on our Taiga project:
 [http://taiga.socialsquare.dk/project/foodnet/backlog](http://taiga.socialsquare.dk/project/foodnet/backlog)
 
+We use slack for ad-hoc communication: Just [click to recieve an invitation](https://foodnet-slackin.herokuapp.com/)
+
 The techical discussion takes place on Slack:
 [https://foodnet.slack.com/messages/teamblue/](https://foodnet.slack.com/messages/teamblue/)
 
