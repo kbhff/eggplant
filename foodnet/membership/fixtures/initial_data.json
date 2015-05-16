@@ -1,0 +1,27 @@
+[
+{
+    "model": "membership.membercategory",
+    "pk": 1,
+    "fields": {
+        "name": "houshold"
+    }
+},
+{
+    "model": "membership.membercategory",
+    "pk": 2,
+    "fields": {
+        "name": "school"
+    }
+},
+{
+    "model": "membership.division",
+    "pk": 1,
+    "fields": {
+        "allow_webmembers": true,
+        "category": "food",
+        "name": "default",
+        "contact": "admin@localhost",
+        "shortname": "def"
+    }
+}
+]
