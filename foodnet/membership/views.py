@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
 
 from allauth.account.models import EmailConfirmation, EmailAddress
@@ -23,7 +23,7 @@ from .utils import create_verified_user
 log = logging.getLogger(__name__)
 
 
-# @permission_required('admins.can_invite')
+@permission_required('membership.can_invite')
 @login_required
 def invite(request):
     """Invite a new email address."""

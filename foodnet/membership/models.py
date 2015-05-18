@@ -27,7 +27,7 @@ class UserProfile(models.Model):
     postcode = models.CharField(max_length=30)
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
-    tel2 = models.CharField(max_length=15)
+    tel2 = models.CharField(max_length=15, null=True)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     dob = models.DateField(null=True)  # old system: birthday
     privacy = models.BooleanField(default=False)
@@ -107,6 +107,11 @@ class Invitation(models.Model):
     invited_by = models.ForeignKey(User)
     division = models.ForeignKey(Division)
     member_category = models.ForeignKey(MemberCategory)
+
+    class Meta:
+        permissions = (
+            ("can_invite", "Can send invitation"),
+        )
 
     def __str__(self):
         if self.accepted:
