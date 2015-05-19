@@ -69,6 +69,7 @@ INSTALLED_APPS = (
 
     'allauth',
     'allauth.account',
+    'captcha',  # django-recaptcha
 
     # Project apps.
     'foodnet.membership',
@@ -84,6 +85,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'foodnet.common.middleware.NewUserForceProfileMiddleware',
 )
 
 ROOT_URLCONF = 'foodnet.urls'
@@ -167,7 +169,7 @@ EMAIL_TIMEOUT = 5
 
 SITE_ID = 1
 DOMAIN = 'localhost'
-PROTOCOL = 'http'
+DEFAULT_HTTP_PROTOCOL = 'http'
 
 DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
 SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
@@ -254,3 +256,9 @@ SITE_OPEN_FOR_SIGNUP = True
 #LOGIN_URL = '/membership/accounts/login/'
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'home'
+
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', '6LfCEAcTAAAAAJsJhexp8LznEvngOghaw2ckFfq1')
+RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', '')
+NOCAPTCHA = False
+RECAPTCHA_USE_SSL = False
+

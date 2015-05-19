@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import datetime
 
 from django.core import mail
@@ -6,6 +7,9 @@ from django.conf import settings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+
 from allauth.account.models import EmailAddress
 
 from foodnet.common.utils import absolute_url_reverse
@@ -45,6 +49,8 @@ class TestProfile(TestCase):
             'last_name': 'Doe',
             'address': '123 Sunset av. NY, USA',
             'postcode': '123321ABCD',
+            'city': 'New York',
+            'tel': '79231232',
             'sex': 'f',
             'dob': '11/12/13',
             'privacy': 'checked',
@@ -58,6 +64,8 @@ class TestProfile(TestCase):
             'address': '123 Sunset av. NY, USA',
             'postcode': '123321ABCD',
             'sex': 'f',
+            'city': 'New York',
+            'tel': '79231232',
             'dob': datetime.date(2013, 11, 12),
             'privacy': True,
         }
@@ -85,7 +93,14 @@ class TestInvite(TestCase):
             email='test_admin@food.net'
         )
         self.user.set_password('pass')
+        self.user.is_superuser = True
+
+        content_type = ContentType.objects.get_for_model(Invitation)
+        can_invite = Permission.objects.get(content_type=content_type,
+                                            codename='can_invite')
+        self.user.user_permissions.add(can_invite)
         self.user.save()
+        os.environ['RECAPTCHA_TESTING'] = 'True'
 
     def test_get(self):
         resp = self.client.get(reverse('invite'))
@@ -95,9 +110,22 @@ class TestInvite(TestCase):
 
         self.client.login(username='test_admin@food.net', password='pass')
         resp = self.client.get(reverse('invite'))
+        print(resp.content)
         self.assertContains(resp, 'invite', 1, 200)
 
-    def test_post(self):
+    def test_user_already_verified(self):
+        invited_email = 'test_admin@food.net'
+        data = {
+            'division': 1,
+            'email': invited_email,
+            'member_category': 1,
+        }
+        self.client.login(username='test_admin@food.net', password='pass')
+        resp = self.client.post(reverse('invite'), data=data, follow=True)
+        expected = 'User {} already exists'.format(invited_email)
+        self.assertContains(resp, expected, 1, 200)
+
+    def test_invitation_flow(self):
         invited_email = 'test1@localhost'
         data = {
             'division': 1,
@@ -109,7 +137,7 @@ class TestInvite(TestCase):
         self.assertRedirects(resp, reverse('home'), status_code=302,
                              target_status_code=200, msg_prefix='')
 
-        expected = ' invitation has been send to {}'.format(invited_email)
+        expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(resp, expected, 1, 200)
 
         self.assertEqual(len(mail.outbox), 1)
@@ -133,10 +161,9 @@ class TestInvite(TestCase):
         self.assertContains(resp, invitation.verification_key.hex, 1)
 
         data = {
-            'email': 'test1@localhost',
+            'recaptcha_response_field': 'PASSED',
         }
         resp = self.client.post(accept_invitation_url, data=data, follow=True)
-        print(resp.content)
         self.assertRedirects(resp, reverse('new_member_set_password'),
                              status_code=302,
                              target_status_code=200, msg_prefix='')

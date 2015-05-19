@@ -6,6 +6,7 @@ from allauth.account.adapter import get_adapter
 from allauth.account.utils import user_email, setup_user_email, \
     cleanup_email_addresses
 from allauth.account.models import EmailAddress
+from captcha.fields import ReCaptchaField
 
 from .models import MemberCategory, Division, UserProfile
 
@@ -19,7 +20,7 @@ class ProfileForm(forms.Form):
                                 max_length=30)
     address = forms.CharField(widget=forms.Textarea, label='Address',
                               required=True, max_length=255)
-    city = forms.CharField(label='Code', required=True, max_length=50)
+    city = forms.CharField(label='City', required=True, max_length=50)
     postcode = forms.CharField(label='Post code', required=True, max_length=30)
     tel = forms.CharField(label='Phone', required=True, max_length=15)
     sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=True)
@@ -35,8 +36,7 @@ class InviteForm(forms.Form):
 
 
 class AcceptInvitationForm(forms.Form):
-    email = forms.fields.EmailField(required=True)
-    # FIXME: add captcha
+    captcha = ReCaptchaField(attrs={'theme': 'clean'})
 
 
 class SignupForm(BaseSignupForm):

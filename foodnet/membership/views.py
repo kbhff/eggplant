@@ -32,18 +32,20 @@ def invite(request):
         form = InviteForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            try:
+            existing_user = User.objects.filter(email=email)
+            existing_email = EmailAddress.objects.get_users_for(email=email)
+            if existing_user or existing_email:
+                msg = 'User {} already exists.'.format(email)
+                messages.add_message(request, messages.ERROR, msg)
+            else:
                 Invitation.objects.create(
                     email=email,
                     invited_by=request.user,
                     division=form.cleaned_data['division'],
                     member_category=form.cleaned_data['member_category'])
-                msg = 'invitation has been send to {}'.format(email)
+                msg = 'Invitation has been send to {}'.format(email)
                 messages.add_message(request, messages.SUCCESS, msg)
-            except IntegrityError:
-                    msg = 'user {} already exists'.format(email)
-                    messages.add_message(request, messages.ERROR, msg)
-            return redirect(reverse('home'))
+                return redirect(reverse('home'))
     ctx = {
         'form': form,
         'title': "send invitation",
@@ -54,16 +56,24 @@ def invite(request):
 def accept_invitation(request, verification_key):
     """Accept invitation."""
     if request.user.is_authenticated():
-        raise Http404()
+        msg = "You are already logged-in"
+        messages.add_message(request, messages.WARNING, msg)
+        return redirect(reverse('home'))
     invitation = get_object_or_404(Invitation,
                                    verification_key=verification_key,
                                    accepted=False)
     form = AcceptInvitationForm()
     if request.method == 'POST':
         form = AcceptInvitationForm(request.POST)
-        if form.is_valid() and \
-                invitation.email == form.cleaned_data.get('email'):
-            # TODO: refactor invitation email validation into a validator
+        if form.is_valid():
+            email = invitation.email
+            existing_user = User.objects.filter(email=email)
+            existing_email = EmailAddress.objects.get_users_for(email=email)
+
+            if existing_user or existing_email:
+                msg = "You have already accepted invitation for this email."
+                messages.add_message(request, messages.ERROR, msg)
+                return redirect(reverse('home'))
             invitation.accepted = True
             invitation.save()
             create_verified_user(invitation)
@@ -73,11 +83,13 @@ def accept_invitation(request, verification_key):
                                 password=verification_key)
             if user:
                 login(request, user)
+                request.session['new-invited-user'] = True
                 return redirect(reverse('new_member_set_password'))
             else:
                 log.debug("user can not be authenticated")
         else:
-            msg = 'Invalid email address.'
+            log.debug(form.errors)
+            msg = 'Invalid captcha.'
             messages.add_message(request, messages.WARNING, msg)
 
     ctx = {
@@ -94,9 +106,15 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
     """
     success_url = reverse_lazy('profile')
 
+    def get(self, request, *args, **kwargs):
+        if not request.session.get('new-invited-user'):
+            raise Http404()
+        return super(NewUserPasswordView, self).get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         profile = UserProfile.get_for_user(self.request.user)
-        if profile.is_complete():
+        if profile.is_complete() or \
+                not request.session.pop('new-invited-user', False):
             # existing user
             raise Http404()
         return super(NewUserPasswordView, self).post(request, *args, **kwargs)
@@ -126,12 +144,24 @@ class ProfileView(LoginRequiredMixinView, FormView):
     template_name = 'membership/profile.html'
     success_url = reverse_lazy('home')
 
+    def get_object(self, queryset=None):
+        self.objects = UserProfile.objects.get(user_id=self.request.user.id)
+        return self.objects
+
+    def get_initial(self):
+        initial = {
+            'first_name': self.request.user.first_name,
+            'last_name': self.request.user.last_name,
+        }
+        initial.update(self.get_object().__dict__)
+        return initial
+
     def form_valid(self, form):
         user_id = self.request.user.id
         profile = UserProfile.get_for_user(self.request.user)
         if not profile.is_complete():
-            msg = "Welcome!"
-            messages.add_message(self.request, messages.SUCCESS, msg)
+            msg = "Please update your profile."
+            messages.add_message(self.request, messages.WARNING, msg)
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])
@@ -139,10 +169,13 @@ class ProfileView(LoginRequiredMixinView, FormView):
         del form.cleaned_data['last_name']
         print(form.cleaned_data)
         UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
+        msg = "Your profile has been successfully updated."
+        messages.add_message(self.request, messages.SUCCESS, msg)
         return super(ProfileView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['title'] = 'profile'
+        context['form'] = kwargs['form']
         return context
 profile = ProfileView.as_view()

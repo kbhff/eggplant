@@ -6,5 +6,6 @@ def absolute_url_reverse(url_name=None, **kwargs):
     path = '/'
     if url_name:
         path = reverse(url_name, **kwargs)
-    full_url = "{}://{}{}".format(settings.PROTOCOL, settings.DOMAIN, path)
+    full_url = "{}://{}{}".format(settings.DEFAULT_HTTP_PROTOCOL,
+                                  settings.DOMAIN, path)
     return full_url

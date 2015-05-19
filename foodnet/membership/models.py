@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
 
 from foodnet.common.utils import absolute_url_reverse
 
@@ -98,11 +99,11 @@ class DivisionMember(models.Model):
 
 
 class Invitation(models.Model):
-    email = models.EmailField(null=False, blank=False, unique=True)
+    email = models.EmailField(null=False, blank=False, unique=False)
     accepted = models.BooleanField(default=False)
     accepted_dt = models.DateTimeField(null=True)
     verification_key = models.UUIDField(default=uuid.uuid4, editable=False,
-                                        null=False, blank=False)
+                                        null=False, blank=False, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     invited_by = models.ForeignKey(User)
     division = models.ForeignKey(Division)
@@ -131,7 +132,6 @@ def create_user_profile(sender, instance, created, **kwargs):
           dispatch_uid='membership-invitation-send_email_invitation')
 def send_email_invitation(sender, instance, created, **kwargs):
     if created:
-        from django.core.mail import send_mail
         subject = 'You have been invitate to FoodNet!'
         to_addrs = [instance.email, ]
         invite_url = absolute_url_reverse('accept_invitation', kwargs=dict(
@@ -143,4 +143,4 @@ def send_email_invitation(sender, instance, created, **kwargs):
 
         """.format(invite_url=invite_url)
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, to_addrs,
-                  fail_silently=False)
+                  fail_silently=not settings.DEBUG)

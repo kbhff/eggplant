@@ -1,4 +1,7 @@
+import os
 import sys
+os.environ['RECAPTCHA_TESTING'] = 'True'
+
 from foodnet.settings.base import *
 
 
@@ -39,3 +42,63 @@ for arg in sys.argv:
             '--with-yanc',
         ]
         break
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s',
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        # Silence SuspiciousOperation.DisallowedHost exception ('Invalid
+        # HTTP_HOST' header messages). Set the handler to 'null' so we don't
+        # get those annoying emails.
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.db': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+        },
+        'captcha': {
+            'handlers': ['console', ],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
+        'foodnet': {
+            'handlers': ['console', ],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
+    }
+}
