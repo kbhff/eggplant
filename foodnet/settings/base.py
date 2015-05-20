@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.contrib.messages import constants as messages_constants
+
+MESSAGE_TAGS = {
+    messages_constants.ERROR: 'danger',
+}
+
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -32,18 +38,38 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+    # invited users only
+    'foodnet.membership.auth_backends.InvitationBackend',
+)
+
+
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # 3rd-party apps.
     'django_extensions',
+    'bootstrap3',
+
+    'allauth',
+    'allauth.account',
+    'captcha',  # django-recaptcha
 
     # Project apps.
     'foodnet.membership',
@@ -59,6 +85,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'foodnet.common.middleware.NewUserForceProfileMiddleware',
 )
 
 ROOT_URLCONF = 'foodnet.urls'
@@ -74,7 +101,12 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'allauth.account.context_processors.account',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -83,6 +115,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'foodnet.wsgi.application'
 
@@ -125,17 +158,24 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
+EMAIL_HOST = os.getenv('EMAIL_HOST', '127.0.0.1')
+EMAIL_PORT = os.getenv('EMAIL_PORT', 25)
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
+EMAIL_SUBJECT_PREFIX = '[FoodNet]'
+EMAIL_TIMEOUT = 5
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-DEFAULT_FROM_EMAIL = 'Info <info@example.com>'
-SERVER_EMAIL = 'Alerts <alerts@example.com>'
+SITE_ID = 1
+DOMAIN = 'localhost'
+DEFAULT_HTTP_PROTOCOL = 'http'
+
+DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
+SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
 
 ADMINS = (
-    ('Admin', 'admin@example.com'),
+    ('Admin', 'admin@{0}'.format(DOMAIN)),
 )
 
 
@@ -194,3 +234,31 @@ LOGGING = {
         }
     }
 }
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+USER_MODEL_USERNAME_FIELD = 'email'
+#ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_URL
+#ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
+ACCOUNT_USER_DISPLAY = lambda u: u.email
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_PASSWORD_MIN_LENGTH = 8
+ACCOUNT_ADAPTER = 'foodnet.authnadapter.FoodnetAccountAdapter'
+#ACCOUNT_SIGNUP_FORM_CLASS
+ACCOUNT_SESSION_REMEMBER = None
+
+SITE_OPEN_FOR_SIGNUP = True
+
+#LOGIN_URL = '/membership/accounts/login/'
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'home'
+
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', '6LfCEAcTAAAAAJsJhexp8LznEvngOghaw2ckFfq1')
+RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', '')
+NOCAPTCHA = False
+RECAPTCHA_USE_SSL = False
+

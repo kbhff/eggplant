@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
 {% block content %}
-<h1>{{title}}</h1>
+{% if perms.membership.can_invite %}
+
+<div class="btn-group">
+  <a href="{% url 'invite' %}" role="button" class="btn btn-default">send invitation</a>
+</div>
+{% endif %}
+
+<h4>{{title}}</h4>
+
 {% endblock%}

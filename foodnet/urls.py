@@ -7,7 +7,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^$', 'foodnet.dashboard.views.home', name='home'),
     url(r'^membership/', include('foodnet.membership.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
-] 
+]
 #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
