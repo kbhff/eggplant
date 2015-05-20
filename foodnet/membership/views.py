@@ -2,20 +2,22 @@
 import logging
 
 from django.db import IntegrityError
-from django.http import Http404
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
+from django.conf import settings
 
 from allauth.account.models import EmailConfirmation, EmailAddress
 from allauth.account.views import sensitive_post_parameters_m,\
     PasswordSetView, PasswordChangeView
 
 from foodnet.common.views import LoginRequiredMixinView
-from .forms import ProfileForm, InviteForm, AcceptInvitationForm
+from .forms import (ProfileForm, InviteForm, AcceptInvitationForm,
+    NewUserSetPasswordForm)
 from .models import Invitation, User, UserProfile
 from .utils import create_verified_user
 
@@ -53,6 +55,24 @@ def invite(request):
     return render(request, 'membership/invite.html', ctx)
 
 
+def do_accept_invitation(request, invitation):
+    email = invitation.email
+    existing_user = User.objects.filter(email=email).exists()
+    existing_email = EmailAddress.objects.get_users_for(email=email)
+    if existing_user or existing_email:
+        msg = "You have already accepted invitation for this email."
+        messages.add_message(request, messages.ERROR, msg)
+        log.debug("already accepted")
+        raise HttpResponsePermanentRedirect(reverse('home'))
+    invitation.accepted = True
+    invitation.save()
+    create_verified_user(invitation)
+    # authenticate user via InvitationBackend
+    user = authenticate(username=invitation.email,
+                        password=invitation.verification_key.hex)
+    return user
+
+
 def accept_invitation(request, verification_key):
     """Accept invitation."""
     if request.user.is_authenticated():
@@ -64,33 +84,27 @@ def accept_invitation(request, verification_key):
                                    accepted=False)
     form = AcceptInvitationForm()
     if request.method == 'POST':
-        form = AcceptInvitationForm(request.POST)
-        if form.is_valid():
-            email = invitation.email
-            existing_user = User.objects.filter(email=email)
-            existing_email = EmailAddress.objects.get_users_for(email=email)
-
-            if existing_user or existing_email:
-                msg = "You have already accepted invitation for this email."
-                messages.add_message(request, messages.ERROR, msg)
-                return redirect(reverse('home'))
-            invitation.accepted = True
-            invitation.save()
-            create_verified_user(invitation)
-
-            # authenticate user via InvitationBackend
-            user = authenticate(username=invitation.email,
-                                password=verification_key)
-            if user:
-                login(request, user)
-                request.session['new-invited-user'] = True
-                return redirect(reverse('new_member_set_password'))
+        if settings.USE_RECAPTCHA:
+            form = AcceptInvitationForm(request.POST)
+            if form.is_valid():
+                user = do_accept_invitation(request, invitation)
             else:
-                log.debug("user can not be authenticated")
+                user = None
+                msg = 'Invalid captcha.'
+                messages.add_message(request, messages.WARNING, msg)
         else:
-            log.debug(form.errors)
-            msg = 'Invalid captcha.'
-            messages.add_message(request, messages.WARNING, msg)
+            # If not using recaptcha we don't show
+            # the form so there is no POST
+            pass
+    else:
+        if not settings.USE_RECAPTCHA:
+            user = do_accept_invitation(request, invitation)
+        # if this is GET and we use recaptcha just render the form
+
+    if user:
+        login(request, user)
+        request.session['new-invited-user'] = True
+        return redirect(reverse('new_member_set_password'))
 
     ctx = {
         'form': form,
@@ -105,6 +119,16 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
     Set password only for a new user. Existing users can use password change.
     """
     success_url = reverse_lazy('profile')
+    form_class = NewUserSetPasswordForm
+
+    def get_authenticated_redirect_url(self, *args, **kwargs):
+        return self.success_url
+
+    def get_success_url(self, *args, **kwargs):
+        return self.success_url
+
+    def form_valid(self, form):
+        form.save()  # FIXME: password_set signal which redirects to login
 
     def get(self, request, *args, **kwargs):
         if not request.session.get('new-invited-user'):
@@ -117,13 +141,22 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
                 not request.session.pop('new-invited-user', False):
             # existing user
             raise Http404()
-        return super(NewUserPasswordView, self).post(request, *args, **kwargs)
+        form = self.get_form()
+        if form.is_valid():
+            self.form_valid(form)
+            return redirect(self.success_url)
+        else:
+            return self.form_invalid(form)
 
     @sensitive_post_parameters_m
     def dispatch(self, request, *args, **kwargs):
         """Overrides PasswordSetView.dispatch with the View.dispatch"""
         if request.method.lower() in self.http_method_names:
-            handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            handler = getattr(
+                self,
+                request.method.lower(),
+                self.http_method_not_allowed
+            )
         else:
             handler = self.http_method_not_allowed
         return handler(request, *args, **kwargs)
@@ -167,7 +200,6 @@ class ProfileView(LoginRequiredMixinView, FormView):
                     last_name=form.cleaned_data['last_name'])
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
-        print(form.cleaned_data)
         UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
         msg = "Your profile has been successfully updated."
         messages.add_message(self.request, messages.SUCCESS, msg)

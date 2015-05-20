@@ -14,6 +14,7 @@ from allauth.account.models import EmailAddress
 
 from foodnet.common.utils import absolute_url_reverse
 from .models import UserProfile, Invitation
+from django.test.utils import override_settings
 
 
 class TestProfile(TestCase):
@@ -145,31 +146,62 @@ class TestInvite(TestCase):
                          'You have been invitate to FoodNet!')
 
         invitation = Invitation.objects.get(email=invited_email)
-        url = absolute_url_reverse('accept_invitation', kwargs=dict(
-                                   verification_key=
-                                       invitation.verification_key.hex))
+        url = absolute_url_reverse(
+            'accept_invitation',
+            kwargs=dict(verification_key=invitation.verification_key.hex)
+        )
         self.assertRegex(invitation.verification_key.hex, r'^[a-z0-9]{32}\Z')
         self.assertIn(url, mail.outbox[0].body)
 
         self.client.logout()
-        accept_invitation_url = reverse('accept_invitation',
-                      kwargs=dict(verification_key=
-                                  invitation.verification_key.hex))
-        resp = self.client.get(accept_invitation_url)
+        accept_invitation_url = reverse(
+            'accept_invitation',
+            kwargs=dict(verification_key=invitation.verification_key.hex)
+        )
 
-        self.assertContains(resp, 'accept invitation', 2)
-        self.assertContains(resp, invitation.verification_key.hex, 1)
+        if settings.USE_RECAPTCHA:
+            resp = self.client.get(accept_invitation_url)
+            self.assertContains(resp, 'accept invitation', 2)
+            self.assertContains(resp, invitation.verification_key.hex, 1)
 
-        data = {
-            'recaptcha_response_field': 'PASSED',
-        }
-        resp = self.client.post(accept_invitation_url, data=data, follow=True)
-        self.assertRedirects(resp, reverse('new_member_set_password'),
-                             status_code=302,
-                             target_status_code=200, msg_prefix='')
+            data = {
+                'recaptcha_response_field': 'PASSED',
+            }
+            resp = self.client.post(
+                accept_invitation_url,
+                data=data,
+                follow=True
+            )
+            self.assertRedirects(resp, reverse('new_member_set_password'),
+                                 status_code=302,
+                                 target_status_code=200,
+                                 msg_prefix='', )
+        else:
+            resp = self.client.get(accept_invitation_url, follow=True)
+            self.assertRedirects(
+                resp,
+                reverse('new_member_set_password'),
+                status_code=302,
+                target_status_code=200
+            )
         self.assertContains(resp, 'password1', 3)
         self.assertContains(resp, 'password2', 3)
 
+        data = {
+            'password1': 'passpass',
+            'password2': 'passpass',
+        }
+        resp = self.client.post(
+            reverse('new_member_set_password'),
+            data=data,
+            follow=True
+        )
+        #self.assertRedirects(
+        #    resp,
+        #    reverse('profile'),
+        #    status_code=302,
+        #    target_status_code=200
+        #)
         # TODO:
         # post to set password
         # check pass

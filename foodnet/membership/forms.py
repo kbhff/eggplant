@@ -1,7 +1,7 @@
 from django import forms
 from .models import UserProfile
 from django.core.mail import send_mail
-from allauth.account.forms import BaseSignupForm
+from allauth.account.forms import BaseSignupForm, SetPasswordForm
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import user_email, setup_user_email, \
     cleanup_email_addresses
@@ -9,6 +9,12 @@ from allauth.account.models import EmailAddress
 from captcha.fields import ReCaptchaField
 
 from .models import MemberCategory, Division, UserProfile
+
+
+class NewUserSetPasswordForm(SetPasswordForm):
+    def save(self, *args, **kwargs):
+        self.user.set_password(self.cleaned_data["password1"])
+        self.user.save()
 
 
 class ProfileForm(forms.Form):
