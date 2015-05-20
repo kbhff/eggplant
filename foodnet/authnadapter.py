@@ -29,12 +29,6 @@ class FoodnetAccountAdapter(DefaultAccountAdapter):
         log.debug("is_open_for_signup")
         return settings.SITE_OPEN_FOR_SIGNUP
 
-    #def stash_verified_email(self, request, email):
-    #    pass#
-#
-#    def unstash_verified_email(self, request):
-#        pass
-
     def is_email_verified(self, request, email):
         """
         Checks whether or not the email address is already verified
