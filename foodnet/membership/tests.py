@@ -52,7 +52,7 @@ class TestProfile(TestCase):
             'city': 'New York',
             'tel': '79231232',
             'sex': 'f',
-            'dob': '11/12/13',
+            'date_of_birth': '11/12/13',
             'privacy': 'checked',
         }
         resp = self.client.post(reverse('profile'), data=data)
@@ -66,7 +66,7 @@ class TestProfile(TestCase):
             'sex': 'f',
             'city': 'New York',
             'tel': '79231232',
-            'dob': datetime.date(2013, 11, 12),
+            'date_of_birth': datetime.date(2013, 11, 12),
             'privacy': True,
         }
         profile = UserProfile.objects.get(user_id=self.user.id)

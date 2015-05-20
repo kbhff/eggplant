@@ -13,9 +13,11 @@ class NewUserForceProfileMiddleware(object):
             reverse('account_logout'),
             reverse('new_member_set_password'),
         )
-        if request.user.is_authenticated() and \
-                not request.user.is_superuser and \
-                request.path not in allowed_paths:
+        if (
+            request.user.is_authenticated() and
+            not request.user.is_superuser and
+            request.path not in allowed_paths
+        ):
             profile = UserProfile.get_for_user(request.user)
             if not profile.is_complete():
                 msg = "Please update your profile."

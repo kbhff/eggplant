@@ -24,7 +24,7 @@ class ProfileForm(forms.Form):
     postcode = forms.CharField(label='Post code', required=True, max_length=30)
     tel = forms.CharField(label='Phone', required=True, max_length=15)
     sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=True)
-    dob = forms.DateField(label='Date of birth', required=True)
+    date_of_birth = forms.DateField(label='Date of birth', required=True)
     privacy = forms.BooleanField(required=True)
 
 
@@ -45,8 +45,7 @@ class SignupForm(BaseSignupForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        super(SignupForm, self).clean()
-        return self.cleaned_data
+        return super().clean()
 
     def save(self, request):
         adapter = get_adapter()

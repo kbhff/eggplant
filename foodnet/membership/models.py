@@ -30,7 +30,7 @@ class UserProfile(models.Model):
     tel = models.CharField(max_length=15)
     tel2 = models.CharField(max_length=15, null=True)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
-    dob = models.DateField(null=True)  # old system: birthday
+    date_of_birth = models.DateField(null=True)  # old system: birthday
     privacy = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
@@ -45,7 +45,7 @@ class UserProfile(models.Model):
 
     def is_complete(self):
         if self.address and self.postcode and self.city and\
-                self.sex and self.tel and self.dob and self.privacy:
+                self.sex and self.tel and self.date_of_birth and self.privacy:
             return True
         return False
 
@@ -58,7 +58,7 @@ class MemberCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return u'{0}'.format(self.name)
+        return '{0}'.format(self.name)
 
 
 class Member(models.Model):
