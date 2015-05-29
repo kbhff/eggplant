@@ -43,7 +43,7 @@ def invite(request):
                 Invitation.objects.create(
                     email=email,
                     invited_by=request.user,
-                    division=form.cleaned_data['division'],
+                    department=form.cleaned_data['department'],
                     member_category=form.cleaned_data['member_category'])
                 msg = 'Invitation has been send to {}'.format(email)
                 messages.add_message(request, messages.SUCCESS, msg)
@@ -55,6 +55,10 @@ def invite(request):
     return render(request, 'membership/invite.html', ctx)
 
 
+class AlreadyAcceptedInvitationException(Exception):
+    pass
+
+
 def do_accept_invitation(request, invitation):
     email = invitation.email
     existing_user = User.objects.filter(email=email).exists()
@@ -63,7 +67,7 @@ def do_accept_invitation(request, invitation):
         msg = "You have already accepted invitation for this email."
         messages.add_message(request, messages.ERROR, msg)
         log.debug("already accepted")
-        raise HttpResponsePermanentRedirect(reverse('home'))
+        raise AlreadyAcceptedInvitationException()
     invitation.accepted = True
     invitation.save()
     create_verified_user(invitation)
@@ -87,7 +91,10 @@ def accept_invitation(request, verification_key):
         if settings.USE_RECAPTCHA:
             form = AcceptInvitationForm(request.POST)
             if form.is_valid():
-                user = do_accept_invitation(request, invitation)
+                try:
+                    user = do_accept_invitation(request, invitation)
+                except AlreadyAcceptedInvitationException:
+                    return redirect(reverse('home'))
             else:
                 user = None
                 msg = 'Invalid captcha.'
@@ -98,7 +105,10 @@ def accept_invitation(request, verification_key):
             pass
     else:
         if not settings.USE_RECAPTCHA:
-            user = do_accept_invitation(request, invitation)
+            try:
+                user = do_accept_invitation(request, invitation)
+            except AlreadyAcceptedInvitationException:
+                return redirect(reverse('home'))
         # if this is GET and we use recaptcha just render the form
 
     if user:
@@ -140,6 +150,8 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
         if profile.is_complete() or \
                 not request.session.pop('new-invited-user', False):
             # existing user
+            msg = "User with completed profile %s is trying to set password."
+            log.warn(msg, self.request.user)
             raise Http404()
         form = self.get_form()
         if form.is_valid():

@@ -34,6 +34,10 @@ class UserProfile(models.Model):
     privacy = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
+    member = models.ForeignKey('membership.Member', null=True)
+
+    def __str__(self):
+        return 'Profile({0})'.format(self.user)
 
     @property
     def full_name(self):
@@ -63,39 +67,43 @@ class MemberCategory(models.Model):
 
 class Member(models.Model):
     number = models.PositiveSmallIntegerField()
-    user = models.ForeignKey(User)
     category = models.ForeignKey(MemberCategory)
 
 
-class Division(models.Model):
+class DepartmentCategory(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return '{0}'.format(self.name)
+
+
+class Department(models.Model):
     shortname = models.CharField(max_length=4)
     name = models.CharField(max_length=255)
 
     # old system: type
-    category = models.CharField(max_length=255)
+    category = models.ForeignKey(DepartmentCategory)
 
     # old system: webmembers
-    allow_webmembers = models.BooleanField()
+    allow_webmembers = models.BooleanField(default=True)
     contact = models.CharField(max_length=255)
 
-    # FIXME: should we move it out to model manager with
-    # other bits from old models?
-    # members = models.ManyToManyField('membership.Member',
-    #                                 through='membership.DivisionMember')
+    members = models.ManyToManyField('membership.Member',
+                                     through='membership.DepartmentMembership')
 
     def __str__(self):
         return u'{0}'.format(self.name)
 
 
-class DivisionMember(models.Model):
+class DepartmentMembership(models.Model):
     member = models.ForeignKey(Member)
-    division = models.ForeignKey(Division)
+    department = models.ForeignKey(Department)
     start = models.DateTimeField(auto_now_add=True)
-    exit = models.DateTimeField()
+    exit = models.DateTimeField(null=True, default=None)
     active = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = (('member', 'division'),)
+        unique_together = (('member', 'department'),)
 
 
 class Invitation(models.Model):
@@ -106,7 +114,7 @@ class Invitation(models.Model):
                                         null=False, blank=False, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     invited_by = models.ForeignKey(User)
-    division = models.ForeignKey(Division)
+    department = models.ForeignKey(Department)
     member_category = models.ForeignKey(MemberCategory)
 
     class Meta:

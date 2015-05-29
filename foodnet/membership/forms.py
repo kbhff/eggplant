@@ -8,7 +8,7 @@ from allauth.account.utils import user_email, setup_user_email, \
 from allauth.account.models import EmailAddress
 from captcha.fields import ReCaptchaField
 
-from .models import MemberCategory, Division, UserProfile
+from .models import MemberCategory, Department, UserProfile
 
 
 class NewUserSetPasswordForm(SetPasswordForm):
@@ -38,7 +38,7 @@ class InviteForm(forms.Form):
     email = forms.fields.EmailField(required=True)
     member_category = forms\
         .ModelChoiceField(MemberCategory.objects.all(), required=True)
-    division = forms.ModelChoiceField(Division.objects.all(), required=True)
+    department = forms.ModelChoiceField(Department.objects.all(), required=True)
 
 
 class AcceptInvitationForm(forms.Form):
