@@ -14,11 +14,18 @@
     }
 },
 {
-    "model": "membership.division",
+    "model": "membership.departmentcategory",
+    "pk": 1,
+    "fields": {
+        "name": "food"
+    }
+},
+{
+    "model": "membership.department",
     "pk": 1,
     "fields": {
         "allow_webmembers": true,
-        "category": "food",
+        "category": 1,
         "name": "default",
         "contact": "admin@localhost",
         "shortname": "def"

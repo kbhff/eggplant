@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 import uuid
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -14,36 +14,42 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Division',
+            name='Department',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('shortname', models.CharField(max_length=4)),
                 ('name', models.CharField(max_length=255)),
-                ('category', models.CharField(max_length=255)),
-                ('allow_webmembers', models.BooleanField()),
+                ('allow_webmembers', models.BooleanField(default=True)),
                 ('contact', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='DivisionMember',
+            name='DepartmentCategory',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=50)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='DepartmentMembership',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('start', models.DateTimeField(auto_now_add=True)),
-                ('exit', models.DateTimeField()),
+                ('exit', models.DateTimeField(null=True, default=None)),
                 ('active', models.BooleanField(default=True)),
-                ('division', models.ForeignKey(to='membership.Division')),
+                ('department', models.ForeignKey(to='membership.Department')),
             ],
         ),
         migrations.CreateModel(
             name='Invitation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('email', models.EmailField(max_length=254)),
                 ('accepted', models.BooleanField(default=False)),
                 ('accepted_dt', models.DateTimeField(null=True)),
-                ('verification_key', models.UUIDField(default=uuid.uuid4, unique=True, editable=False)),
+                ('verification_key', models.UUIDField(unique=True, default=uuid.uuid4, editable=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('division', models.ForeignKey(to='membership.Division')),
+                ('department', models.ForeignKey(to='membership.Department')),
                 ('invited_by', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -53,21 +59,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Member',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('number', models.PositiveSmallIntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='MemberCategory',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('name', models.CharField(max_length=50, unique=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('middle_name', models.CharField(max_length=30, null=True)),
                 ('address', models.TextField(max_length=255)),
                 ('postcode', models.CharField(max_length=30)),
@@ -75,11 +81,12 @@ class Migration(migrations.Migration):
                 ('tel', models.CharField(max_length=15)),
                 ('tel2', models.CharField(max_length=15, null=True)),
                 ('sex', models.CharField(max_length=1, choices=[('f', 'female'), ('m', 'male')])),
-                ('dob', models.DateField(null=True)),
+                ('date_of_birth', models.DateField(null=True)),
                 ('privacy', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('changed', models.DateTimeField(auto_now=True)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, editable=False)),
+                ('member', models.ForeignKey(null=True, to='membership.Member')),
+                ('user', models.OneToOneField(editable=False, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
@@ -88,22 +95,27 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to='membership.MemberCategory'),
         ),
         migrations.AddField(
-            model_name='member',
-            name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
             model_name='invitation',
             name='member_category',
             field=models.ForeignKey(to='membership.MemberCategory'),
         ),
         migrations.AddField(
-            model_name='divisionmember',
+            model_name='departmentmembership',
             name='member',
             field=models.ForeignKey(to='membership.Member'),
         ),
+        migrations.AddField(
+            model_name='department',
+            name='category',
+            field=models.ForeignKey(to='membership.DepartmentCategory'),
+        ),
+        migrations.AddField(
+            model_name='department',
+            name='members',
+            field=models.ManyToManyField(through='membership.DepartmentMembership', to='membership.Member'),
+        ),
         migrations.AlterUniqueTogether(
-            name='divisionmember',
-            unique_together=set([('member', 'division')]),
+            name='departmentmembership',
+            unique_together=set([('member', 'department')]),
         ),
     ]
