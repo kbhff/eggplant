@@ -28,8 +28,8 @@ available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 Read project description, organisation and goals on our GitHub project page:
 [http://kbhff.github.io/foodnet/](http://kbhff.github.io/foodnet/)
 
-The list of tickets is available on our Taiga project:
-[http://taiga.socialsquare.dk/project/foodnet/backlog](http://taiga.socialsquare.dk/project/foodnet/backlog)
+The list of tickets is available on our Pivotal Tracker project:
+[https://www.pivotaltracker.com/n/projects/1337462](https://www.pivotaltracker.com/n/projects/1337462)
 
 We use slack for ad-hoc communication: Just [click to recieve an invitation](https://foodnet-slackin.herokuapp.com/)
 
