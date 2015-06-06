@@ -166,6 +166,8 @@ EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = '[FoodNet]'
 EMAIL_TIMEOUT = 5
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 SITE_ID = 1
 DOMAIN = 'localhost'

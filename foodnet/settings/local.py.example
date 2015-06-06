@@ -4,6 +4,8 @@ os.environ['RECAPTCHA_TESTING'] = 'True'
 
 from foodnet.settings.base import *
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 INSTALLED_APPS += ('debug_toolbar',)
 

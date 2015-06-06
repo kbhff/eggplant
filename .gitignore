@@ -64,4 +64,5 @@ target/
 
 # collected static files
 /foodnet/static
+foodnet/settings/pawel.py
 
