@@ -12,4 +12,4 @@ def home(request):
     ctx = {
            'title': 'dashboard'
     }
-    return render(request, 'dashboard/home.html', ctx)
+    return render(request, 'foodnet/dashboard/home.html', ctx)

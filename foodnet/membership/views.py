@@ -52,7 +52,7 @@ def invite(request):
         'form': form,
         'title': "send invitation",
     }
-    return render(request, 'membership/invite.html', ctx)
+    return render(request, 'foodnet/membership/invite.html', ctx)
 
 
 class AlreadyAcceptedInvitationException(Exception):
@@ -121,7 +121,7 @@ def accept_invitation(request, verification_key):
         'verification_key': verification_key,
         'title': "accept invitation",
     }
-    return render(request, 'membership/accept_invitation.html', ctx)
+    return render(request, 'foodnet/membership/accept_invitation.html', ctx)
 
 
 class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
@@ -186,7 +186,7 @@ loginpage_password_change = LoginAfterPasswordChangeView.as_view()
 class ProfileView(LoginRequiredMixinView, FormView):
     """Profile form view."""
     form_class = ProfileForm
-    template_name = 'membership/profile.html'
+    template_name = 'foodnet/membership/profile.html'
     success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
