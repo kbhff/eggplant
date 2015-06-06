@@ -10,5 +10,4 @@ script:
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
 after_success:
-- coverage report
 - coveralls

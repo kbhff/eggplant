@@ -1,11 +1,32 @@
 # Foodnet
+
 FoodNet is an open source web application that provides simple and flexible 
 infrastructure for organizing food coops and other local
 community-driven projects.
 
 
 ## How to get started
-The easiers way to get started contributing to this project is to 
+
+### Virtualenv
+
+The project is pretty basic, these are classical just steps. Just make note
+that it's a Python 3 only project.
+
+    pip install virtualenv-wrapper  # If you don't have this already
+    mkvirtualenv foodnetenv -p python3
+    workon foodnetenv
+    pip install -r requirements.txt
+    python manage.py syncdb
+    python manage.py runserver
+
+
+This will deploy a local SQLite database and run a local webserver. If you are
+completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
+
+
+### Vagrant
+
+Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 
 Clone the project, cd into the foodnet folder and then run the followin: 
 
@@ -17,6 +38,7 @@ Clone the project, cd into the foodnet folder and then run the followin:
     python manage.py createsuperuser
     python manage.py runserver
     python manage.py loaddata foodnet/membership/fixtures/initial_data.json
+
 
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
 start the django development server. The project should now be 
