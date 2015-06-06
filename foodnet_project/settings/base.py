@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'captcha',  # django-recaptcha
 
     # Project apps.
+    'foodnet.core',
     'foodnet.membership',
     'foodnet.dashboard',
 )
