@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from django.http import Http404
+from django.db import IntegrityError
+from django.http import Http404, HttpResponsePermanentRedirect, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
@@ -18,7 +19,7 @@ from allauth.account.views import sensitive_post_parameters_m,\
 from foodnet.common.views import LoginRequiredMixinView
 from .forms import (ProfileForm, DepartmentInvitationForm, AcceptInvitationForm,
     NewUserSetPasswordForm)
-from .models import DepartmentInvitation, UserProfile
+from .models import DepartmentInvitation, UserProfile, Department
 from .utils import create_verified_user
 
 
@@ -54,6 +55,18 @@ def invite(request):
         'title': "send invitation",
     }
     return render(request, 'foodnet/membership/invite.html', ctx)
+
+
+@login_required
+def departments_accounts(request, department_name=None):
+    assert department_name is not None
+    department = Department.objects.get(shortname=department_name)
+    user = UserProfile.get_for_user(request.user)
+    if not user.has_admin_permission(department=department):
+        return HttpResponseForbidden(content="Not a department admin.")
+
+    ctx = {'accounts': department.accounts}
+    return render(request, 'foodnet/department/accounts.html', ctx)
 
 
 class AlreadyAcceptedInvitationException(Exception):
