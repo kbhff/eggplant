@@ -62,10 +62,10 @@ NOSE_ARGS = [
     '--verbosity=2',
     '--stop',
     '--with-yanc',
-    '--cover-branches',
-    '--with-coverage',
-    '--cover-erase',
-    '--cover-package=foodnet',
+#    '--cover-branches',
+#    '--with-coverage',
+#    '--cover-erase',
+#    '--cover-package=foodnet',
     'foodnet',
 ]
 
