@@ -1,0 +1,13 @@
+language: python
+python:
+- '3.4'
+install:
+-  pip install -r requirements.txt
+-  pip install coveralls
+script:
+- cp foodnet_project/settings/local.py.sample foodnet_project/settings/local.py
+- python manage.py test
+notifications:
+  slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
+after_success:
+- coveralls
