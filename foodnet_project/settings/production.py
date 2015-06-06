@@ -39,6 +39,8 @@ SECRET_KEY = os.getenv(
 
 SITE_ID = 1
 DOMAIN = 'localhost'
+
+# This is a setting used by allauth and foodnet
 DEFAULT_HTTP_PROTOCOL = 'http'
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', '127.0.0.1')
