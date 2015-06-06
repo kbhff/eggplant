@@ -2,13 +2,11 @@ import logging
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from allauth.account.adapter import DefaultAccountAdapter
-from allauth.account.utils import user_username, user_email, user_field
 
 from foodnet.membership.models import Invitation
 

@@ -1,5 +1,11 @@
+# Always ignore this, it's private business!!
+foodnet_project/settings/local.py
+
 # For oh-my-zsh plugin for virtualenv
 .venv
+
+# Nevermind about these local SQLite test dbs
+*.sqlite
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
