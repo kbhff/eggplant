@@ -1,3 +1,6 @@
+# For oh-my-zsh plugin for virtualenv
+.venv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
