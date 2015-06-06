@@ -26,15 +26,6 @@ BASE_DIR = os.path.dirname(
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv(
-    'DJANGO_SECRET_KEY',
-    'oksz%^7x*o0$(bm8w%%6j0&$y+elk+w)x5%-7&gm3@r!xv-qoi'
-)
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -72,6 +63,7 @@ INSTALLED_APPS = (
     'captcha',  # django-recaptcha
 
     # Project apps.
+    'foodnet.core',
     'foodnet.membership',
     'foodnet.dashboard',
 )
@@ -88,7 +80,7 @@ MIDDLEWARE_CLASSES = (
     'foodnet.common.middleware.NewUserForceProfileMiddleware',
 )
 
-ROOT_URLCONF = 'foodnet.urls'
+ROOT_URLCONF = 'foodnet_project.urls'
 
 TEMPLATES = [
     {
@@ -117,22 +109,11 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'foodnet.wsgi.application'
+WSGI_APPLICATION = 'foodnet_project.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DATABASE_NAME', 'foodnet'),
-        'USER': os.getenv('DATABASE_USER', 'foodnet'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'foodnet123'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -154,31 +135,6 @@ USE_TZ = True
 # please use `collectstatic` command
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
-)
-
-EMAIL_HOST = os.getenv('EMAIL_HOST', '127.0.0.1')
-EMAIL_PORT = os.getenv('EMAIL_PORT', 25)
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
-EMAIL_SUBJECT_PREFIX = '[FoodNet]'
-EMAIL_TIMEOUT = 5
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-SITE_ID = 1
-DOMAIN = 'localhost'
-DEFAULT_HTTP_PROTOCOL = 'http'
-
-DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
-SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
-
-ADMINS = (
-    ('Admin', 'admin@{0}'.format(DOMAIN)),
-)
 
 
 LOGGING = {
@@ -203,7 +159,7 @@ LOGGING = {
             'class': 'logging.NullHandler',
         },
         'console': {
-            'level': 'DEBUG' if DEBUG else 'INFO',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'default',
         },
@@ -232,7 +188,7 @@ LOGGING = {
         },
         'foodnet': {
             'handlers': ['console', ],
-            'level': 'DEBUG' if DEBUG else 'INFO',
+            'level': 'INFO',
         }
     }
 }
@@ -249,7 +205,7 @@ ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
 ACCOUNT_USER_DISPLAY = lambda u: u.email
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
-ACCOUNT_ADAPTER = 'foodnet.authnadapter.FoodnetAccountAdapter'
+ACCOUNT_ADAPTER = 'foodnet_project.authnadapter.FoodnetAccountAdapter'
 #ACCOUNT_SIGNUP_FORM_CLASS
 ACCOUNT_SESSION_REMEMBER = None
 
@@ -265,3 +221,4 @@ RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', '')
 NOCAPTCHA = False
 RECAPTCHA_USE_SSL = False
 
+DATABASES = {}
