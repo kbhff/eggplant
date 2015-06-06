@@ -42,3 +42,10 @@ The design and organisational issues can also be raised on Slack in #teamgreen:
 We decided to follow pep8 and use unix line endings.
 
 *Write code, Write tests, Have fun.*
+
+
+# Badges OMG OMG OMG
+
+[![Build Status](https://travis-ci.org/kbhff/foodnet.svg?branch=master)](https://travis-ci.org/kbhff/foodnet)
+
+[![Coverage Status](https://coveralls.io/repos/kbhff/foodnet/badge.svg)](https://coveralls.io/r/kbhff/foodnet)
