@@ -48,8 +48,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = '[FoodNet]'
 EMAIL_TIMEOUT = 5
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
 SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
 

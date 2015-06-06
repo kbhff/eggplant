@@ -138,7 +138,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
