@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from django.db import IntegrityError
-from django.http import Http404, HttpResponsePermanentRedirect
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
@@ -11,14 +10,14 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
 from django.conf import settings
 
-from allauth.account.models import EmailConfirmation, EmailAddress
+from allauth.account.models import EmailAddress
 from allauth.account.views import sensitive_post_parameters_m,\
     PasswordSetView, PasswordChangeView
 
 from foodnet.common.views import LoginRequiredMixinView
 from .forms import (ProfileForm, InviteForm, AcceptInvitationForm,
     NewUserSetPasswordForm)
-from .models import Invitation, User, UserProfile
+from .models import DepartmentInvitation, User, UserProfile
 from .utils import create_verified_user
 
 
@@ -40,7 +39,7 @@ def invite(request):
                 msg = 'User {} already exists.'.format(email)
                 messages.add_message(request, messages.ERROR, msg)
             else:
-                Invitation.objects.create(
+                DepartmentInvitation.objects.create(
                     email=email,
                     invited_by=request.user,
                     department=form.cleaned_data['department'],
@@ -83,7 +82,7 @@ def accept_invitation(request, verification_key):
         msg = "You are already logged-in"
         messages.add_message(request, messages.WARNING, msg)
         return redirect(reverse('home'))
-    invitation = get_object_or_404(Invitation,
+    invitation = get_object_or_404(DepartmentInvitation,
                                    verification_key=verification_key,
                                    accepted=False)
     form = AcceptInvitationForm()
