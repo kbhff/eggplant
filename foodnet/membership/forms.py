@@ -6,7 +6,12 @@ from allauth.account.utils import user_email, setup_user_email, \
 from allauth.account.models import EmailAddress
 from captcha.fields import ReCaptchaField
 
-from .models import AccountCategory, Department, UserProfile
+from .models import (
+    AccountCategory,
+    Department,
+    UserProfile,
+    DepartmentInvitation,
+)
 
 
 class NewUserSetPasswordForm(SetPasswordForm):
@@ -32,11 +37,12 @@ class ProfileForm(forms.Form):
     privacy = forms.BooleanField(required=True)
 
 
-class InviteForm(forms.Form):
+class DepartmentInvitationForm(forms.ModelForm):
     email = forms.fields.EmailField(required=True)
-    member_category = forms\
-        .ModelChoiceField(AccountCategory.objects.all(), required=True)
-    department = forms.ModelChoiceField(Department.objects.all(), required=True)
+
+    class Meta:
+        model = DepartmentInvitation
+        fields = ['department', 'account_category', 'email']
 
 
 class AcceptInvitationForm(forms.Form):

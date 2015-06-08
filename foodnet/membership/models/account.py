@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class AccountMembership(models.Model):
     user_profile = models.ForeignKey('membership.UserProfile')
     account = models.ForeignKey('membership.Account')

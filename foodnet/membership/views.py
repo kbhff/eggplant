@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
 from django.conf import settings
@@ -15,9 +16,9 @@ from allauth.account.views import sensitive_post_parameters_m,\
     PasswordSetView, PasswordChangeView
 
 from foodnet.common.views import LoginRequiredMixinView
-from .forms import (ProfileForm, InviteForm, AcceptInvitationForm,
+from .forms import (ProfileForm, DepartmentInvitationForm, AcceptInvitationForm,
     NewUserSetPasswordForm)
-from .models import DepartmentInvitation, User, UserProfile
+from .models import DepartmentInvitation, UserProfile
 from .utils import create_verified_user
 
 
@@ -28,9 +29,9 @@ log = logging.getLogger(__name__)
 @login_required
 def invite(request):
     """Invite a new email address."""
-    form = InviteForm()
+    form = DepartmentInvitationForm()
     if request.method == 'POST':
-        form = InviteForm(request.POST)
+        form = DepartmentInvitationForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             existing_user = User.objects.filter(email=email)
@@ -43,7 +44,8 @@ def invite(request):
                     email=email,
                     invited_by=request.user,
                     department=form.cleaned_data['department'],
-                    member_category=form.cleaned_data['member_category'])
+                    account_category=form.cleaned_data['account_category']
+                )
                 msg = 'Invitation has been send to {}'.format(email)
                 messages.add_message(request, messages.SUCCESS, msg)
                 return redirect(reverse('home'))

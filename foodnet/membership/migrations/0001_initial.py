@@ -16,29 +16,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Account',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('number', models.PositiveSmallIntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='AccountCategory',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(unique=True, max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name='AccountMembership',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
-                ('role', models.CharField(choices=[('normal', 'Normal'), ('owner', 'Owner')], max_length=10, default='normal')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('role', models.CharField(choices=[('normal', 'Normal'), ('owner', 'Owner')], default='normal', max_length=10)),
                 ('account', models.ForeignKey(to='membership.Account')),
             ],
         ),
         migrations.CreateModel(
             name='Department',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('shortname', models.CharField(max_length=4)),
                 ('name', models.CharField(max_length=255)),
                 ('allow_webmembers', models.BooleanField(default=True)),
@@ -48,11 +48,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DepartmentInvitation',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('email', models.EmailField(max_length=254)),
                 ('accepted', models.BooleanField(default=False)),
                 ('accepted_at', models.DateTimeField(null=True)),
-                ('verification_key', models.UUIDField(unique=True, editable=False, default=uuid.uuid4)),
+                ('verification_key', models.UUIDField(unique=True, default=uuid.uuid4, editable=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('account_category', models.ForeignKey(to='membership.AccountCategory')),
                 ('department', models.ForeignKey(to='membership.Department')),
@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DepartmentMembership',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('start', models.DateTimeField(auto_now_add=True)),
                 ('exit', models.DateTimeField(null=True, default=None)),
                 ('active', models.BooleanField(default=True)),
@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('middle_name', models.CharField(null=True, max_length=30)),
                 ('address', models.TextField(max_length=255)),
                 ('postcode', models.CharField(max_length=30)),
@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
                 ('privacy', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('changed', models.DateTimeField(auto_now=True)),
-                ('account', models.ManyToManyField(to='membership.Account', through='membership.AccountMembership')),
+                ('account', models.ManyToManyField(through='membership.AccountMembership', to='membership.Account')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, editable=False)),
             ],
         ),
