@@ -58,7 +58,7 @@ class UserProfile(models.Model):
         # can be edited by user_profile if the user_profile is an admin of
         # the self.member.department department
         departments = self.member.department_set.all()
-        for department in departments.iterator():
+        for department in departments:
             if user_profile.has_admin_permission(department=department):
                 return True
         return False
@@ -105,11 +105,8 @@ class Department(models.Model):
         return u'{0}'.format(self.name)
 
     @property
-    def accounts(self):
-        out = []
-        for member in self.members.all():
-            out += member.userprofile_set.all()
-        return out
+    def profiles(self):
+        return UserProfile.objects.filter(member__in=self.members.all()).order_by('-id')
 
 
 class DepartmentMembership(models.Model):
