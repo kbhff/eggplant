@@ -27,9 +27,9 @@ urlpatterns = [
         views.sets_new_user_password,
         name='new_member_set_password'),
 
-    url(r'^departments/(?P<department_name>[\w\d\-]{1,10})/accounts$',
-        views.departments_accounts,
-        name='department_accounts'),
+    url(r'^departments/(?P<department_name>[\w\d\-]{1,10})/profiles$',
+        views.departments_profiles,
+        name='department_profiles'),
 
     url(r'^admin_profile/(?P<user_id>[0-9]{1,100})$',
         views.admin_profile,

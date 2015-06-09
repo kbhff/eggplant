@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.http import Http404, HttpResponsePermanentRedirect, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -58,7 +59,7 @@ def invite(request):
 
 
 @login_required
-def departments_accounts(request, department_name=None):
+def departments_profiles(request, department_name=None):
     # TODO: pagination of user profiles
     assert department_name is not None
     department = Department.objects.get(shortname=department_name)
@@ -66,8 +67,19 @@ def departments_accounts(request, department_name=None):
     if not user.has_admin_permission(department=department):
         return HttpResponseForbidden(content="Not a department admin.")
 
-    ctx = {'accounts': department.accounts}
-    return render(request, 'foodnet/department/accounts.html', ctx)
+    all_profiles = department.profiles
+    paginator = Paginator(all_profiles, 25)  # configurable?
+
+    page = request.GET.get('page')
+    try:
+        profiles = paginator.page(page)
+    except PageNotAnInteger:
+        profiles = paginator.page(1)
+    except EmptyPage:
+        profiles = paginator.page(paginator.num_pages)
+
+    ctx = {'profiles': profiles}
+    return render(request, 'foodnet/department/profiles.html', ctx)
 
 
 @login_required
