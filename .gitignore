@@ -1,5 +1,6 @@
 # Always ignore this, it's private business!!
 foodnet_project/settings/local.py
+foodnet_project/settings/pawel.py
 
 # For oh-my-zsh plugin for virtualenv
 .venv
@@ -73,5 +74,4 @@ target/
 
 # collected static files
 /foodnet/static
-foodnet/settings/pawel.py
 
