@@ -48,10 +48,8 @@ class UserProfile(models.Model):
         return '{0} {2}'.format(self.user.firstname, self.user.lastname)
 
     def is_complete(self):
-        if self.address and self.postcode and self.city and\
-                self.sex and self.tel and self.date_of_birth and self.privacy:
-            return True
-        return False
+        return all([self.address, self.postcode, self.city,
+                    self.sex, self.tel, self.date_of_birth, self.privacy])
 
     @classmethod
     def get_for_user(cls, user):
@@ -62,7 +60,7 @@ class MemberCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return '{0}'.format(self.name)
+        return self.name
 
 
 class Member(models.Model):
@@ -74,7 +72,7 @@ class DepartmentCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return '{0}'.format(self.name)
+        return self.name
 
 
 class Department(models.Model):
