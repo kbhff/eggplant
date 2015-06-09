@@ -17,8 +17,8 @@ sudo su vagrant
 source /home/vagrant/env/bin/activate
 
 # Use a production-like env for vagrant
-cat "from .production import *" > /home/vagrant/foodnet_project/settings/local.py
-cat "DEBUG = True" >> /home/vagrant/foodnet_project/settings/local.py
+echo "from .production import *" > /home/vagrant/foodnet_project/settings/local.py
+echo "DEBUG = True" >> /home/vagrant/foodnet_project/settings/local.py
 
 pip3 install -r /vagrant/requirements.txt
 
