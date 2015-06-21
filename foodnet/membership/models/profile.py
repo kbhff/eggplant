@@ -63,8 +63,12 @@ class UserProfile(models.Model):
         Returns the user profiles linked to the given department via:
         UserProfile -> Account -> DepartmentMembership -> Department
         '''
+        account_filter = {}
+        if only_active_accounts:
+            account_filter['active'] = True
+
         return UserProfile.objects.filter(
-            account__in=department.accounts.filter(active=only_active_accounts))\
+            account__in=department.accounts.filter(**account_filter))\
             .order_by('user__last_name')
 
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
