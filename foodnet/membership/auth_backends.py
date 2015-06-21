@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from allauth.account.models import EmailConfirmation
 
-from foodnet.membership.models import UserProfile
+from .models import UserProfile
 
 
 log = logging.getLogger(__name__)
