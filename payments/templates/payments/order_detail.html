@@ -1,0 +1,25 @@
+{% extends "eggplant/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+{% include "payments/_payments_links.html" %}
+
+<div class="row">
+<div class="col-sm-12 col-md-offset-3">
+<h4>Order details</h4>
+<form action="{% url 'getpaid-new-payment' currency=object.currency %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form payment_form layout="form-horizontal" %}
+
+	{% buttons %}
+	  <button type="submit" class="btn btn-primary" value="Continue">
+	    {% bootstrap_icon "star" %} Submit
+	  </button>
+	{% endbuttons %}
+
+</form>
+
+</div>
+</div>
+
+{% endblock%}

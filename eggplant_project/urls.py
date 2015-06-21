@@ -10,4 +10,6 @@ urlpatterns = [
     # namespace for this application
     url(r'^', include('eggplant.urls', namespace='eggplant')),
     url(r'^accounts/', include('eggplant.urls_allauth')),
+    url(r'^getpaid/', include('getpaid.urls')),
+    url(r'^payments/', include('payments.urls', namespace='payments')),
 ]

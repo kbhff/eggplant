@@ -4,9 +4,9 @@ from .base import *  # @UnusedWildImport
 
 DEBUG = False
 
-# This should be the deployment
-ALLOWED_HOSTS = ['.example.com']
-
+SITE_ID = 2
+DOMAIN = 'socialsquare-foodnet.herokuapp.com'
+ALLOWED_HOSTS = [DOMAIN, ]
 
 # Use the cached template loader so template is compiled once and read from
 # memory instead of reading from disk on each load.
@@ -30,15 +30,7 @@ DATABASES = {
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv(
-    'DJANGO_SECRET_KEY',
-    'oksz%^7x*o0$(bm8w%%6j0&$y+elk+w)x5%-7&gm3@r!xv-qoi'
-)
-
-# TODO: Move these settings to production?
-
-SITE_ID = 1
-DOMAIN = 'localhost'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', None)
 
 # This is a setting used by allauth and eggplant
 DEFAULT_HTTP_PROTOCOL = 'http'

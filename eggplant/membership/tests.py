@@ -63,7 +63,8 @@ class TestProfile(TestCase):
             'privacy': 'checked',
         }
         response = self.client.post(reverse('profile'), data=data)
-        self.assertRedirects(response, reverse('eggplant:dashboard:home'), status_code=302,
+        self.assertRedirects(response, reverse('eggplant:dashboard:home'),
+                             status_code=302,
                              target_status_code=200, msg_prefix='')
 
         expected = {
@@ -94,11 +95,11 @@ class TestProfile(TestCase):
         # membership to work
         department = DepartmentFactory()
         account = AccountFactory(department=department)
-        user2 = UserFactory(
-)
+        user2 = UserFactory()
         # Member is a set of users (user profiles)
         # - eg. a house with one address
-        account.accountmembership_set.create(user_profile=self.user.userprofile)
+        account.accountmembership_set\
+            .create(user_profile=self.user.userprofile)
         account.accountmembership_set.create(user_profile=user2.userprofile)
         self.assertEqual(2, account.profiles.all().count())
 
@@ -137,7 +138,8 @@ class TestInvite(TestCase):
             'account_category': self.account_category.id,
         }
         self.client.login(username=self.user.email, password='pass')
-        response = self.client.post(reverse('eggplant:membership:invite'), data=data, follow=True)
+        response = self.client.post(reverse('eggplant:membership:invite'),
+                                    data=data, follow=True)
         expected = 'User {} already exists'.format(self.user.email)
         self.assertContains(response, expected, 1, 200)
 
@@ -149,7 +151,8 @@ class TestInvite(TestCase):
             'account_category': self.account_category.id,
         }
         self.client.login(username=self.user.username, password='pass')
-        response = self.client.post(reverse('eggplant:membership:invite'), data=data, follow=True)
+        response = self.client.post(reverse('eggplant:membership:invite'),
+                                    data=data, follow=True)
 
         self.assertRedirects(response, reverse('eggplant:dashboard:home'))
 
@@ -195,7 +198,8 @@ class TestInvite(TestCase):
                 data=data,
                 follow=True
             )
-            self.assertRedirects(response, reverse('eggplant:membership:new_member_set_password'),
+            url_name = 'eggplant:membership:new_member_set_password'
+            self.assertRedirects(response, reverse(url_name),
                                  status_code=302,
                                  target_status_code=200,
                                  msg_prefix='', )
@@ -243,7 +247,8 @@ class TestInvite(TestCase):
         )
 
         # check if a new user is forced to complete it's profile
-        response = self.client.get(reverse('eggplant:dashboard:home'), follow=True)
+        response = self.client.get(reverse('eggplant:dashboard:home'),
+                                   follow=True)
         self.assertRedirects(
             response,
             reverse('profile'),
