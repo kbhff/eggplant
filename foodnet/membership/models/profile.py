@@ -52,7 +52,7 @@ class UserProfile(models.Model):
     def can_be_edited_by(self, user_profile):
         # can be edited by user_profile if the user_profile is an admin of
         # the self.member.department department
-        for account in self.account.all():
+        for account in self.account_set.all():
             if user_profile.has_admin_permission(department=account.department):
                 return True
         return False
@@ -64,7 +64,7 @@ class UserProfile(models.Model):
         UserProfile -> Account -> DepartmentMembership -> Department
         '''
         return UserProfile.objects.filter(
-            account__in=department.accounts.filter(departmentmembership__active=only_active_accounts))\
+            account__in=department.accounts.filter(active=only_active_accounts))\
             .order_by('user__last_name')
 
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')

@@ -22,6 +22,7 @@ from .factories import (
     UserFactory,
     AccountFactory,
     AccountCategoryFactory,
+    AccountMembershipFactory,
     DepartmentFactory,
     DepartmentInvitationFactory,
     DepartmentAdministratorFactory,
@@ -124,7 +125,6 @@ class TestDeparmentAdmin(TestCase):
         AccountMembershipFactory(account=account1, user_profile=u1.userprofile)
         # AccountMembershipFactory(account=account1)
         #
-        DepartmentMembershipFactory(department=self.department, account=account1)
 
     def test_user_is_department_admin(self):
         profile = self.admin_user.userprofile
