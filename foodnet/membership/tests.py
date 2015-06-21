@@ -16,6 +16,7 @@ from foodnet.common.utils import absolute_url_reverse
 from .models import (
     UserProfile,
     DepartmentInvitation,
+    DepartmentAdministrator,
 )
 from .factories import (
     UserFactory,
@@ -23,6 +24,7 @@ from .factories import (
     AccountCategoryFactory,
     DepartmentFactory,
     DepartmentInvitationFactory,
+    DepartmentAdministratorFactory,
 )
 
 
@@ -106,6 +108,36 @@ class TestProfile(TestCase):
         self.assertEqual(1, department.accounts.count())
         department.accounts.all().delete()
         self.assertEqual(0, department.accounts.count())
+
+
+class TestDeparmentAdmin(TestCase):
+
+    def setUp(self):
+        # create dept and admin user
+        self.department = DepartmentFactory()
+        self.admin_user = UserFactory()
+        DepartmentAdministratorFactory(admin=self.admin_user.userprofile, department=self.department)
+
+        # let's add some account/profiles
+        account1 = AccountFactory(department=self.department)
+        u1 = UserFactory()
+        AccountMembershipFactory(account=account1, user_profile=u1.userprofile)
+        # AccountMembershipFactory(account=account1)
+        #
+        DepartmentMembershipFactory(department=self.department, account=account1)
+
+    def test_user_is_department_admin(self):
+        profile = self.admin_user.userprofile
+        self.assertTrue(profile.has_admin_permission(self.department),
+                        "User does not have admin permission on department")
+
+    def test_admin_can_edit_dept_profiles(self):
+        admin = self.admin_user.userprofile
+
+        profiles = UserProfile.in_department(self.department)
+
+        for profile in profiles:
+            self.assertTrue(profile.can_be_edited_by(admin))
 
 
 class TestInvite(TestCase):

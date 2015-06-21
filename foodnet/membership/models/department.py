@@ -1,4 +1,5 @@
 from django.db import models
+#from .profile import UserProfile
 
 
 class Department(models.Model):
@@ -11,3 +12,9 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DepartmentAdministrator(models.Model):
+    department = models.ForeignKey('membership.Department')
+    admin = models.ForeignKey('membership.UserProfile')
+    created = models.DateTimeField(auto_now_add=True)

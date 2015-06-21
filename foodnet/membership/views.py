@@ -67,7 +67,7 @@ def departments_profiles(request, department_name=None):
     if not user.has_admin_permission(department=department):
         return HttpResponseForbidden(content="Not a department admin.")
 
-    all_profiles = department.profiles
+    all_profiles = UserProfile.in_department(department)
     paginator = Paginator(all_profiles, 25)  # configurable?
 
     page = request.GET.get('page')
