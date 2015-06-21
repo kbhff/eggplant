@@ -1,15 +1,8 @@
 from django.contrib import admin
 
 
-from .models import (
-    UserProfile,
-    Department,
-    DepartmentMembership,
-    DepartmentInvitation,
-    Account,
-    AccountCategory,
-    AccountMembership,
-)
+from .models import UserProfile, Department, DepartmentMembership,\
+    DepartmentInvitation, Account, AccountCategory, AccountMembership,
 
 
 class DepartmentMembershipInline(admin.TabularInline):

@@ -158,8 +158,6 @@ class TestInvite(TestCase):
         self.client.login(username=self.user.username, password='pass')
         response = self.client.post(reverse('invite'), data=data, follow=True)
 
-        print(response.context)
-
         self.assertRedirects(response, reverse('home'))
 
         expected = 'Invitation has been send to {}'.format(invited_email)

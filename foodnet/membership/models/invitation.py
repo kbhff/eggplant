@@ -38,7 +38,7 @@ class DepartmentInvitation(InvitationBase):
             acp = 'accepted'
         else:
             acp = 'NOT accepted'
-        return '{} {}>'.format(self.email, acp)
+        return '{} {}'.format(self.email, acp)
 
 
 @receiver(
