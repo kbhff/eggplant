@@ -1,5 +1,4 @@
 from django.db import models
-#from .profile import UserProfile
 
 
 class Department(models.Model):

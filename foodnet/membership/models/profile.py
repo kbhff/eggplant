@@ -58,8 +58,14 @@ class UserProfile(models.Model):
         return False
 
     @classmethod
-    def in_department(cls, department):
-        return UserProfile.objects.filter(account__in=department.accounts.all()).order_by('user__last_name')
+    def in_department(cls, department, only_active_accounts=True):
+        '''
+        Returns the user profiles linked to the given department via:
+        UserProfile -> Account -> DepartmentMembership -> Department
+        '''
+        return UserProfile.objects.filter(
+            account__in=department.accounts.filter(departmentmembership__active=only_active_accounts))\
+            .order_by('user__last_name')
 
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
 def create_user_profile(sender, instance, created, **kwargs):
