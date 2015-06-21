@@ -55,7 +55,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     # 3rd-party apps.
-    'django_extensions',
     'bootstrap3',
 
     'allauth',
