@@ -16,11 +16,9 @@ sudo apt-get -y install libjpeg8 libjpeg62-dev libfreetype6 libfreetype6-dev
 sudo su vagrant
 source /home/vagrant/env/bin/activate
 
-# Use a production-like env for vagrant
-echo "from .production import *" > /home/vagrant/foodnet_project/settings/local.py
-echo "DEBUG = True" >> /home/vagrant/foodnet_project/settings/local.py
-
-pip3 install -r /vagrant/requirements.txt
+cp /home/vagrant/foodnet/settings/local.py.example \
+   /home/vagrant/foodnet/settings/local.py
+pip3 install -r /vagrant/requirements/development.txt
 
 LINE="source /home/vagrant/env/bin/activate; cd /vagrant"
 FILE=/home/vagrant/.bashrc

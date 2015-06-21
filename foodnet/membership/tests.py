@@ -15,20 +15,13 @@ from allauth.account.models import EmailAddress
 from foodnet.common.utils import absolute_url_reverse
 from .models import (
     UserProfile,
-    Account,
-    AccountCategory,
-    Department,
-    DepartmentMembership,
     DepartmentInvitation,
 )
 from .factories import (
     UserFactory,
-    UserProfileFactory,
     AccountFactory,
     AccountCategoryFactory,
-    AccountMembershipFactory,
     DepartmentFactory,
-    DepartmentMembershipFactory,
     DepartmentInvitationFactory,
 )
 
@@ -107,12 +100,12 @@ class TestProfile(TestCase):
         # - eg. a house with one address
         account.accountmembership_set.create(user_profile=self.user.userprofile)
         account.accountmembership_set.create(user_profile=user2.userprofile)
-        self.assertEqual(2, account.userprofile_set.all().count())
+        self.assertEqual(2, account.profiles.all().count())
 
         # we don't have to have a fresh copy of dept
-        self.assertEqual(1, department.account_set.count())
-        department.account_set.all().delete()
-        self.assertEqual(0, department.account_set.count())
+        self.assertEqual(1, department.accounts.count())
+        department.accounts.all().delete()
+        self.assertEqual(0, department.accounts.count())
 
 
 class TestInvite(TestCase):
