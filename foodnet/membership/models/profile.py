@@ -26,10 +26,6 @@ class UserProfile(models.Model):
     privacy = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
-    account = models.ManyToManyField(
-        'membership.Account',
-        through='membership.AccountMembership'
-    )
 
     def __str__(self):
         return 'Profile({0})'.format(self.user)

@@ -44,14 +44,6 @@ class DepartmentFactory(factory.DjangoModelFactory):
         model = 'membership.Department'
 
 
-class DepartmentMembershipFactory(factory.DjangoModelFactory):
-    account = factory.SubFactory('membership.factories.AccountFactory')
-    department = factory.SubFactory('membership.factories.DepartmentFactory')
-
-    class Meta:
-        model = 'membership.DepartmentMembership'
-
-
 class DepartmentInvitationFactory(factory.DjangoModelFactory):
     class Meta:
         model = 'membership.DepartmentInvitation'

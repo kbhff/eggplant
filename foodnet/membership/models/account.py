@@ -21,8 +21,24 @@ class AccountMembership(models.Model):
 
 class Account(models.Model):
     number = models.PositiveSmallIntegerField()
-    category = models.ForeignKey('membership.AccountCategory')
-    department = models.ForeignKey('membership.Department')
+    category = models.ForeignKey(
+        'membership.AccountCategory',
+        related_name='accounts',
+    )
+    department = models.ForeignKey(
+        'membership.Department',
+        related_name='accounts',
+    )
+
+    start = models.DateTimeField(auto_now_add=True)
+    exit = models.DateTimeField(null=True, default=None)
+
+    active = models.BooleanField(default=True)
+
+    profiles = models.ManyToManyField(
+        'membership.UserProfile',
+        through='membership.AccountMembership',
+    )
 
 
 class AccountCategory(models.Model):
