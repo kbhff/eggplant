@@ -139,6 +139,16 @@ class TestDeparmentAdmin(TestCase):
         for profile in profiles:
             self.assertTrue(profile.can_be_edited_by(admin))
 
+    def test_admin_cannot_edit_other_dept_profiles(self):
+        admin = self.admin_user.userprofile
+
+        other_dept = DepartmentFactory()
+        AccountMembershipFactory(account=AccountFactory(department=other_dept),
+                                 user_profile=UserFactory().userprofile)
+
+        for profile in UserProfile.in_department(other_dept):
+            self.assertFalse(profile.can_be_edited_by(admin))
+
 
 class TestInvite(TestCase):
 
