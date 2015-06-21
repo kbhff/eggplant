@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
 
+<title>{% block head_title %}{% endblock %} | Foodnet</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +20,6 @@
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="{% static "css/foodnet.css" %}">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{title}}</title>
-<meta charset="utf-8">
 
 </head>
 <body>
@@ -65,23 +62,6 @@
         </div>
     </nav>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-text">
-                        <span class="name">FoodNet</span>
-                        <hr />
-                        
-                        <span class="skills">A membership system for food coops and other local community projects.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
     <!-- Messages -->
     <section id="messages">
 	    <div class="container">
@@ -106,9 +86,7 @@
 
     <section id="content">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">{% block content %}{% endblock %}</div>
-            </div>
+          {% block content %}{% endblock %}
         </div>
     </section>
 
