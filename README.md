@@ -1,11 +1,32 @@
 # Foodnet
+
 FoodNet is an open source web application that provides simple and flexible 
 infrastructure for organizing food coops and other local
 community-driven projects.
 
 
 ## How to get started
-The easiers way to get started contributing to this project is to 
+
+### Virtualenv
+
+The project is pretty basic, these are classical just steps. Just make note
+that it's a Python 3 only project.
+
+    pip install virtualenv-wrapper  # If you don't have this already
+    mkvirtualenv foodnetenv -p python3
+    workon foodnetenv
+    pip install -r requirements.txt
+    python manage.py syncdb
+    python manage.py runserver
+
+
+This will deploy a local SQLite database and run a local webserver. If you are
+completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
+
+
+### Vagrant
+
+Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 
 Clone the project, cd into the foodnet folder and then run the followin: 
 
@@ -18,6 +39,7 @@ Clone the project, cd into the foodnet folder and then run the followin:
     python manage.py runserver
     python manage.py loaddata foodnet/membership/fixtures/initial_data.json
 
+
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
 start the django development server. The project should now be 
 available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
@@ -28,8 +50,8 @@ available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 Read project description, organisation and goals on our GitHub project page:
 [http://kbhff.github.io/foodnet/](http://kbhff.github.io/foodnet/)
 
-The list of tickets is available on our Taiga project:
-[http://taiga.socialsquare.dk/project/foodnet/backlog](http://taiga.socialsquare.dk/project/foodnet/backlog)
+The list of tickets is available on our Pivotal Tracker project:
+[https://www.pivotaltracker.com/n/projects/1337462](https://www.pivotaltracker.com/n/projects/1337462)
 
 We use slack for ad-hoc communication: Just [click to recieve an invitation](https://foodnet-slackin.herokuapp.com/)
 
@@ -42,3 +64,10 @@ The design and organisational issues can also be raised on Slack in #teamgreen:
 We decided to follow pep8 and use unix line endings.
 
 *Write code, Write tests, Have fun.*
+
+
+# Badges OMG OMG OMG
+
+[![Build Status](https://travis-ci.org/kbhff/foodnet.svg?branch=master)](https://travis-ci.org/kbhff/foodnet)
+
+[![Coverage Status](https://coveralls.io/repos/kbhff/foodnet/badge.svg)](https://coveralls.io/r/kbhff/foodnet)
