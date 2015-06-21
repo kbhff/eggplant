@@ -15,7 +15,7 @@ that it's a Python 3 only project.
     pip install virtualenv-wrapper  # If you don't have this already
     mkvirtualenv foodnetenv -p python3
     workon foodnetenv
-    pip install -r requirements.txt
+    pip install -r requirements/development.txt
     python manage.py syncdb
     python manage.py runserver
 
