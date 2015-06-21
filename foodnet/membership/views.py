@@ -60,9 +60,8 @@ def invite(request):
 
 @login_required
 def departments_profiles(request, department_name=None):
-    # TODO: pagination of user profiles
     assert department_name is not None
-    department = Department.objects.get(shortname=department_name)
+    department = get_object_or_404(Department, shortname=department_name)
     user = UserProfile.get_for_user(request.user)
     if not user.has_admin_permission(department=department):
         return HttpResponseForbidden(content="Not a department admin.")
