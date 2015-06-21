@@ -1,6 +1,4 @@
 from django import forms
-from .models import UserProfile
-from django.core.mail import send_mail
 from allauth.account.forms import BaseSignupForm, SetPasswordForm
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import user_email, setup_user_email, \
@@ -8,7 +6,12 @@ from allauth.account.utils import user_email, setup_user_email, \
 from allauth.account.models import EmailAddress
 from captcha.fields import ReCaptchaField
 
-from .models import MemberCategory, Department, UserProfile
+from .models import (
+    AccountCategory,
+    Department,
+    UserProfile,
+    DepartmentInvitation,
+)
 
 
 class NewUserSetPasswordForm(SetPasswordForm):
@@ -34,11 +37,12 @@ class ProfileForm(forms.Form):
     privacy = forms.BooleanField(required=True)
 
 
-class InviteForm(forms.Form):
+class DepartmentInvitationForm(forms.ModelForm):
     email = forms.fields.EmailField(required=True)
-    member_category = forms\
-        .ModelChoiceField(MemberCategory.objects.all(), required=True)
-    department = forms.ModelChoiceField(Department.objects.all(), required=True)
+
+    class Meta:
+        model = DepartmentInvitation
+        fields = ['department', 'account_category', 'email']
 
 
 class AcceptInvitationForm(forms.Form):

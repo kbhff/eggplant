@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from allauth.account.adapter import DefaultAccountAdapter
 
-from foodnet.membership.models import Invitation
+from foodnet.membership.models import DepartmentInvitation
 
 
 log = logging.getLogger(__name__)
@@ -29,8 +29,10 @@ class FoodnetAccountAdapter(DefaultAccountAdapter):
         beyond allauth scope, by having accepted an
         invitation before signing up.
         """
-        ret = Invitation.objects.filter(email__iexact=email,
-                                        accepted=True).count()
+        ret = DepartmentInvitation.objects.filter(
+            email__iexact=email,
+            accepted=True
+        ).count()
         return bool(ret)
 
     def clean_email(self, email):

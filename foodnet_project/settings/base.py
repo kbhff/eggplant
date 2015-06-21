@@ -77,7 +77,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'foodnet.common.middleware.NewUserForceProfileMiddleware',
+    'foodnet.membership.middleware.NewUserForceProfileMiddleware',
 )
 
 ROOT_URLCONF = 'foodnet_project.urls'
