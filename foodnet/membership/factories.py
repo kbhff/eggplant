@@ -27,6 +27,8 @@ class AccountFactory(factory.DjangoModelFactory):
 
 
 class AccountCategoryFactory(factory.DjangoModelFactory):
+    name = factory.Sequence(lambda n: 'category%d' % n)
+
     class Meta:
         model = 'membership.AccountCategory'
 
