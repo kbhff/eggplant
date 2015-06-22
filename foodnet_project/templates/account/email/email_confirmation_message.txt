@@ -1,0 +1,6 @@
+{% extends 'account/email/base.txt' %}{% load account %}{% block content %}Hej!
+
+En konto er blevet oprettet på FoodNet med denne e-mail.
+
+For at bekræfte din e-mail følg dette link {{ activate_url }}
+{% endblock %}

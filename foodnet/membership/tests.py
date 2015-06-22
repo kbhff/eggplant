@@ -63,7 +63,7 @@ class TestProfile(TestCase):
             'privacy': 'checked',
         }
         response = self.client.post(reverse('profile'), data=data)
-        self.assertRedirects(response, reverse('home'), status_code=302,
+        self.assertRedirects(response, reverse('dashboard:home'), status_code=302,
                              target_status_code=200, msg_prefix='')
 
         expected = {
@@ -151,7 +151,7 @@ class TestInvite(TestCase):
         self.client.login(username=self.user.username, password='pass')
         response = self.client.post(reverse('invite'), data=data, follow=True)
 
-        self.assertRedirects(response, reverse('home'))
+        self.assertRedirects(response, reverse('dashboard:home'))
 
         expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(response, expected, 1, 200)
@@ -243,7 +243,7 @@ class TestInvite(TestCase):
         )
 
         # check if a new user is forced to complete it's profile
-        response = self.client.get(reverse('home'), follow=True)
+        response = self.client.get(reverse('dashboard:home'), follow=True)
         self.assertRedirects(
             response,
             reverse('profile'),
@@ -269,7 +269,7 @@ class TestInvite(TestCase):
         response = self.client.post(reverse('profile'), data=data, follow=True)
         self.assertRedirects(
             response,
-            reverse('home'),
+            reverse('dashboard:home'),
             status_code=302,
             target_status_code=200
         )

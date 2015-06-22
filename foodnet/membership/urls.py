@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import include, url
+from django.conf.urls import url
 
 from foodnet.dashboard import views as dashboard_views
 from foodnet.membership import views
@@ -27,5 +27,4 @@ urlpatterns = [
         views.sets_new_user_password,
         name='new_member_set_password'),
 
-    url(r'^accounts/', include('allauth.urls')),
 ]

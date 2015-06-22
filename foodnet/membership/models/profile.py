@@ -42,10 +42,6 @@ class UserProfile(models.Model):
         return all([self.address, self.postcode, self.city,
                     self.sex, self.tel, self.date_of_birth, self.privacy])
 
-    @classmethod
-    def get_for_user(cls, user):
-        return cls.objects.get(user_id=user.id)
-
 
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
 def create_user_profile(sender, instance, created, **kwargs):

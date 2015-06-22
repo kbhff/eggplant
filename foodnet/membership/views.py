@@ -48,7 +48,7 @@ def invite(request):
                 )
                 msg = 'Invitation has been send to {}'.format(email)
                 messages.add_message(request, messages.SUCCESS, msg)
-                return redirect(reverse('home'))
+                return redirect(reverse('dashboard:home'))
     ctx = {
         'form': form,
         'title': "send invitation",
@@ -83,7 +83,7 @@ def accept_invitation(request, verification_key):
     if request.user.is_authenticated():
         msg = "You are already logged-in"
         messages.add_message(request, messages.WARNING, msg)
-        return redirect(reverse('home'))
+        return redirect(reverse('dashboard:home'))
     invitation = get_object_or_404(DepartmentInvitation,
                                    verification_key=verification_key,
                                    accepted=False)
@@ -95,7 +95,7 @@ def accept_invitation(request, verification_key):
                 try:
                     user = do_accept_invitation(request, invitation)
                 except AlreadyAcceptedInvitationException:
-                    return redirect(reverse('home'))
+                    return redirect(reverse('dashboard:home'))
             else:
                 user = None
                 msg = 'Invalid captcha.'
@@ -109,7 +109,7 @@ def accept_invitation(request, verification_key):
             try:
                 user = do_accept_invitation(request, invitation)
             except AlreadyAcceptedInvitationException:
-                return redirect(reverse('home'))
+                return redirect(reverse('dashboard:home'))
         # if this is GET and we use recaptcha just render the form
 
     if user:
@@ -147,7 +147,7 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
         return super(NewUserPasswordView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        profile = UserProfile.get_for_user(self.request.user)
+        profile = self.request.user.userprofile
         if profile.is_complete() or \
                 not request.session.pop('new-invited-user', False):
             # existing user
@@ -188,7 +188,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
     """Profile form view."""
     form_class = ProfileForm
     template_name = 'foodnet/membership/profile.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard:home')
 
     def get_object(self, queryset=None):
         self.objects = UserProfile.objects.get(user_id=self.request.user.id)
@@ -204,7 +204,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
-        profile = UserProfile.get_for_user(self.request.user)
+        profile = self.request.user.userprofile
         if not profile.is_complete():
             msg = "Please update your profile."
             messages.add_message(self.request, messages.WARNING, msg)
