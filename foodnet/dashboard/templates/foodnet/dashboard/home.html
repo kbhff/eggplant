@@ -15,7 +15,7 @@
 {% if perms.membership.can_invite %}
 
 <div class="btn-group">
-  <a href="{% url 'invite' %}" role="button" class="btn btn-default">
+  <a href="{% url 'foodnet:membership:invite' %}" role="button" class="btn btn-default">
     {% trans "Send invitation" %}
   </a>
 </div>

@@ -9,8 +9,6 @@ urlpatterns = [
     # Membership URLs take precedence over allauth because they overwrite
     # some of them. Because of allauth's architecture, we cannot have a
     # namespace for this application
-    url(r'^membership/', include('foodnet.membership.urls')),
-    url(r'^accounts/', include('allauth.urls')),
-
-    url(r'^', include('foodnet.dashboard.urls', namespace='dashboard')),
+    url(r'^', include('foodnet.urls', namespace='foodnet')),
+    url(r'^accounts/', include('foodnet.urls_allauth')),
 ]

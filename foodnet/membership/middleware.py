@@ -13,7 +13,7 @@ class NewUserForceProfileMiddleware(object):
                 reverse('profile'),
                 reverse('account_login'),
                 reverse('account_logout'),
-                reverse('new_member_set_password'),
+                reverse('foodnet:membership:new_member_set_password'),
             )
             if request.path not in allowed_paths:
                 try:

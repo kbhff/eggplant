@@ -18,7 +18,7 @@ class FoodnetAccountAdapter(DefaultAccountAdapter):
 
     def get_email_confirmation_redirect_url(self, request):
         log.debug("get_email_confirmation_redirect_url")
-        return reverse('dashboard:home')
+        return reverse('foodnet:dashboard:home')
 
     def is_open_for_signup(self, request):
         return settings.SITE_OPEN_FOR_SIGNUP
