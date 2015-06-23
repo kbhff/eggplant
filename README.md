@@ -37,8 +37,6 @@ Clone the project, cd into the eggplant folder and then run the followin:
     python manage.py test
     python manage.py createsuperuser
     python manage.py runserver
-    python manage.py loaddata eggplant/membership/fixtures/initial_data.json
-
 
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
 start the django development server. The project should now be 
