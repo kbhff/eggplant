@@ -1,6 +1,6 @@
-# Foodnet
+# Eggplant 
 
-FoodNet is an open source web application that provides simple and flexible 
+Eggplant is an open source web application that provides simple and flexible 
 infrastructure for organizing food coops and other local
 community-driven projects.
 
@@ -13,8 +13,8 @@ The project is pretty basic, these are classical just steps. Just make note
 that it's a Python 3 only project.
 
     pip install virtualenv-wrapper  # If you don't have this already
-    mkvirtualenv foodnetenv -p python3
-    workon foodnetenv
+    mkvirtualenv eggplantenv -p python3
+    workon eggplant 
     pip install -r requirements/development.txt
     python manage.py syncdb
     python manage.py runserver
@@ -28,7 +28,7 @@ completely new to Django and Python, notice that you need [pip](https://pip.pypa
 
 Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 
-Clone the project, cd into the foodnet folder and then run the followin: 
+Clone the project, cd into the eggplant folder and then run the followin: 
 
 
     vagrant up
@@ -37,7 +37,7 @@ Clone the project, cd into the foodnet folder and then run the followin:
     python manage.py test
     python manage.py createsuperuser
     python manage.py runserver
-    python manage.py loaddata foodnet/membership/fixtures/initial_data.json
+    python manage.py loaddata eggplant/membership/fixtures/initial_data.json
 
 
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
@@ -48,7 +48,7 @@ available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 ## How to contribute
 
 Read project description, organisation and goals on our GitHub project page:
-[http://kbhff.github.io/foodnet/](http://kbhff.github.io/foodnet/)
+[http://kbhff.github.io/eggplant/](http://kbhff.github.io/eggplant/)
 
 The list of tickets is available on our Pivotal Tracker project:
 [https://www.pivotaltracker.com/n/projects/1337462](https://www.pivotaltracker.com/n/projects/1337462)
