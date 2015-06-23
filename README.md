@@ -66,6 +66,6 @@ We decided to follow pep8 and use unix line endings.
 
 # Badges OMG OMG OMG
 
-[![Build Status](https://travis-ci.org/kbhff/foodnet.svg?branch=master)](https://travis-ci.org/kbhff/foodnet)
+[![Build Status](https://travis-ci.org/kbhff/eggplant.svg?branch=master)](https://travis-ci.org/kbhff/eggplant)
 
-[![Coverage Status](https://coveralls.io/repos/kbhff/foodnet/badge.svg)](https://coveralls.io/r/kbhff/foodnet)
+[![Coverage Status](https://coveralls.io/repos/kbhff/eggplant/badge.svg)](https://coveralls.io/r/kbhff/eggplant)
