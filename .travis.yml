@@ -5,7 +5,7 @@ install:
 -  pip install -r requirements/development.txt
 -  pip install coveralls
 script:
-- cp foodnet_project/settings/local.py.sample foodnet_project/settings/local.py
+- cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
 - python manage.py test
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa

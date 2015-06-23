@@ -3,8 +3,8 @@ sudo apt-get update
 
 sudo apt-get install -y build-essential python3.4-dev python3-pip htop curl vim git mercurial postgresql postgresql-server-dev-9.3
 
-sudo -u postgres psql -c "CREATE ROLE foodnet PASSWORD 'foodnet123' LOGIN CREATEDB;"
-sudo -u postgres createdb foodnet foodnet
+sudo -u postgres psql -c "CREATE ROLE eggplant PASSWORD 'eggplant123' LOGIN CREATEDB;"
+sudo -u postgres createdb eggplant eggplant
 
 sudo pip3 install virtualenv
 
@@ -16,8 +16,8 @@ sudo apt-get -y install libjpeg8 libjpeg62-dev libfreetype6 libfreetype6-dev
 sudo su vagrant
 source /home/vagrant/env/bin/activate
 
-cp /home/vagrant/foodnet/settings/local.py.example \
-   /home/vagrant/foodnet/settings/local.py
+cp /home/vagrant/eggplant/settings/local.py.example \
+   /home/vagrant/eggplant/settings/local.py
 pip3 install -r /vagrant/requirements/development.txt
 
 LINE="source /home/vagrant/env/bin/activate; cd /vagrant"
