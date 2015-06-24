@@ -3,10 +3,10 @@ import os
 import sys
 
 try:
-    from foodnet_project.settings import local  # @UnusedImport
+    from eggplant_project.settings import local  # @UnusedImport
 except ImportError:
     
-    from foodnet_project import settings
+    from eggplant_project import settings
     local_location = os.path.join(
         os.path.dirname(settings.__file__),
         'local.py'
@@ -21,7 +21,7 @@ except ImportError:
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                          'foodnet_project.settings.local')
+                          'eggplant_project.settings.local')
 
     from django.core.management import execute_from_command_line
 
