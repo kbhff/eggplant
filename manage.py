@@ -11,13 +11,15 @@ except ImportError:
         os.path.dirname(settings.__file__),
         'local.py'
     )
+    local_sample_location = os.path.join(
+        os.path.dirname(settings.__file__),
+        'local.py.sample'
+    )
     if not os.path.isfile(local_location):
         open(
             local_location,
             "w"
-        ).write(
-            open(os.path.join(local_location, 'local.py.sample')).read()
-        )
+        ).write(open(local_sample_location).read())
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',

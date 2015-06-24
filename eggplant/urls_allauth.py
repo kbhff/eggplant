@@ -14,8 +14,8 @@ Example:
 
 """
 from django.conf.urls import include, url
-from foodnet.dashboard import views as dashboard_views
-from foodnet.membership import views
+from .dashboard import views as dashboard_views
+from .membership import views
 
 urlpatterns = [
     url(r'profile/$', views.profile, name="profile"),
