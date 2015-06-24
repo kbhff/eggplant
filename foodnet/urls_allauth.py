@@ -21,14 +21,14 @@ urlpatterns = [
     url(r'profile/$', views.profile, name="profile"),
 
     # signup is disabled - we only allow invited users
-    url(r'^accounts/signup/$',
+    url(r'^signup/$',
         dashboard_views.home,
         name='account_signup'),
 
     # override password set and change views
-    url(r'^accounts/password/change/$',
+    url(r'^password/change/$',
         views.loginpage_password_change,
         name='account_change_password'),
 
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^', include('allauth.urls')),
 ]
