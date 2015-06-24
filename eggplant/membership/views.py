@@ -48,7 +48,7 @@ def invite(request):
                 )
                 msg = 'Invitation has been send to {}'.format(email)
                 messages.add_message(request, messages.SUCCESS, msg)
-                return redirect(reverse('foodnet:dashboard:home'))
+                return redirect(reverse('eggplant:dashboard:home'))
     ctx = {
         'form': form,
         'title': "send invitation",
@@ -83,7 +83,7 @@ def accept_invitation(request, verification_key):
     if request.user.is_authenticated():
         msg = "You are already logged-in"
         messages.add_message(request, messages.WARNING, msg)
-        return redirect(reverse('foodnet:dashboard:home'))
+        return redirect(reverse('eggplant:dashboard:home'))
     invitation = get_object_or_404(DepartmentInvitation,
                                    verification_key=verification_key,
                                    accepted=False)
@@ -95,7 +95,7 @@ def accept_invitation(request, verification_key):
                 try:
                     user = do_accept_invitation(request, invitation)
                 except AlreadyAcceptedInvitationException:
-                    return redirect(reverse('foodnet:dashboard:home'))
+                    return redirect(reverse('eggplant:dashboard:home'))
             else:
                 user = None
                 msg = 'Invalid captcha.'
@@ -109,13 +109,13 @@ def accept_invitation(request, verification_key):
             try:
                 user = do_accept_invitation(request, invitation)
             except AlreadyAcceptedInvitationException:
-                return redirect(reverse('foodnet:dashboard:home'))
+                return redirect(reverse('eggplant:dashboard:home'))
         # if this is GET and we use recaptcha just render the form
 
     if user:
         login(request, user)
         request.session['new-invited-user'] = True
-        return redirect(reverse('foodnet:membership:new_member_set_password'))
+        return redirect(reverse('eggplant:membership:new_member_set_password'))
 
     ctx = {
         'form': form,
@@ -188,7 +188,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
     """Profile form view."""
     form_class = ProfileForm
     template_name = 'eggplant/membership/profile.html'
-    success_url = reverse_lazy('foodnet:dashboard:home')
+    success_url = reverse_lazy('eggplant:dashboard:home')
 
     def get_object(self, queryset=None):
         self.objects = UserProfile.objects.get(user_id=self.request.user.id)

@@ -3,7 +3,7 @@ Membership urlconf, included by foodnet.urls
 
 Final namespace of these URLs:
 
-foodnet:membership:url_name
+eggplant:membership:url_name
 """
 
 from django.conf.urls import url

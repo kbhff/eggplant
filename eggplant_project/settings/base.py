@@ -212,7 +212,7 @@ SITE_OPEN_FOR_SIGNUP = True
 
 LOGOUT_URL = 'account_logout'
 LOGIN_URL = 'account_login'
-LOGIN_REDIRECT_URL = 'foodnet:dashboard:home'
+LOGIN_REDIRECT_URL = 'eggplant:dashboard:home'
 
 USE_RECAPTCHA = False
 RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', '6LfCEAcTAAAAAJsJhexp8LznEvngOghaw2ckFfq1')

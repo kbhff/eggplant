@@ -8,7 +8,7 @@
 
 {# if perms.foo.can_vote #}
 <h4>{{title}}</h4>
-<form action="{% url 'foodnet:membership:invite' %}" method="post">
+<form action="{% url 'eggplant:membership:invite' %}" method="post">
     {% csrf_token %}
 	{% bootstrap_form form layout="form-horizontal" %}
 	{% buttons %}

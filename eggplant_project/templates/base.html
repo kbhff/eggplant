@@ -44,7 +44,7 @@
                                 href="#" aria-expanded="true">{% if request.user.is_authenticated %}{% user_display user %}{%else%}Welcome!{%endif%}<strong></strong> <span class="caret"></span></a>
                             
                             <ul class="dropdown-menu">
-                                 <li><a href="{% url 'foodnet:dashboard:home' %}">Home</a></li>
+                                 <li><a href="{% url 'eggplant:dashboard:home' %}">Home</a></li>
                                 {% if request.user.is_authenticated %}
                                 	<li><a href="{% url 'profile' %}">Profile</a></li>
                                 	<li><a href="{% url 'account_logout' %}">Log out</a></li>

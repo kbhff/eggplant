@@ -18,7 +18,7 @@ class EggplantAccountAdapter(DefaultAccountAdapter):
 
     def get_email_confirmation_redirect_url(self, request):
         log.debug("get_email_confirmation_redirect_url")
-        return reverse('foodnet:dashboard:home')
+        return reverse('eggplant:dashboard:home')
 
     def is_open_for_signup(self, request):
         return settings.SITE_OPEN_FOR_SIGNUP
