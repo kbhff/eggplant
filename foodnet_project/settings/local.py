@@ -1,5 +1,0 @@
-# Import from the settings env that this deployment uses.
-from .dev import *  # @UnusedWildImport
-
-# Put your own local overrides here, like:
-# DATABASES = {'blah': 'blah blah'}
