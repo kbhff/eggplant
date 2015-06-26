@@ -51,7 +51,7 @@ def send_email_invitation(sender, instance, created, **kwargs):
         subject = 'You have been invited to Eggplant!'
         to_addrs = [instance.email,]
         invite_url = absolute_url_reverse(
-            'accept_invitation',
+            url_name='eggplant:membership:accept_invitation',
             kwargs=dict(
                 verification_key=instance.verification_key.hex
             )

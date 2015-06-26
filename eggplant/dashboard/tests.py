@@ -7,5 +7,5 @@ from django.core.urlresolvers import reverse
 class TestDashboard(TestCase):
 
     def test_home(self):
-        resp = self.client.get(reverse('home'))
-        self.assertContains(resp, 'dashboard', 2, 200)
+        response = self.client.get(reverse('eggplant:dashboard:home'))
+        self.assertEqual(response.status_code, 200)

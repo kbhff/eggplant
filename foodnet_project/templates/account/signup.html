@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load account %}
+{% load sekizai_tags %}
+
+{% block head_title %}Opret bruger{% endblock %}
+
+{% block content %}
+
+  <div class="box">
+
+    <h2>Opret bruger på FoodNet</h2>
+
+    <p>
+      Her kan du oprette en bruger på FoodNet
+    </p>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="login form-horizontal" method="POST" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+
+          <div class="input-group">
+            <input type="text" name="username" class="form-control"
+                   placeholder="Brugernavn"/>
+            {{ form.username.errors }}
+          </div>
+
+          <div class="input-group">
+            <input type="email" name="email" class="form-control"
+                   placeholder="E-mail"/>
+            {{ form.username.errors }}
+          </div>
+
+          <div class="input-group">
+            <input type="password" name="password1" class="form-control"
+                   placeholder="Kodeord"/>
+            {{ form.username.errors }}
+          </div>
+
+          <div class="input-group">
+            <input type="password" name="password2" class="form-control"
+                   placeholder="Kodeord (igen)"/>
+            {{ form.password.errors }}
+          </div>
+
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <button class="btn btn-success pull-right" type="submit">Opret bruger</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

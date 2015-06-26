@@ -1,13 +1,27 @@
 {% extends "eggplant/base.html" %}
 {% load bootstrap3 %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Dashboard" %}{% endblock %}
+
 {% block content %}
+
+<div class="row">
+<div class="col-sm-12">
+
+<h1 class="page-header">{% trans "Foodnet Dashboard" %}</h1>
+<p class="lead">{% trans "A membership system for food coops and other local community projects." %}</p>
+
 {% if perms.membership.can_invite %}
 
 <div class="btn-group">
-  <a href="{% url 'invite' %}" role="button" class="btn btn-default">send invitation</a>
+  <a href="{% url 'eggplant:membership:invite' %}" role="button" class="btn btn-default">
+    {% trans "Send invitation" %}
+  </a>
 </div>
 {% endif %}
 
-<h4>{{title}}</h4>
+</div>
+</div>
 
 {% endblock%}

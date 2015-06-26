@@ -3,4 +3,3 @@ from .dev import *  # @UnusedWildImport
 
 # Put your own local overrides here, like:
 # DATABASES = {'blah': 'blah blah'}
-# SECRET_KEY = "skdlfjslkdfjlsgjklsdfjkgl"
