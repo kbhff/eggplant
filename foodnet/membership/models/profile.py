@@ -47,7 +47,7 @@ class UserProfile(models.Model):
         return cls.objects.get(user_id=user.id)
 
     def has_admin_permission(self, department):
-        return self.departmentadministrator_set.filter(department=department).exists()
+        return self.administrator_for.filter(department=department).exists()
 
     def can_be_edited_by(self, user_profile):
         # can be edited by user_profile if the user_profile is an admin of

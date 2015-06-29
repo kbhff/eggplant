@@ -15,5 +15,6 @@ class Department(models.Model):
 
 class DepartmentAdministrator(models.Model):
     department = models.ForeignKey('membership.Department')
-    admin = models.ForeignKey('membership.UserProfile')
+    profile = models.ForeignKey('membership.UserProfile',
+                                related_name='administrator_for')
     created = models.DateTimeField(auto_now_add=True)
