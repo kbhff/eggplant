@@ -78,5 +78,3 @@ target/
 # PyCharm
 .idea
 
-# local.py
-foodnet/settings/local.py
