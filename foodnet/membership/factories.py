@@ -47,7 +47,7 @@ class DepartmentFactory(factory.DjangoModelFactory):
 
 
 class DepartmentAdministratorFactory(factory.DjangoModelFactory):
-    admin = factory.SubFactory('foodnet.membership.factories.UserProfileFactory')
+    profile = factory.SubFactory('foodnet.membership.factories.UserProfileFactory')
     department = factory.SubFactory('foodnet.membership.factories.DepartmentFactory')
 
     class Meta:

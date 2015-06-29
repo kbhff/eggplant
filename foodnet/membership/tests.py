@@ -117,7 +117,7 @@ class TestDeparmentAdmin(TestCase):
         # create dept and admin user
         self.department = DepartmentFactory()
         self.admin_user = UserFactory()
-        DepartmentAdministratorFactory(admin=self.admin_user.userprofile, department=self.department)
+        DepartmentAdministratorFactory(profile=self.admin_user.userprofile, department=self.department)
 
         # let's add some account/profiles
         account1 = AccountFactory(department=self.department)
