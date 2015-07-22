@@ -33,8 +33,8 @@ class UserProfile(models.Model):
     @property
     def full_name(self):
         "Returns member's full name."
-        if self.middlename:
-            return '{0} {1} {2}'.format(self.user.firstname, self.middlename,
+        if self.middle_name:
+            return '{0} {1} {2}'.format(self.user.firstname, self.middle_name,
                                         self.user.lastname)
         return '{0} {2}'.format(self.user.firstname, self.user.lastname)
 

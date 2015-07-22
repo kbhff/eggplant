@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
+
 def absolute_url_reverse(url_name=None, **kwargs):
     DOMAIN = Site.objects.get_current().domain
     path = '/'

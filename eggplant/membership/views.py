@@ -38,7 +38,7 @@ def invite(request):
             existing_email = EmailAddress.objects.get_users_for(email=email)
             if existing_user or existing_email:
                 msg = 'User {} already exists.'.format(email)
-                messages.add_message(request, messages.ERROR, msg)
+                messages.error(request, msg)
             else:
                 DepartmentInvitation.objects.create(
                     email=email,
@@ -66,7 +66,7 @@ def do_accept_invitation(request, invitation):
     existing_email = EmailAddress.objects.get_users_for(email=email)
     if existing_user or existing_email:
         msg = "You have already accepted invitation for this email."
-        messages.add_message(request, messages.ERROR, msg)
+        messages.error(request, msg)
         log.debug("already accepted")
         raise AlreadyAcceptedInvitationException()
     invitation.accepted = True
@@ -207,7 +207,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
         profile = self.request.user.userprofile
         if not profile.is_complete():
             msg = "Please update your profile."
-            messages.add_message(self.request, messages.WARNING, msg)
+            messages.warning(self.request, msg)
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])
@@ -215,7 +215,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
         del form.cleaned_data['last_name']
         UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
         msg = "Your profile has been successfully updated."
-        messages.add_message(self.request, messages.SUCCESS, msg)
+        messages.success(self.request, msg)
         return super(ProfileView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

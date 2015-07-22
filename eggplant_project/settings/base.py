@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
 
 MESSAGE_TAGS = {
@@ -28,6 +29,9 @@ BASE_DIR = os.path.dirname(
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+DOMAIN = 'localhost'
+DEFAULT_HTTP_PROTOCOL = 'http'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -60,11 +64,14 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'captcha',  # django-recaptcha
+    'getpaid',  # django-getpaid
+    'getpaid.backends.epaydk',
 
     # Project apps.
     'eggplant.core',
     'eggplant.membership',
     'eggplant.dashboard',
+    'payments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,6 +84,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'eggplant.membership.middleware.NewUserForceProfileMiddleware',
+    'getpaid.middleware.SetRemoteAddrFromForwardedForMiddleware',
 )
 
 ROOT_URLCONF = 'eggplant_project.urls'
@@ -118,6 +126,11 @@ WSGI_APPLICATION = 'eggplant_project.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('da', _('Danish')),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -221,3 +234,20 @@ NOCAPTCHA = False
 RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
+
+GETPAID_ORDER_MODEL = 'payments.Order'
+
+GETPAID_BACKENDS = (
+    'getpaid.backends.epaydk',
+)
+
+GETPAID_BACKENDS_SETTINGS = {
+    'getpaid.backends.epaydk': {
+        'merchantnumber': os.getenv('EPAYDK_MERCHANTNUMBER', ''),
+        'secret': os.getenv('EPAYDK_SECRET', ''),
+        'callback_secret_path': os.getenv('EPAYDK_CALLBACK_SECRET_PATH', ''),
+    },
+}
+
+GETPAID_SUCCESS_URL_NAME = 'payments:payment_accepted'
+GETPAID_FAILURE_URL_NAME = 'payments:payment_rejected'

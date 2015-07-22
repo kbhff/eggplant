@@ -21,6 +21,7 @@ DATABASES = {
 }
 
 SITE_ID = 1
+DOMAIN = 'localhost'
 DEFAULT_HTTP_PROTOCOL = 'http'
 
 EMAIL_HOST = 'localhost'

@@ -2,9 +2,6 @@ from django.db import models
 
 
 class AccountMembership(models.Model):
-    user_profile = models.ForeignKey('membership.UserProfile')
-    account = models.ForeignKey('membership.Account')
-
     ROLE_NORMAL = 'normal'
     ROLE_OWNER = 'owner'
     ROLES = [
@@ -12,6 +9,8 @@ class AccountMembership(models.Model):
         (ROLE_OWNER, 'Owner'),
     ]
 
+    user_profile = models.ForeignKey('membership.UserProfile')
+    account = models.ForeignKey('membership.Account')
     role = models.CharField(
         max_length=10,
         choices=ROLES,
@@ -31,7 +30,7 @@ class Account(models.Model):
     )
 
     start = models.DateTimeField(auto_now_add=True)
-    exit = models.DateTimeField(null=True, default=None)
+    exit = models.DateTimeField(null=True, default=None, blank=True)
 
     active = models.BooleanField(default=True)
 
@@ -39,6 +38,10 @@ class Account(models.Model):
         'membership.UserProfile',
         through='membership.AccountMembership',
     )
+    
+    def __str__(self):
+        is_active = 'active' if self.active else 'inactive'
+        return "{} {}".format(self.number, is_active)
 
 
 class AccountCategory(models.Model):
