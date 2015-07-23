@@ -20,6 +20,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
     ]),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 DATABASES = {
     'default': dj_database_url.config()
