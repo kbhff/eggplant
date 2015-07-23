@@ -73,5 +73,5 @@ target/
 .vagrant/
 
 # collected static files
-/eggplant/static
+/staticfiles/
 

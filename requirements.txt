@@ -1,0 +1,2 @@
+# please either leave this file or configure heroku to use other location
+-r requirements/production.txt

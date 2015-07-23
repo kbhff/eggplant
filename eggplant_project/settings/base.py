@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import dirname, abspath
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
@@ -19,9 +20,8 @@ MESSAGE_TAGS = {
 }
 
 
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))
-)
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+PROJECT_DIR = os.path.join(BASE_DIR, 'eggplant_project')
 
 
 # Quick-start development settings - unsuitable for production
@@ -93,7 +93,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(PROJECT_DIR, 'templates'),
         ],
         'OPTIONS': {
             'context_processors': [
@@ -146,7 +146,7 @@ USE_TZ = True
 
 # please use `collectstatic` command
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 LOGGING = {

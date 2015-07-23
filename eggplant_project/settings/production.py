@@ -1,12 +1,15 @@
 import os
-from .base import *  # @UnusedWildImport
-
+import dj_database_url
+from .base import *
 
 DEBUG = False
 
 SITE_ID = 2
 DOMAIN = 'socialsquare-foodnet.herokuapp.com'
 ALLOWED_HOSTS = [DOMAIN, ]
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Use the cached template loader so template is compiled once and read from
 # memory instead of reading from disk on each load.
@@ -19,14 +22,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DATABASE_NAME', 'eggplant'),
-        'USER': os.getenv('DATABASE_USER', 'eggplant'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'eggplant123'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
-    }
+    'default': dj_database_url.config()
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -48,5 +44,5 @@ DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
 SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
 
 ADMINS = (
-    ('Admin', 'admin@{0}'.format(DOMAIN)),
+    ('Paweł', 'pawel+foodnet-heroku@socialsquare.dk',)
 )
