@@ -17,6 +17,15 @@ class AccountMembership(models.Model):
         default=ROLE_NORMAL
     )
 
+    class Meta:
+        unique_together = (
+            ('user_profile', 'account'),
+            )
+
+    def __str__(self):
+        return '{} <-> {}'.format(self.account.number,
+                                  self.user_profile.user.email)
+
 
 class Account(models.Model):
     number = models.PositiveSmallIntegerField()
@@ -38,7 +47,7 @@ class Account(models.Model):
         'membership.UserProfile',
         through='membership.AccountMembership',
     )
-    
+
     def __str__(self):
         is_active = 'active' if self.active else 'inactive'
         return "{} {}".format(self.number, is_active)
