@@ -12,17 +12,17 @@
 <h1 class="page-header">{% trans "Eggplant Dashboard" %}</h1>
 <p class="lead">{% trans "A membership system for food coops and other local community projects." %}</p>
 
+<div class="btn-group">
 {% if perms.membership.can_invite %}
 
-<div class="btn-group">
   <a href="{% url 'eggplant:membership:invite' %}" role="button" class="btn btn-default">
     {% trans "Send invitation" %}
   </a>
+{% endif %}
   <a href="{% url 'payments:payments_home' %}" role="button" class="btn btn-default">
   {% trans "Payments" %}</a>
-</div>
-{% endif %}
 
+</div>
 </div>
 </div>
 
