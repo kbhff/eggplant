@@ -16,7 +16,7 @@ LOGGING['loggers']['eggplant']['level'] = 'DEBUG'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test.sqlite',
+        'NAME': 'dev.sqlite',
     }
 }
 
