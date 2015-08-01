@@ -282,3 +282,9 @@ class TestInvite(TestCase):
         actual = [m.message for m in list(response.context['messages'])]
         self.assertIn(expected, actual)
         self.assertContains(response, 'Log out', 1)
+
+    def test_change_password_get(self):
+        self.client.login(username=self.user.username, password='pass')
+        response = self.client.get(reverse('account_change_password'))
+        self.assertTemplateUsed(response, 'account/password_change.html')
+        self.assertContains(response, 'Change Password')
