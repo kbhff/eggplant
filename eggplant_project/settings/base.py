@@ -48,7 +48,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
+    'django_admin_bootstrapped',  # django-admin-bootstrapped
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,9 +59,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     # 3rd-party apps.
-    'bootstrap3',
-
-    'allauth',
+    'bootstrap3',  # django-bootstrap3
+    'allauth',  # django-allauth
     'allauth.account',
     'captcha',  # django-recaptcha
     'getpaid',  # django-getpaid
