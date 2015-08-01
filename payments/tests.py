@@ -20,6 +20,8 @@ from eggplant.membership.factories import (
     DepartmentInvitationFactory,
 )
 
+from .models import Order, FeeConfig
+
 
 class TestPayments(TestCase):
 
@@ -62,6 +64,13 @@ class TestPayments(TestCase):
 
     def test_orders_list(self):
         response = self.client.get(reverse('payments:orders_list'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_order_details(self):
+        fee = FeeConfig.objects.get(name='membership')
+        order = Order.objects.create_for_fee(self.test_user, fee)
+        response = self.client.get(reverse('payments:order_detail',
+                                           kwargs=dict(pk=str(order.id))))
         self.assertEqual(response.status_code, 200)
 
     def test_payment_accepted_nonexistent_order(self):

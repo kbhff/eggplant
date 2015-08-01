@@ -29,7 +29,7 @@ def payments_home(request):
 def fees_list(request):
     fees = FeeConfig.objects.all()
     ctx = {
-           'fees': fees
+        'fees': fees
     }
     return render(request, 'payments/fees_list.html', ctx)
 
@@ -38,19 +38,9 @@ def fees_list(request):
 def orders_list(request):
     orders = Order.objects.filter(user=request.user).order_by('-created')
     ctx = {
-           'orders': orders
+        'orders': orders
     }
     return render(request, 'payments/orders_list.html', ctx)
-
-
-@login_required
-@user_passes_test(is_active_account_owner, login_url='payments:payments_home')
-def order_details(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    ctx = {
-           'order': order
-    }
-    return render(request, 'payments/order_details.html', ctx)
 
 
 @login_required
@@ -67,9 +57,9 @@ class OrderView(LoginRequiredMixinView, DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrderView, self).get_context_data(**kwargs)
         context['payment_form'] = PaymentMethodForm(
-                                        self.object.currency,
-                                        initial={'order': self.object}
-                                  )
+            self.object.currency,
+            initial={'order': self.object}
+        )
         return context
 
     @method_decorator(user_passes_test(is_active_account_owner,

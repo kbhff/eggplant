@@ -55,4 +55,3 @@ def order_additional_validation_listener(sender, request=None, order=None,
         raise ValidationError("user is not owner of the order")
 signals.order_additional_validation.connect(
     order_additional_validation_listener)
-

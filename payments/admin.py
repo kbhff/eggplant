@@ -1,5 +1,4 @@
 from django.contrib.admin.sites import AlreadyRegistered
-from django.db.models.loading import get_model
 from django.contrib import admin
 
 from getpaid.admin import PaymentAdmin
