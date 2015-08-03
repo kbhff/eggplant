@@ -63,10 +63,13 @@ class TestPayments(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_orders_list(self):
+        fee = FeeConfig.objects.get(name='membership')
+        order = Order.objects.create_for_fee(self.test_user, fee)
         response = self.client.get(reverse('payments:orders_list'))
         self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.context['orders']), [order, ])
 
-    def test_order_details(self):
+    def test_order_detail(self):
         fee = FeeConfig.objects.get(name='membership')
         order = Order.objects.create_for_fee(self.test_user, fee)
         response = self.client.get(reverse('payments:order_detail',

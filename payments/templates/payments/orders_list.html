@@ -19,15 +19,17 @@
         <tr>
             <th>name</th>
             <th>total amount</th>
-            <th>status</th>
+            <th>payment status</th>
+            <th>creation date</th>
         </tr>
     </thead>
     <tbody>
 	{% for order in orders %}
 		<tr>
 			<td>{{order.name}}</td>
-			<td>{{order.amount}} {{order.currency}}</td>
-			<td>{{order.get_last_payment_status}}</td>
+			<td>{{order.total}} {{order.currency}}</td>
+			<td>{{order.get_last_payment_status|default_if_none:"not created"}}</td>
+			<td>{{order.created}}</td>
 		</tr>
 	{% endfor %}
 	</tbody>
