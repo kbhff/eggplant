@@ -4,5 +4,4 @@ django-allauth==0.19.1
 django-admin-bootstrapped==2.5.0
 django-bootstrap3==5.4.0
 django-recaptcha==1.0.4
-
--e git+https://github.com/pawciobiel/django-getpaid#egg=django-getpaid
+django-getpaid==1.7.2
