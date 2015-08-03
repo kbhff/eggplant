@@ -2,10 +2,11 @@ import os
 import dj_database_url
 from .base import *
 
-DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 2
-DOMAIN = 'socialsquare-foodnet.herokuapp.com'
+DOMAIN = 'socialsquare-eggplant.herokuapp.com'
 ALLOWED_HOSTS = [DOMAIN, ]
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()

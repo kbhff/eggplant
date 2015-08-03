@@ -8,7 +8,10 @@ from django.db import migrations
 def change_sites(apps, schema_editor):
     Site = apps.get_model("sites", "Site")
     Site.objects.filter(domain='example.com').delete()
-    Site.objects.get_or_create(id=settings.SITE_ID, domain=settings.DOMAIN)
+    Site.objects.filter(domain=settings.DOMAIN).delete()
+    Site.objects.get_or_create(id=settings.SITE_ID,
+                               domain=settings.DOMAIN,
+                               name=settings.DOMAIN)
 
 
 class Migration(migrations.Migration):
