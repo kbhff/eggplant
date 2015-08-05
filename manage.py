@@ -5,7 +5,7 @@ import sys
 try:
     from eggplant_project.settings import local  # @UnusedImport
 except ImportError:
-    
+
     from eggplant_project import settings
     local_location = os.path.join(
         os.path.dirname(settings.__file__),

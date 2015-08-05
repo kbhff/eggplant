@@ -1,9 +1,9 @@
-{% extends "eggplant/base.html" %}
+{% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
 {% load membership_tags %}
 {% block content %}
 
-{% include "payments/_payments_links.html" %}
+{% include "eggplant/payments/_payments_links.html" %}
 
 <div class="row">
 	<div class="col-sm-12 col-span-3">
@@ -19,7 +19,7 @@
   <div class="col-sm-2">{{fee.amount}}</div>
   <div class="col-md-2">
   		{% if user_is_owner %}
-  			<a href="{% url 'payments:create_order_for_fee' fee_id=fee.id %}"
+  			<a href="{% url 'eggplant:payments:create_order_for_fee' fee_id=fee.id %}"
   			role="button" 
   			class="btn btn-default btn-xs">pay</a>
   		{% else %}

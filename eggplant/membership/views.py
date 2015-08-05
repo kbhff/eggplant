@@ -129,7 +129,7 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
     """
     Set password only for a new user. Existing users can use password change.
     """
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('eggplant:membership:profile')
     form_class = NewUserSetPasswordForm
 
     def get_authenticated_redirect_url(self, *args, **kwargs):

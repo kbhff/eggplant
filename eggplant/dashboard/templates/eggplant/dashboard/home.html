@@ -1,4 +1,4 @@
-{% extends "eggplant/base.html" %}
+{% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
 {% load i18n %}
 
@@ -19,7 +19,7 @@
     {% trans "Send invitation" %}
   </a>
 {% endif %}
-  <a href="{% url 'payments:payments_home' %}" role="button" class="btn btn-default">
+  <a href="{% url 'eggplant:payments:payments_home' %}" role="button" class="btn btn-default">
   {% trans "Payments" %}</a>
 
 </div>

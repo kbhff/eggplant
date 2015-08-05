@@ -4,7 +4,7 @@ from django.db import models, migrations
 
 def add_default_fees(apps, schema_editor):
     #FeeConfig = apps.get_model("payments", "FeeConfig")
-    from payments.models import FeeConfig
+    from eggplant.payments.models import FeeConfig
     FeeConfig.objects.create(
         name='membership',
         amount=10.00,

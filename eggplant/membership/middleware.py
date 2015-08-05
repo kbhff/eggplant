@@ -10,7 +10,7 @@ class NewUserForceProfileMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated() and not request.user.is_superuser:
             allowed_paths = (
-                reverse('profile'),
+                reverse('eggplant:membership:profile'),
                 reverse('account_login'),
                 reverse('account_logout'),
                 reverse('eggplant:membership:new_member_set_password'),
@@ -23,4 +23,5 @@ class NewUserForceProfileMiddleware(object):
                 if not profile or not profile.is_complete():
                     msg = "Please update your profile."
                     messages.add_message(request, messages.WARNING, msg)
-                    return HttpResponseRedirect(reverse('profile'))
+                    return HttpResponseRedirect(
+                                reverse('eggplant:membership:profile'))

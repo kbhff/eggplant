@@ -70,7 +70,7 @@ INSTALLED_APPS = (
     'eggplant.core',
     'eggplant.membership',
     'eggplant.dashboard',
-    'payments',
+    'eggplant.payments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -248,5 +248,5 @@ GETPAID_BACKENDS_SETTINGS = {
     },
 }
 
-GETPAID_SUCCESS_URL_NAME = 'payments:payment_accepted'
-GETPAID_FAILURE_URL_NAME = 'payments:payment_rejected'
+GETPAID_SUCCESS_URL_NAME = 'eggplant:payments:payment_accepted'
+GETPAID_FAILURE_URL_NAME = 'eggplant:payments:payment_rejected'
