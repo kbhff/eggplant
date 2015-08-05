@@ -1,7 +1,7 @@
 
 from django.conf.urls import url
 
-from payments import views
+from eggplant.payments import views
 
 uuid_re_param = '[a-zA-Z0-9]{8}\-?[a-zA-Z0-9]{4}\-?[a-zA-Z0-9]{4}\-?' +\
     '[a-zA-Z0-9]{4}\-?[a-zA-Z0-9]{12}'

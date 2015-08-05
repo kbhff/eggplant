@@ -22,7 +22,7 @@ log = logging.getLogger(__name__)
 def payments_home(request):
     ctx = {
     }
-    return render(request, 'payments/payments_home.html', ctx)
+    return render(request, 'eggplant/payments/payments_home.html', ctx)
 
 
 @login_required
@@ -31,7 +31,7 @@ def fees_list(request):
     ctx = {
         'fees': fees
     }
-    return render(request, 'payments/fees_list.html', ctx)
+    return render(request, 'eggplant/payments/fees_list.html', ctx)
 
 
 @login_required
@@ -40,19 +40,23 @@ def orders_list(request):
     ctx = {
         'orders': orders
     }
-    return render(request, 'payments/orders_list.html', ctx)
+    return render(request, 'eggplant/payments/orders_list.html', ctx)
 
 
 @login_required
-@user_passes_test(is_active_account_owner, login_url='payments:payments_home')
+@user_passes_test(is_active_account_owner,
+                  login_url='eggplant:payments:payments_home')
 def create_order_for_fee(request, fee_id):
     fee = get_object_or_404(FeeConfig, id=fee_id)
     order = Order.objects.create_for_fee(request.user, fee)
-    return redirect('payments:order_detail', pk=str(order.id))
+    return redirect('eggplant:payments:order_detail', pk=str(order.id))
 
 
 class OrderView(LoginRequiredMixinView, DetailView):
     model = Order
+
+    def get_template_names(self):
+        return ['eggplant/payments/order_detail.html', ]
 
     def get_context_data(self, **kwargs):
         context = super(OrderView, self).get_context_data(**kwargs)
@@ -62,25 +66,28 @@ class OrderView(LoginRequiredMixinView, DetailView):
         )
         return context
 
-    @method_decorator(user_passes_test(is_active_account_owner,
-                                       login_url='payments:payments_home'))
+    @method_decorator(
+        user_passes_test(is_active_account_owner,
+                         login_url='eggplant:payments:payments_home'))
     def dispatch(self, *args, **kwargs):
         return super(OrderView, self).dispatch(*args, **kwargs)
 order_detail = OrderView.as_view()
 
 
 @login_required
-@user_passes_test(is_active_account_owner, login_url='payments:payments_home')
+@user_passes_test(is_active_account_owner,
+                  login_url='eggplant:payments:payments_home')
 def payment_accepted(request, pk=None):
     order = get_object_or_404(Order, pk=pk)
     messages.info(request, _("Your payment has been accepted and"
                              " it's being processed."))
-    return redirect('payments:orders_list')
+    return redirect('eggplant:payments:orders_list')
 
 
 @login_required
-@user_passes_test(is_active_account_owner, login_url='payments:payments_home')
+@user_passes_test(is_active_account_owner,
+                  login_url='eggplant:payments:payments_home')
 def payment_rejected(request, pk=None):
     order = get_object_or_404(Order, pk=pk)
     messages.error(request, _("Your payment has been cancelled."))
-    return redirect("payments:orders_list")
+    return redirect("eggplant:payments:orders_list")

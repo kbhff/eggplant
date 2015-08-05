@@ -55,35 +55,37 @@ class TestPayments(TestCase):
         self.client.login(email='test@eggplant.dk', password='pass')
 
     def test_payments_home(self):
-        response = self.client.get(reverse('payments:payments_home'))
+        response = self.client.get(reverse('eggplant:payments:payments_home'))
         self.assertEqual(response.status_code, 200)
 
     def test_fees_list(self):
-        response = self.client.get(reverse('payments:fees_list'))
+        response = self.client.get(reverse('eggplant:payments:fees_list'))
         self.assertEqual(response.status_code, 200)
 
     def test_orders_list(self):
         fee = FeeConfig.objects.get(name='membership')
         order = Order.objects.create_for_fee(self.test_user, fee)
-        response = self.client.get(reverse('payments:orders_list'))
+        response = self.client.get(reverse('eggplant:payments:orders_list'))
         self.assertEqual(response.status_code, 200)
         self.assertListEqual(list(response.context['orders']), [order, ])
 
     def test_order_detail(self):
         fee = FeeConfig.objects.get(name='membership')
         order = Order.objects.create_for_fee(self.test_user, fee)
-        response = self.client.get(reverse('payments:order_detail',
+        response = self.client.get(reverse('eggplant:payments:order_detail',
                                            kwargs=dict(pk=str(order.id))))
         self.assertEqual(response.status_code, 200)
 
     def test_payment_accepted_nonexistent_order(self):
         non_existent = uuid.uuid4()
-        response = self.client.get(reverse('payments:payment_accepted',
-                                           kwargs=dict(pk=non_existent)))
+        response = self.client.get(
+            reverse('eggplant:payments:payment_accepted',
+                    kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)
 
     def test_payment_rejected_nonexistent_order(self):
         non_existent = uuid.uuid4()
-        response = self.client.get(reverse('payments:payment_rejected',
-                                           kwargs=dict(pk=non_existent)))
+        response = self.client.get(
+            reverse('eggplant:payments:payment_rejected',
+                    kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)

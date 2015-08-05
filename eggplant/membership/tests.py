@@ -40,14 +40,15 @@ class TestProfile(TestCase):
         email_address.save()
 
     def test_profile(self):
-        response = self.client.get(reverse('profile'))
-        url = reverse('account_login') + '?next=' + reverse('profile')
+        response = self.client.get(reverse('eggplant:membership:profile'))
+        url = reverse('account_login') + '?next=' + \
+            reverse('eggplant:membership:profile')
         self.assertRedirects(response, url, status_code=302,
                              target_status_code=200, msg_prefix='')
 
         self.client.login(username='test@food.net', password='pass')
-        response = self.client.get(reverse('profile'))
-        expected = '<form action="%s"' % reverse('profile')
+        response = self.client.get(reverse('eggplant:membership:profile'))
+        expected = '<form action="%s"' % reverse('eggplant:membership:profile')
         self.assertContains(response, expected, 1, 200)
 
         data = {
@@ -62,7 +63,8 @@ class TestProfile(TestCase):
             'date_of_birth': '11/12/13',
             'privacy': 'checked',
         }
-        response = self.client.post(reverse('profile'), data=data)
+        response = self.client.post(reverse('eggplant:membership:profile'),
+                                    data=data)
         self.assertRedirects(response, reverse('eggplant:dashboard:home'),
                              status_code=302,
                              target_status_code=200, msg_prefix='')
@@ -225,7 +227,8 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('account_login') + '?next=' + reverse('profile'),
+            reverse('account_login') + '?next=' +
+                reverse('eggplant:membership:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -241,7 +244,7 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('profile'),
+            reverse('eggplant:membership:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -251,7 +254,7 @@ class TestInvite(TestCase):
                                    follow=True)
         self.assertRedirects(
             response,
-            reverse('profile'),
+            reverse('eggplant:membership:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -271,7 +274,8 @@ class TestInvite(TestCase):
             'date_of_birth': '1980-01-01',
             'privacy': '1',
         }
-        response = self.client.post(reverse('profile'), data=data, follow=True)
+        response = self.client.post(reverse('eggplant:membership:profile'),
+                                    data=data, follow=True)
         self.assertRedirects(
             response,
             reverse('eggplant:dashboard:home'),

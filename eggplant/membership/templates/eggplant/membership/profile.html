@@ -1,4 +1,4 @@
-{% extends "eggplant/base.html" %}
+{% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
 {% block content %}
 
@@ -7,7 +7,7 @@
 <div class="col-md-5 col-md-offset-3">
                 
 <h4>{{title}}</h4>
-<form action="{% url 'profile' %}" method="post">
+<form action="{% url 'eggplant:membership:profile' %}" method="post">
     {% csrf_token %}
 	{% bootstrap_form form %}
 	{% buttons %}
