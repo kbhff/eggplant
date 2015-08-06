@@ -5,8 +5,12 @@
 <div class="container">
 <div class="row">
 <div class="col-md-5 col-md-offset-3">
-                
-<h4>{{title}}</h4>
+
+{% if user.userprofile.is_complete %}                
+	<h3>Your details</h3>
+{% else %}
+	<h3>Please update Your details</h3>
+{% endif %}
 <form action="{% url 'eggplant:membership:profile' %}" method="post">
     {% csrf_token %}
 	{% bootstrap_form form %}
@@ -18,9 +22,15 @@
 </form>
 
 <hr/>
-<a href="{% url 'account_change_password' %}">change password</a>
 
 </div>
 </div>
+{% if user.userprofile.is_complete %}
+<div class="row">
+<div class="col-md-5 col-md-offset-3">
+	<a class="btn btn-primary" href="{% url 'account_change_password' %}">Change Password</a>
+</div>
+</div>
+{% endif %}
 </div>
 {% endblock%}

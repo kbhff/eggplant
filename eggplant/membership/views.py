@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
@@ -115,8 +115,8 @@ def accept_invitation(request, verification_key):
     if user:
         login(request, user)
         request.session['new-invited-user'] = True
-        return redirect(reverse('eggplant:membership:new_member_set_password'))
-
+        messages.success(request, 'You have accepted the invitation.')
+        return redirect(reverse('account_set_password'))
     ctx = {
         'form': form,
         'verification_key': verification_key,
@@ -178,9 +178,15 @@ sets_new_user_password = NewUserPasswordView.as_view()
 
 class LoginAfterPasswordChangeView(LoginRequiredMixinView, PasswordChangeView):
     """
-    After password change redirect to account_login.
+    After password change, log user out and redirect to account_login.
     """
     success_url = reverse_lazy('account_login')
+
+    def form_valid(self, form):
+        ret = super(LoginAfterPasswordChangeView, self).form_valid(form)
+        logout(self.request)
+        return ret
+
 loginpage_password_change = LoginAfterPasswordChangeView.as_view()
 
 
@@ -205,9 +211,6 @@ class ProfileView(LoginRequiredMixinView, FormView):
     def form_valid(self, form):
         user_id = self.request.user.id
         profile = self.request.user.userprofile
-        if not profile.is_complete():
-            msg = "Please update your profile."
-            messages.warning(self.request, msg)
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])
@@ -220,7 +223,6 @@ class ProfileView(LoginRequiredMixinView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-        context['title'] = 'profile'
         context['form'] = kwargs['form']
         return context
 profile = ProfileView.as_view()

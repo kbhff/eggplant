@@ -200,7 +200,7 @@ class TestInvite(TestCase):
                 data=data,
                 follow=True
             )
-            url_name = 'eggplant:membership:new_member_set_password'
+            url_name = 'account_set_password'
             self.assertRedirects(response, reverse(url_name),
                                  status_code=302,
                                  target_status_code=200,
@@ -209,7 +209,7 @@ class TestInvite(TestCase):
             response = self.client.get(accept_invitation_url, follow=True)
             self.assertRedirects(
                 response,
-                reverse('eggplant:membership:new_member_set_password'),
+                reverse('account_set_password'),
                 status_code=302,
                 target_status_code=200
             )
@@ -221,7 +221,7 @@ class TestInvite(TestCase):
             'password2': 'passpass123',
         }
         response = self.client.post(
-            reverse('eggplant:membership:new_member_set_password'),
+            reverse('account_set_password'),
             data=data,
             follow=True
         )

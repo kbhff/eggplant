@@ -19,6 +19,7 @@ eggplant_urls = [
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
+
     # signup is disabled - we only allow invited users
     url(r'^account/signup/$', dashboard_views.home, name='account_signup'),
 
@@ -26,9 +27,14 @@ urlpatterns = [
     url(r'^account/password/change/$',
         membership_views.loginpage_password_change,
         name='account_change_password'),
+    url(r'^account/password/set/$',
+        membership_views.sets_new_user_password,
+        name='account_set_password'),
 
-    url(r'^account/', include('allauth.urls')),
     url(r'^getpaid/', include('getpaid.urls')),
 
+    url(r'^account/', include('allauth.urls')),
+
     url(r'^', include(eggplant_urls, namespace='eggplant')),
+
 ]

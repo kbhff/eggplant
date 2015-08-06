@@ -41,11 +41,11 @@
                         <li class="dropdown">
                             
                                 <a data-toggle="dropdown" class="dropdown-toggle" 
-                                href="#" aria-expanded="true">{% if request.user.is_authenticated %}{% user_display user %}{%else%}Welcome!{%endif%}<strong></strong> <span class="caret"></span></a>
+                                href="#" aria-expanded="true">{% if user.is_authenticated %}{% user_display user %}{%else%}Welcome!{%endif%}<strong></strong> <span class="caret"></span></a>
                             
                             <ul class="dropdown-menu">
                                  <li><a href="{% url 'eggplant:dashboard:home' %}">Home</a></li>
-                                {% if request.user.is_authenticated %}
+                                {% if user.is_authenticated %}
                                 	<li><a href="{% url 'eggplant:membership:profile' %}">Profile</a></li>
                                 	<li><a href="{% url 'account_logout' %}">Log out</a></li>
                                 {% else %}
