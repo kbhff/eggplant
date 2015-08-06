@@ -13,7 +13,7 @@ class NewUserForceProfileMiddleware(object):
                 reverse('eggplant:membership:profile'),
                 reverse('account_login'),
                 reverse('account_logout'),
-                reverse('eggplant:membership:new_member_set_password'),
+                reverse('account_set_password'),
             )
             if request.path not in allowed_paths:
                 try:
