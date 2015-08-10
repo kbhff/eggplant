@@ -8,6 +8,7 @@ omit =
     *test*
     *settings/*
     */urls*
+    */admin.py
 
 [report]
 exclude_lines =
@@ -28,3 +29,5 @@ omit =
     *test*
     *settings/*
     */urls*
+    */admin.py
+

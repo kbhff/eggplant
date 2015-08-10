@@ -16,8 +16,8 @@ from allauth.account.views import sensitive_post_parameters_m,\
     PasswordSetView, PasswordChangeView
 
 from ..common.views import LoginRequiredMixinView
-from .forms import (ProfileForm, DepartmentInvitationForm, AcceptInvitationForm,
-    NewUserSetPasswordForm)
+from .forms import (ProfileForm, DepartmentInvitationForm,
+                    AcceptInvitationForm, NewUserSetPasswordForm)
 from .models import DepartmentInvitation, UserProfile
 from .utils import create_verified_user
 
