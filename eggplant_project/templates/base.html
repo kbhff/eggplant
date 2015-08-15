@@ -41,7 +41,7 @@
                         <li class="dropdown">
                             
                                 <a data-toggle="dropdown" class="dropdown-toggle" 
-                                href="#" aria-expanded="true">{% if user.is_authenticated %}{% user_display user %}{%else%}Welcome!{%endif%}<strong></strong> <span class="caret"></span></a>
+                                href="#" aria-expanded="true">{% if user.is_authenticated %}{{ user.get_full_name|default:user.username }}{%else%}Welcome!{%endif%}<strong></strong> <span class="caret"></span></a>
                             
                             <ul class="dropdown-menu">
                                  <li><a href="{% url 'eggplant:dashboard:home' %}">Home</a></li>
