@@ -1,13 +1,27 @@
-# Eggplant 
+Eggplant
+--------
+
+.. image:: https://api.travis-ci.org/kbhff/eggplant.svg
+        :target: https://travis-ci.org/kbhff/eggplant
+
+.. image:: https://readthedocs.org/projects/eggplant/badge/?version=latest
+        :target: https://readthedocs.org/projects/eggplant/?badge=latest
+        :alt: Documentation Status
+
+.. image:: https://coveralls.io/repos/kbhff/eggplant/badge.svg?branch=master&service=github
+        :target: https://coveralls.io/github/kbhff/eggplant?branch=master
+
 
 Eggplant is an open source web application that provides simple and flexible 
 infrastructure for organizing food coops and other local
 community-driven projects.
 
 
-## How to get started
+How to get started
+==================
 
-### Virtualenv
+Virtualenv
+~~~~~~~~~~
 
 The project is pretty basic, these are classical just steps. Just make note
 that it's a Python 3 only project.
@@ -24,7 +38,8 @@ This will deploy a local SQLite database and run a local webserver. If you are
 completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
 
 
-### Vagrant
+Vagrant
+~~~~~~~
 
 Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 
@@ -43,7 +58,8 @@ start the django development server. The project should now be
 available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 
 
-## How to contribute
+How to contribute
+=================
 
 Read project description, organisation and goals on our GitHub project page:
 [http://kbhff.github.io/eggplant/](http://kbhff.github.io/eggplant/)
@@ -63,9 +79,4 @@ We decided to follow pep8 and use unix line endings.
 
 *Write code, Write tests, Have fun.*
 
-
-# Badges OMG OMG OMG
-
-[![Build Status](https://travis-ci.org/kbhff/eggplant.svg?branch=master)](https://travis-ci.org/kbhff/eggplant)
-
-[![Coverage Status](https://coveralls.io/repos/kbhff/eggplant/badge.svg)](https://coveralls.io/r/kbhff/eggplant)
+*...OR EVEN MOAR FUN - WRITE DOCUMENTATION!!*
