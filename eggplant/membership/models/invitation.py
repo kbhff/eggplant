@@ -48,7 +48,7 @@ class DepartmentInvitation(InvitationBase):
 )
 def send_email_invitation(sender, instance, created, **kwargs):
     if created:
-        subject = 'You have been invited to Eggplant!'
+        subject = 'You have been invited to {org_name}!'
         to_addrs = [instance.email,]
         invite_url = absolute_url_reverse(
             url_name='eggplant:membership:accept_invitation',
@@ -56,10 +56,13 @@ def send_email_invitation(sender, instance, created, **kwargs):
                 verification_key=instance.verification_key.hex
             )
         )
-        body = """
-            Please click the following link to confirm:
-            {invite_url}
+        body = """Hi there!
+Thank you for signing up as a member for {org_name}. We're happy that you want to be part of our community.
 
+Please click the following link to confirm you email address and fill out your membership details:  {invite_url}
+
+Cheers,
+all of us at {org_name}
         """.format(invite_url=invite_url)
         send_mail(
             subject,
