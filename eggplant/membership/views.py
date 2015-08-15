@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import FormView
 from django.conf import settings
+from django.db import transaction
 
 from allauth.account.models import EmailAddress
 from allauth.account.views import sensitive_post_parameters_m,\
@@ -18,7 +19,12 @@ from allauth.account.views import sensitive_post_parameters_m,\
 from ..common.views import LoginRequiredMixinView
 from .forms import (ProfileForm, DepartmentInvitationForm,
                     AcceptInvitationForm, NewUserSetPasswordForm)
-from .models import DepartmentInvitation, UserProfile
+from .models import (
+    DepartmentInvitation,
+    UserProfile,
+    Account,
+    AccountMembership,
+)
 from .utils import create_verified_user
 
 
@@ -71,7 +77,19 @@ def do_accept_invitation(request, invitation):
         raise AlreadyAcceptedInvitationException()
     invitation.accepted = True
     invitation.save()
-    create_verified_user(invitation)
+
+    with transaction.atomic():
+        user = create_verified_user(invitation)
+        account = Account.objects.create(
+            category=invitation.account_category,
+            department=invitation.department
+        )
+        AccountMembership.objects.create(
+            account=account,
+            user_profile=user.userprofile,
+            role=AccountMembership.ROLE_OWNER
+        )
+
     # authenticate user via InvitationBackend
     user = authenticate(username=invitation.email,
                         password=invitation.verification_key.hex)

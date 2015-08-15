@@ -16,6 +16,7 @@ from ..common.utils import absolute_url_reverse
 from .models import (
     UserProfile,
     DepartmentInvitation,
+    Account,
 )
 from .factories import (
     UserFactory,
@@ -215,6 +216,13 @@ class TestInvite(TestCase):
             )
         self.assertContains(response, 'password1', 3)
         self.assertContains(response, 'password2', 3)
+
+        # test for creating default account for new user
+        actual = Account.objects.all().count()
+        self.assertEqual(1, actual)
+        actual = Account.objects.all()[0]
+        test_user = User.objects.get(email=invited_email)
+        self.assertEqual(actual.profiles.all()[0], test_user.userprofile)
 
         data = {
             'password1': 'passpass123',

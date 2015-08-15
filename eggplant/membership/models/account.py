@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 
 
@@ -28,7 +30,7 @@ class AccountMembership(models.Model):
 
 
 class Account(models.Model):
-    number = models.PositiveSmallIntegerField()
+    number = models.AutoField(primary_key=True)
     category = models.ForeignKey(
         'membership.AccountCategory',
         related_name='accounts',

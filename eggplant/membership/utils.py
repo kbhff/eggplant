@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress, EmailConfirmation
 
+from eggplant.membership.models import DepartmentInvitation
+
 
 log = logging.getLogger(__name__)
 
