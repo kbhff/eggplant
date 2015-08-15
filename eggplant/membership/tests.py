@@ -226,8 +226,7 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('account_login') + '?next=' +
-                reverse('eggplant:membership:profile'),
+            reverse('account_login') + '?next=' + reverse('eggplant:membership:profile'),
             status_code=302,
             target_status_code=200
         )
