@@ -21,7 +21,7 @@ How to contribute
 =================
 
 `Read our documentation <http://eggplant.readthedocs.org/en/latest/contributing.html>`_
-to get started reporting bugs, developing code etc. The project description, organisation and goals are on `our GitHub project page <http://kbhff.github.io/eggplant/>`_. The list of tickets is available on our `Pivotal Tracker <https://www.pivotaltracker.com/n/projects/1337462>`_.
+to get started reporting bugs, developing code etc. The project description, organisation and goals are on `our website eggplant.dk <http://eggplant.dk/>`_. The list of tickets is available on our `Pivotal Tracker <https://www.pivotaltracker.com/n/projects/1337462>`_.
 
 *Write code, write tests, have fun.*
 
