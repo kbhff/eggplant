@@ -21,25 +21,15 @@ How to contribute
 =================
 
 `Read our documentation <http://eggplant.readthedocs.org/en/latest/contributing.html>`_
-to get started reporting bugs, developing code etc.
+to get started reporting bugs, developing code etc. The project description, organisation and goals are on `our GitHub project page <http://kbhff.github.io/eggplant/>`_. The list of tickets is available on our `Pivotal Tracker <https://www.pivotaltracker.com/n/projects/1337462>`_.
 
-The project description, organisation and goals are on `our GitHub project page 
-<http://kbhff.github.io/eggplant/>`_
+*Write code, write tests, have fun.*
 
-The list of tickets is available on our `Pivotal Tracker <https://www.pivotaltracker.com/n/projects/1337462>`_.
-
-*Write code, Write tests, Have fun.*
-
-*...OR EVEN MOAR FUN - WRITE DOCUMENTATION!!*
-
+...also, *write docs*.
 
 Get in touch
 ============
 
-Join us on `Meetups.com <http://www.meetup.com/Eggplant/>`_
+For AFK stuff, you can join us in Copenhagen on `Meetups.com <http://www.meetup.com/Eggplant/>`_.
 
-We use Slack for ad-hoc communication: `Click to recieve an invitation <https://egg-plant.slack.com/>`_.
-
-The techical discussion takes place on `Slack#teamblue <https://foodnet.slack.com/messages/teamblue/>`_.
-
-The design and organisational issues can also be raised on `Slack#teamgreen <https://foodnet.slack.com/messages/teamgreen/>`_.
+We use Slack for ad-hoc communication: `Click to recieve an invitation <https://egg-plant.slack.com/>`_. The techical discussion takes place on `Slack#teamblue <https://foodnet.slack.com/messages/teamblue/>`_. The design and organisational issues can also be raised on `Slack#teamgreen <https://foodnet.slack.com/messages/teamgreen/>`_.
