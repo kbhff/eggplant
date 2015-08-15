@@ -8,6 +8,7 @@ class UserProfile(models.Model):
     MALE = 'm'
     FEMALE = 'f'
     SEX_CHOICES = (
+        ('', '-----'),
         (FEMALE, 'female'),
         (MALE, 'male')
     )
@@ -21,7 +22,7 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
     tel2 = models.CharField(max_length=15, null=True)
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='')
     date_of_birth = models.DateField(null=True)  # old system: birthday
     privacy = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -39,8 +40,7 @@ class UserProfile(models.Model):
         return '{0} {2}'.format(self.user.firstname, self.user.lastname)
 
     def is_complete(self):
-        return all([self.address, self.postcode, self.city,
-                    self.sex, self.tel, self.date_of_birth, self.privacy])
+        return all([self.address, self.postcode, self.city, self.tel])
 
 
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')

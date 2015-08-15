@@ -32,9 +32,13 @@ class ProfileForm(forms.Form):
     city = forms.CharField(label='City', required=True, max_length=50)
     postcode = forms.CharField(label='Post code', required=True, max_length=30)
     tel = forms.CharField(label='Phone', required=True, max_length=15)
-    sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=True)
-    date_of_birth = forms.DateField(label='Date of birth', required=True)
-    privacy = forms.BooleanField(required=True)
+    sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=False)
+    date_of_birth = forms.DateField(label='Date of birth',
+                                    required=False,
+                                    widget=forms.DateInput(
+                                        attrs={'id': 'dob_datepicker',
+                                               'autocomplete': "off"}))
+    privacy = forms.BooleanField(required=False)
 
 
 class DepartmentInvitationForm(forms.ModelForm):
