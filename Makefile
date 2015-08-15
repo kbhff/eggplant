@@ -42,8 +42,6 @@ test:
 coverage:
 	coverage run --source eggplant manage.py test eggplant
 	coverage report -m
-	coverage html
-	open htmlcov/index.html
 
 docs:
 	sphinx-apidoc -o docs/ eggplant
