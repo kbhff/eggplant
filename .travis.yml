@@ -6,7 +6,8 @@ install:
 - pip install coveralls
 script:
 - cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
-- python manage.py test
+- make lint
+- make test
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
 after_success:
