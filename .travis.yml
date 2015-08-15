@@ -2,7 +2,7 @@ language: python
 python:
 - '3.4'
 install:
-- pip install -r requirements/development.txt
+- pip install -r requirements/test.txt
 - pip install coveralls
 script:
 - cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
