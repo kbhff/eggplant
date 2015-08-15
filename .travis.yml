@@ -2,11 +2,13 @@ language: python
 python:
 - '3.4'
 install:
-- pip install -r requirements/development.txt
+- pip install -r requirements/test.txt
 - pip install coveralls
 script:
 - cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
-- python manage.py test
+- sed -i 's/\.dev/.test/' eggplant_project/settings/local.py
+- make lint
+- make coverage
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
 after_success:

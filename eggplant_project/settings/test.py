@@ -1,16 +1,17 @@
 """
-Default settings for development
+Default settings for testing
+USED BY TRAVIS
 """
 from .base import *  # @UnusedWildImport
 import sys
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = 'BLAH BLAH BLAH'
 
 # Show all console output
-LOGGING['handlers']['console']['level'] = 'DEBUG'
-LOGGING['loggers']['eggplant']['level'] = 'DEBUG'
+LOGGING['handlers']['console']['level'] = 'INFO'
+LOGGING['loggers']['eggplant']['level'] = 'INFO'
 
 # Use SQLite for development
 DATABASES = {
@@ -38,26 +39,7 @@ SERVER_EMAIL = 'django@localhost'
 
 ADMINS = ()
 
-
 os.environ['RECAPTCHA_TESTING'] = 'True'
-
-INSTALLED_APPS += ('debug_toolbar',)
-INSTALLED_APPS += ('django_extensions',)
-
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-
-# The Django Debug Toolbar will only be shown to these client IPs.
-INTERNAL_IPS = (
-    '127.0.0.1',
-    '192.168.33.1',
-)
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TEMPLATE_CONTEXT': True,
-    'HIDE_DJANGO_SQL': False,
-}
-
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [

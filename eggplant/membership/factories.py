@@ -68,4 +68,3 @@ class DepartmentFactory(factory.DjangoModelFactory):
 class DepartmentInvitationFactory(factory.DjangoModelFactory):
     class Meta:
         model = 'membership.DepartmentInvitation'
-
