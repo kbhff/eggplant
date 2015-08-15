@@ -7,7 +7,6 @@ help:
 	@echo "clean-test - remove test and coverage artifacts"
 	@echo "lint - check style with pep8"
 	@echo "test - run tests quickly with the default Python"
-	@echo "test-all - run tests on every Python version with tox"
 	@echo "coverage - check code coverage quickly with the default Python"
 	@echo "docs - generate Sphinx HTML documentation, including API docs"
 	@echo "release - package and upload a release"
@@ -39,9 +38,6 @@ lint:
 
 test:
 	python manage.py test eggplant
-
-test-all:
-	tox
 
 coverage:
 	coverage run --source eggplant manage.py test eggplant
