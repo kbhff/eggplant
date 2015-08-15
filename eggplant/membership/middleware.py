@@ -24,4 +24,5 @@ class NewUserForceProfileMiddleware(object):
                     msg = "Please update your profile."
                     messages.add_message(request, messages.WARNING, msg)
                     return HttpResponseRedirect(
-                                reverse('eggplant:membership:profile'))
+                        reverse('eggplant:membership:profile')
+                    )

@@ -49,7 +49,7 @@ class DepartmentInvitation(InvitationBase):
 def send_email_invitation(sender, instance, created, **kwargs):
     if created:
         subject = 'You have been invited to Eggplant!'
-        to_addrs = [instance.email,]
+        to_addrs = [instance.email]
         invite_url = absolute_url_reverse(
             url_name='eggplant:membership:accept_invitation',
             kwargs=dict(

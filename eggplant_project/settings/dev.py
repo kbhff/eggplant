@@ -44,7 +44,7 @@ os.environ['RECAPTCHA_TESTING'] = 'True'
 INSTALLED_APPS += ('debug_toolbar',)
 INSTALLED_APPS += ('django_extensions',)
 
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
+MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 
 # The Django Debug Toolbar will only be shown to these client IPs.
 INTERNAL_IPS = (
@@ -64,10 +64,10 @@ NOSE_ARGS = [
     '--verbosity=2',
     '--stop',
     '--with-yanc',
-#    '--cover-branches',
-#    '--with-coverage',
-#    '--cover-erase',
-#    '--cover-package=eggplant',
+    # '--cover-branches',
+    # '--with-coverage',
+    # '--cover-erase',
+    # '--cover-package=eggplant',
     'eggplant',
 ]
 

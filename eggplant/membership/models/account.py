@@ -20,7 +20,7 @@ class AccountMembership(models.Model):
     class Meta:
         unique_together = (
             ('user_profile', 'account'),
-            )
+        )
 
     def __str__(self):
         return '{} <-> {}'.format(self.account.number,

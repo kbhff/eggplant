@@ -161,7 +161,7 @@ class TestInvite(TestCase):
         expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(response, expected, 1, 200)
 
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)  # @UndefinedVariable
         self.assertEqual(mail.outbox[0].subject,
                          'You have been invited to Eggplant!')
 
@@ -204,7 +204,7 @@ class TestInvite(TestCase):
             self.assertRedirects(response, reverse(url_name),
                                  status_code=302,
                                  target_status_code=200,
-                                 msg_prefix='', )
+                                 msg_prefix='',)
         else:
             response = self.client.get(accept_invitation_url, follow=True)
             self.assertRedirects(
@@ -227,8 +227,7 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('account_login') + '?next=' +
-                reverse('eggplant:membership:profile'),
+            reverse('account_login') + '?next=' + reverse('eggplant:membership:profile'),
             status_code=302,
             target_status_code=200
         )
