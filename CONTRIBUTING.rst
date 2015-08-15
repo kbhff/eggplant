@@ -61,35 +61,43 @@ Ready to contribute? Here's how to set up `eggplant` for local development.
           `a simple git branching model <https://gist.github.com/jbenet/ee6c9ac48068889b0912>`_.
           Read the guide to get a good introduction to Git workflows.
 
-1. Fork the `eggplant` repo on GitHub.
-2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/eggplant.git
+Virtualenv
+~~~~~~~~~~
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+The project is pretty basic, these are classical just steps. Just make note
+that it's a Python 3 only project.
 
-    $ mkvirtualenv --python3 eggplant
-    $ cd eggplant
-    $ pip install -r requirements/development.txt
+    pip install virtualenv-wrapper  # If you don't have this already
+    mkvirtualenv eggplantenv -p python3
+    workon eggplant 
+    pip install -r requirements/development.txt
+    python manage.py syncdb
+    python manage.py runserver
 
-4. Create a branch for local development::
 
-    $ git checkout -b name-of-your-bugfix-or-feature
+This will deploy a local SQLite database and run a local webserver. If you are
+completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
 
-   Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
+Vagrant
+~~~~~~~
 
-    $ make lint
-    $ make test
+Another way to get started contributing to this project is to 
+download and install git and [Vagrant](http://vagrantup.com/), 
+Clone the project, cd into the eggplant folder and then run the followin: 
 
-6. Commit your changes and push your branch to GitHub::
 
-    $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
+    vagrant up
+    vagrant ssh
+    python manage.py migrate
+    python manage.py test
+    python manage.py createsuperuser
+    python manage.py runserver
 
-7. Submit a pull request through the GitHub website.
+This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
+start the django development server. The project should now be 
+available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
 
 Pull Request Guidelines
 -----------------------
