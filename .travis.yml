@@ -6,7 +6,7 @@ install:
 - pip install coveralls
 script:
 - cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
-- sed -i 's/\.dev/.test' eggplant_project/settings/local.py
+- sed -i 's/\.dev/.test/' eggplant_project/settings/local.py
 - make lint
 - make test
 notifications:
