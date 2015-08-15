@@ -57,7 +57,7 @@ Get Started!
 
 Ready to contribute? Here's how to set up `eggplant` for local development.
 
-..note :: We have decided to use the very conventional
+.. note:: We have decided to use the very conventional
           `a simple git branching model <https://gist.github.com/jbenet/ee6c9ac48068889b0912>`_.
           Read the guide to get a good introduction to Git workflows.
 
