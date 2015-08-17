@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(
             model_name='account',
-            name='id',
-        ),
-        migrations.AlterField(
-            model_name='account',
             name='number',
-            field=models.AutoField(primary_key=True, serialize=False),
         ),
     ]
