@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 
 
@@ -23,12 +25,11 @@ class AccountMembership(models.Model):
         )
 
     def __str__(self):
-        return '{} <-> {}'.format(self.account.number,
+        return '{} <-> {}'.format(self.account.id,
                                   self.user_profile.user.email)
 
 
 class Account(models.Model):
-    number = models.PositiveSmallIntegerField()
     category = models.ForeignKey(
         'membership.AccountCategory',
         related_name='accounts',
@@ -50,7 +51,7 @@ class Account(models.Model):
 
     def __str__(self):
         is_active = 'active' if self.active else 'inactive'
-        return "{} {}".format(self.number, is_active)
+        return "{} {} {}".format(self.category, self.department, is_active)
 
 
 class AccountCategory(models.Model):

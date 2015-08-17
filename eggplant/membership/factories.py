@@ -35,7 +35,6 @@ class UserProfileFactory(factory.DjangoModelFactory):
 
 
 class AccountFactory(factory.DjangoModelFactory):
-    number = factory.Sequence(lambda n: '%d' % n)
     department = factory.SubFactory(
         'eggplant.membership.factories.DepartmentFactory'
     )
