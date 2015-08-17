@@ -8,4 +8,4 @@ class TestDashboard(TestCase):
 
     def test_home(self):
         response = self.client.get(reverse('eggplant:dashboard:home'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
