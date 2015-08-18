@@ -1,6 +1,31 @@
 {% extends "eggplant/core/base.html" %}
+{% load staticfiles %}
 {% load bootstrap3 %}
+
+{% block app_css %}
+	<link href="{% static 'css/bootstrap-datepicker3.min.css' %}"
+		rel="stylesheet" />
+{% endblock%}
+{% block app_js %}
+	<script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+	<script src="{% static 'js/locales/bootstrap-datepicker.en-GB.min.js' %}"></script>
+	<script src="{% static 'js/locales/bootstrap-datepicker.en-GB.min.js' %}"></script>
+	<script type=text/javascript>
+var $jq = jQuery.noConflict();
+$jq(function() {
+    {% if form.instance %}
+    $jq('#dob_datepicker')
+    	.val('{{form.instance.end_date|date:"Y-m-d"}}')
+    	.datepicker({format:'yyyy-mm-dd'});
+    {% else %}
+    $jq('#dob_datepicker').datepicker({format:'yyyy-mm-dd'});
+    {% endif %}
+});
+	</script>
+{% endblock%}
+
 {% block content %}
+
 
 <div class="container">
 <div class="row">
