@@ -24,7 +24,21 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	
+	<div class="col-md-2">
+      <img src="{% static 'img/eggplant_logo_mark_120.png' %}" alt="LOGO">
+	</div>
+	
+	<div class="col-md-10">
+	<div class="page-header">
+	  <h1>{{COOP_NAME}}</h1>
+	  <p>{{COOP_DESCRIPTION}}</p>
+	</div>
+	</div>
+	</div>
+	{% if user.is_authenticated %}
+    <nav class="navbar navbar-default navbar">
         <div class="container">
 
             <div class="navbar-header page-scroll">
@@ -32,7 +46,6 @@
                 data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="/">Eggplant</a>
             </div>
 
             <div class="navbar-collapse collapse navbar-right" id="header-navbar-collapse">
@@ -61,6 +74,7 @@
 
         </div>
     </nav>
+    {% endif %}
 
     <!-- Messages -->
     <section id="messages">

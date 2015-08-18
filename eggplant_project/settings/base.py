@@ -15,6 +15,10 @@ from os.path import dirname, abspath
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
 
+COOP_NAME = 'KBHFF'
+COOP_DESCRIPTION = '{subtitle}'
+
+
 MESSAGE_TAGS = {
     messages_constants.ERROR: 'danger',
 }
@@ -105,6 +109,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'allauth.account.context_processors.account',
+                'eggplant.core.context_processors.coop_vars',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
