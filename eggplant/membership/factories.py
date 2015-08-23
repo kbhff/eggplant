@@ -54,8 +54,8 @@ class AccountCategoryFactory(factory.DjangoModelFactory):
 
 
 class AccountMembershipFactory(factory.DjangoModelFactory):
-    user_profile = factory.SubFactory('foodnet.membership.factories.UserProfileFactory')
-    account = factory.SubFactory('foodnet.membership.factories.AccountFactory')
+    user_profile = factory.SubFactory('membership.factories.UserProfileFactory')
+    account = factory.SubFactory('membership.factories.AccountFactory')
 
     class Meta:
         model = 'membership.AccountMembership'
@@ -67,8 +67,8 @@ class DepartmentFactory(factory.DjangoModelFactory):
 
 
 class DepartmentAdministratorFactory(factory.DjangoModelFactory):
-    profile = factory.SubFactory('foodnet.membership.factories.UserProfileFactory')
-    department = factory.SubFactory('foodnet.membership.factories.DepartmentFactory')
+    profile = factory.SubFactory('membership.factories.UserProfileFactory')
+    department = factory.SubFactory('membership.factories.DepartmentFactory')
 
     class Meta:
         model = 'membership.DepartmentAdministrator'

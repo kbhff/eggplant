@@ -10,6 +10,7 @@ from django.conf.urls import url
 
 from ..membership import views
 
+
 urlpatterns = [
     url(r'invite/$', views.invite, name="invite"),
     url(r'profile/$', views.profile, name="profile"),
@@ -26,5 +27,4 @@ urlpatterns = [
     url(r'^admin_profile/(?P<user_id>[0-9]{1,100})$',
         views.admin_profile,
         name='admin_profile'),
-
 ]
