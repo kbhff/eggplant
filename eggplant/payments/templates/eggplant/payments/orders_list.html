@@ -1,0 +1,45 @@
+{% extends "eggplant/core/base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+{% include "eggplant/payments/_payments_links.html" %}
+
+<div class="row">
+	<div class="col-sm-12">
+		<h1 class="page-header">Your orders:</h1>
+	</div>
+</div>
+
+{% if orders %}
+<div class="row">
+<div class="col-sm-12">
+ <div class="table-responsive">
+  <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>name</th>
+            <th>total amount</th>
+            <th>payment status</th>
+            <th>creation date</th>
+        </tr>
+    </thead>
+    <tbody>
+	{% for order in orders %}
+		<tr>
+			<td>{{order.name}}</td>
+			<td>{{order.total}} {{order.currency}}</td>
+			<td>{{order.get_last_payment_status|default_if_none:"not created"}}</td>
+			<td>{{order.created}}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+  </table>
+</div>
+</div>
+</div>
+{% else %}
+	<div class="row">
+		<div class="col-md-5 col-span-4">You don't have any</div>
+	</div>
+{% endif %}
+{% endblock%}

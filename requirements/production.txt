@@ -1,3 +1,7 @@
 -r base.txt
 
+dj-database-url==0.3.0
+dj-static==0.0.6
+gunicorn==19.1.1
 psycopg2>=2.6
+whitenoise==2.0.2

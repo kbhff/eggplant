@@ -1,6 +1,7 @@
-Django>=1.8.2
+Django==1.8.3
 
 django-allauth==0.19.1
 django-admin-bootstrapped==2.5.0
 django-bootstrap3==5.4.0
 django-recaptcha==1.0.4
+django-getpaid==1.7.2

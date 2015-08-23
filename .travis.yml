@@ -2,12 +2,25 @@ language: python
 python:
 - '3.4'
 install:
--  pip install -r requirements/development.txt
--  pip install coveralls
+- pip install -r requirements/test.txt
+- pip install coveralls
 script:
-- cp foodnet_project/settings/local.py.sample foodnet_project/settings/local.py
-- python manage.py test
+- cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
+- sed -i 's/\.dev/.test/' eggplant_project/settings/local.py
+- make lint
+- make coverage
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
 after_success:
 - coveralls
+deploy:
+  provider: heroku
+  buildpack: python
+  on: production
+  app:
+    production: socialsquare-eggplant
+  run:
+  - python manage.py migrate
+  - restart
+  api_key:
+    secure: NtrrZ6Oyw0hA19ZnSgU9kQAlXwunFpCS+u1tzvr9URhXnfrryQlcVGH8W5rZlHwZ1XbmptC3FcIQLyrLViu+Ma9wEhyb0fkJ28F+k8gNwddYKcaX3/LLYbcYeW+5T3zk5eEGblxxmT45+Ht1HwgsjMPVKQ+aDi/msl40SXoajLU=
