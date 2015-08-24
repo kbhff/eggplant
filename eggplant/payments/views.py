@@ -21,18 +21,7 @@ log = logging.getLogger(__name__)
 
 @login_required
 def payments_home(request):
-    ctx = {
-    }
-    return render(request, 'eggplant/payments/payments_home.html', ctx)
-
-
-@login_required
-def fees_list(request):
-    fees = FeeConfig.objects.all()
-    ctx = {
-        'fees': fees
-    }
-    return render(request, 'eggplant/payments/fees_list.html', ctx)
+    return redirect('eggplant:payments:orders_list')
 
 
 @login_required
