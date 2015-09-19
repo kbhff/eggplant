@@ -26,10 +26,9 @@ class Payment(models.Model):
             return payments[0].status
 
     def __str__(self):
-        return "Payment#{} of {} {} ({})".format(
+        return "Payment#{} of {} ({})".format(
             self.id,
             self.amount,
-            self.currency,
             self.get_last_payment_status(),
         )
 
