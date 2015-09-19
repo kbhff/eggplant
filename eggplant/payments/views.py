@@ -25,7 +25,7 @@ def payments_home(request):
 
 @login_required
 def payment_list(request):
-    payments = Payment.objects.filter(user=request.user).payment_by('-created')
+    payments = Payment.objects.filter(user=request.user).order_by('-created')
     ctx = {
         'payments': payments
     }
