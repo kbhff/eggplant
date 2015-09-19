@@ -44,10 +44,10 @@ coverage:
 	coverage report -m
 
 docs:
-	sphinx-apidoc -o docs/ eggplant
+	#sphinx-apidoc -o docs/ eggplant
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	open docs/_build/html/index.html
+	xdg-open docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist upload
