@@ -15,8 +15,8 @@ def new_payment_query_listener(sender, order=None, payment=None, **kwargs):
     """
     Fills in required payment details.
     """
-    payment.amount = order.amount
-    payment.currency = order.currency
+    payment.amount = order.amount.amount
+    payment.currency = order.amount.currency
 signals.new_payment_query.connect(new_payment_query_listener)
 
 

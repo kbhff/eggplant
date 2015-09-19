@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from djmoney.models.fields import MoneyField
+
 
 class Product(models.Model):
     title = models.CharField(
@@ -14,12 +16,10 @@ class Product(models.Model):
         'market.ProductCategory',
         verbose_name=_("category"),
     )
-    price = models.DecimalField(
-        _("title"),
-        help_text=_("Price of product without VAT and taxes."),
-        default=0,
+    price = MoneyField(
+        _("price"),
         max_digits=12,
-        decimal_places=2
+        decimal_places=2,
     )
     stock = models.PositiveIntegerField(
         _("stock"),

@@ -242,6 +242,9 @@ RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
 
+from moneyed import DKK
+DEFAULT_CURRENCY = DKK
+
 GETPAID_ORDER_MODEL = 'market.Payment'
 
 GETPAID_BACKENDS = (
@@ -258,9 +261,3 @@ GETPAID_BACKENDS_SETTINGS = {
 
 GETPAID_SUCCESS_URL_NAME = 'eggplant:market:payment_accepted'
 GETPAID_FAILURE_URL_NAME = 'eggplant:market:payment_rejected'
-
-CURRENCIES = (
-    ('DKK', 'DKK'),
-    ('PLN', 'PLN'),
-    ('GBP', 'GBP'),
-)

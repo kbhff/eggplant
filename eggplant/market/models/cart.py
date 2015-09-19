@@ -27,7 +27,6 @@ class Basket(models.Model):
     user = models.ForeignKey('auth.User', editable=False)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUES, default=OPEN, max_length=15)
-    # order = models.OneToOneField('payments.Order', null=True)
 
     objects = BasketManager()
 
@@ -65,9 +64,11 @@ class Basket(models.Model):
                 self.items.filter(basket=self, product=product).delete()
 
     def get_total_amount(self):
+        # TODO: This should return a Money type instead of decimal
+        # TODO: When calculating this, we should fail when currencies differ
         total = Decimal('0')
         for item in self.items.all():
-            total += item.quantity * item.product.price
+            total += item.quantity * item.product.price.amount
         return total
 
     def get_items_count(self):
@@ -78,9 +79,8 @@ class Basket(models.Model):
         # TODO: Why on earth are we importing this here
         from .payment import Payment
         Payment.objects.create(
-            total=self.get_total_amount(),
+            amount=self.get_total_amount(),
             user=self.user,
-            currency='DKK'
         )
         # self.order = payment
         self.status = self.CHECKEDOUT
@@ -92,6 +92,9 @@ class BasketItem(models.Model):
     # FIXME: it may be better to have generic contenttype in product...
     product = models.ForeignKey('market.Product')
     quantity = models.PositiveSmallIntegerField(default=1, null=False)
+    # TODO: This is not the way to do it, we should have delivery dates specified
+    # on the products themselves -- they are not to be decided by the member
+    # but are preconfigured
     delivery_date = models.DateField(null=False, blank=False,
                                      default=timezone.now)
 
