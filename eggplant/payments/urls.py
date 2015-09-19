@@ -4,14 +4,14 @@ from django.conf.urls import url
 from eggplant.payments import views
 
 urlpatterns = [
-    url(r'orders-list/$', views.orders_list, name="orders_list"),
+    url(r'payment-list/$', views.payment_list, name="payment_list"),
 
-    url(r'order-detail/(?P<pk>\d+)/$',
-        views.order_detail,
-        name="order_detail"),
+    url(r'payment-detail/(?P<pk>\d+)/$',
+        views.payment_detail,
+        name="payment_detail"),
 
-    url(r'order-info/(?P<pk>\d+)/$',
-        views.order_info,
+    url(r'payment-info/(?P<pk>\d+)/$',
+        views.payment_info,
         name="order_info"),
 
     url(r'payment-accepted/(?P<pk>\d+)/$',

@@ -11,60 +11,39 @@ from django.shortcuts import get_object_or_404, redirect, render
 from getpaid.forms import PaymentMethodForm
 
 from eggplant.common.views import LoginRequiredMixinView
-from .models import Order
-from .models import FeeConfig
 from eggplant.membership.utils import is_account_owner
 from eggplant.membership.models.account import Account
+from .models import Payment
 
 log = logging.getLogger(__name__)
 
 
 @login_required
 def payments_home(request):
-    return redirect('eggplant:payments:orders_list')
+    return redirect('eggplant:payments:payment_list')
 
 
 @login_required
-def orders_list(request):
-    orders = Order.objects.filter(account__user_profile__user=request.user).order_by('-created')
+def payment_list(request):
+    payments = Payment.objects.filter(user=request.user).payment_by('-created')
     ctx = {
-        'orders': orders
+        'payments': payments
     }
-    return render(request, 'eggplant/payments/orders_list.html', ctx)
+    return render(request, 'eggplant/payments/payment_list.html', ctx)
 
 
 @login_required
-def order_info(request, pk=None):
-    order = get_object_or_404(Order, pk=pk)
+def payment_info(request, pk=None):
+    payment = get_object_or_404(Payment, pk=pk, user=request.user)
     ctx = {
-        'orders': [order, ]
+        'payments': [payment, ]
     }
-    return render(request, 'eggplant/payments/orders_list.html', ctx)
+    return render(request, 'eggplant/payments/payment_list.html', ctx)
 
 
-@login_required
-def create_order_for_fee(request, fee_id):
-    fee = get_object_or_404(FeeConfig, id=fee_id)
-    account = Account.objects.get(user_profile__user=request.user)
-    order = Order.objects.create_for_fee(account, fee)
-    if not is_account_owner(request.user, account):
-        raise PermissionDenied()
-    return redirect('eggplant:payments:order_detail', pk=str(order.id))
-
-
-class OrderView(LoginRequiredMixinView, DetailView):
-    model = Order
-
-    def get_template_names(self):
-        return ['eggplant/payments/order_detail.html', ]
-
-    def get_context_data(self, **kwargs):
-        context = super(OrderView, self).get_context_data(**kwargs)
-        context['payment_form'] = PaymentMethodForm(
-            self.object.currency,
-            initial={'order': self.object}
-        )
-        return context
+class PaymentView(LoginRequiredMixinView, DetailView):
+    model = Payment
+    template_name = 'eggplant/payments/payment_detail.html'
 
     @method_decorator
     @login_required
@@ -72,9 +51,20 @@ class OrderView(LoginRequiredMixinView, DetailView):
         account = Account.objects.get(user_profile__user=request.user)
         if not is_account_owner(request.user, account):
             raise PermissionDenied()
-        return super(OrderView, self).dispatch(request, *args, **kwargs)
+        return super(PaymentView, self).dispatch(request, *args, **kwargs)
 
-order_detail = OrderView.as_view()
+    def get_queryset(self):
+        return Payment.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentView, self).get_context_data(**kwargs)
+        context['payment_form'] = PaymentMethodForm(
+            self.object.currency,
+            initial={'payment': self.object}
+        )
+        return context
+
+payment_detail = PaymentView.as_view()
 
 
 @login_required
@@ -82,10 +72,10 @@ def payment_accepted(request, pk=None):
     account = Account.objects.get(user_profile__user=request.user)
     if not is_account_owner(request.user, account):
         raise PermissionDenied()
-    __ = get_object_or_404(Order, pk=pk)
+    __ = get_object_or_404(Payment, pk=pk, user=request.user)
     messages.info(request, _("Your payment has been accepted and"
                              " it's being processed."))
-    return redirect('eggplant:payments:orders_list')
+    return redirect('eggplant:payments:payments_list')
 
 
 @login_required
@@ -93,6 +83,6 @@ def payment_rejected(request, pk=None):
     account = Account.objects.get(user_profile__user=request.user)
     if not is_account_owner(request.user, account):
         raise PermissionDenied()
-    __ = get_object_or_404(Order, pk=pk)
+    __ = get_object_or_404(Payment, pk=pk, user=request.user)
     messages.error(request, _("Your payment has been cancelled."))
-    return redirect("eggplant:payments:orders_list")
+    return redirect("eggplant:payments:payments_list")

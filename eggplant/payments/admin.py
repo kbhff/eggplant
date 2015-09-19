@@ -3,9 +3,9 @@ from django.contrib import admin
 
 from getpaid.admin import PaymentAdmin
 
-from .models import Order, Payment
+from .models import Payment, GetPaidPayment
 try:
-    admin.site.register(Payment, PaymentAdmin)
+    admin.site.register(GetPaidPayment, PaymentAdmin)
 except AlreadyRegistered:
     pass
-admin.site.register(Order)
+admin.site.register(Payment)

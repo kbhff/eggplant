@@ -1,12 +1,21 @@
+"""
+Notice: getpaid calls it "order" objects, however since our payments app does
+not model orders, we also call this "payment" in eggplant.payments.models
+"""
+
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 import getpaid
 
 
-class Order(models.Model):
-    name = models.CharField(max_length=100)
-    total = models.DecimalField(decimal_places=2, max_digits=8, default=0)
+class Payment(models.Model):
+    amount = models.DecimalField(
+        _("amount to be paid"),
+        decimal_places=2,
+        max_digits=12,
+    )
     account = models.ForeignKey('membership.Account')
     currency = models.CharField(max_length=3, default='DKK',
                                 choices=settings.CURRENCIES)
@@ -22,18 +31,22 @@ class Order(models.Model):
             return payments[0].status
 
     def __str__(self):
-        return "{} {} ({})".format(
+        return "Payment#{} of {} {} ({})".format(
             self.id,
-            self.name,
-            self.get_last_payment_status()
+            self.amount,
+            self.currency,
+            self.get_last_payment_status(),
         )
 
     def is_ready_for_payment(self):
         return bool(self.total)
 
 
-Payment = getpaid.register_to_payment(Order, unique=False,
-                                      related_name='payments')
+GetPaidPayment = getpaid.register_to_payment(
+    Payment,
+    unique=False,
+    related_name='payments'
+)
 
 
 from .listeners import *  # @UnusedWildImport
