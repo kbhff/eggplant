@@ -1,8 +1,3 @@
-"""
-Notice: getpaid calls it "order" objects, however since our payments app does
-not model orders, we also call this "payment" in eggplant.payments.models
-"""
-
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
@@ -23,7 +18,7 @@ class Payment(models.Model):
                                    db_index=True)
 
     def get_absolute_url(self):
-        return reverse('payments:order_info', kwargs={'pk': self.pk})
+        return reverse('eggplant:webshop:order_info', kwargs={'pk': self.pk})
 
     def get_last_payment_status(self):
         payments = self.payments.all().order_by('-created_on')[:1]
@@ -41,12 +36,12 @@ class Payment(models.Model):
     def is_ready_for_payment(self):
         return bool(self.total)
 
+    class Meta:
+        app_label = 'webshop'
+
 
 GetPaidPayment = getpaid.register_to_payment(
     Payment,
     unique=False,
     related_name='payments'
 )
-
-
-from .listeners import *  # @UnusedWildImport

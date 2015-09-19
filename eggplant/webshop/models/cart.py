@@ -1,7 +1,6 @@
 from decimal import Decimal
 
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
 from django.db import models, transaction
 
 
@@ -36,6 +35,7 @@ class Basket(models.Model):
         index_together = [
             ["user", "status"],
         ]
+        app_label = 'webshop'
 
     def __str__(self):
         return 'Basket {} {} {}'.format(self.user, self.status, self.created)
@@ -75,9 +75,8 @@ class Basket(models.Model):
 
     @transaction.atomic
     def do_checkout(self):
-        # TODO: Why on earth are we importing this here, and why is it in a
-        # separate application!?
-        from eggplant.payments.models import Payment
+        # TODO: Why on earth are we importing this here
+        from .payment import Payment
         Payment.objects.create(
             total=self.get_total_amount(),
             user=self.user,
@@ -100,3 +99,4 @@ class BasketItem(models.Model):
         unique_together = (
             ('basket', 'product')
         )
+        app_label = 'webshop'

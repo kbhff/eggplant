@@ -16,36 +16,46 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Basket',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('status', models.CharField(choices=[('open', 'open'), ('checked-out', 'checked-out')], default='open', max_length=15)),
-                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL)),
+                ('status', models.CharField(choices=[('open', 'open'), ('checked-out', 'checked-out')], max_length=15, default='open')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, editable=False)),
             ],
         ),
         migrations.CreateModel(
             name='BasketItem',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('quantity', models.PositiveSmallIntegerField(default=1)),
                 ('delivery_date', models.DateField(default=django.utils.timezone.now)),
-                ('basket', models.ForeignKey(related_name='items', to='webshop.Basket')),
+                ('basket', models.ForeignKey(to='webshop.Basket', related_name='items')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Payment',
+            fields=[
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
+                ('amount', models.DecimalField(decimal_places=2, verbose_name='amount to be paid', max_digits=12)),
+                ('currency', models.CharField(choices=[('DKK', 'DKK'), ('PLN', 'PLN'), ('GBP', 'GBP')], max_length=3, default='DKK')),
+                ('created', models.DateTimeField(auto_now_add=True, db_index=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-                ('title', models.CharField(verbose_name='title', max_length=512)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
+                ('title', models.CharField(max_length=512, verbose_name='title')),
                 ('description', models.TextField(verbose_name='description')),
-                ('price', models.DecimalField(default=0, max_digits=12, verbose_name='title', help_text='Price of product without VAT and taxes.', decimal_places=2)),
-                ('stock', models.PositiveIntegerField(default=1, null=True, verbose_name='stock', help_text='Items in stock, leave blank if endless quantity available.')),
+                ('price', models.DecimalField(default=0, decimal_places=2, max_digits=12, verbose_name='title', help_text='Price of product without VAT and taxes.')),
+                ('stock', models.PositiveIntegerField(null=True, default=1, verbose_name='stock', help_text='Items in stock, leave blank if endless quantity available.')),
                 ('enabled', models.BooleanField(verbose_name='enabled', default=True)),
             ],
         ),
         migrations.CreateModel(
             name='ProductCategory',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('title', models.CharField(max_length=70)),
                 ('description', models.TextField()),
                 ('enabled', models.BooleanField(verbose_name='enabled', default=True)),
@@ -54,11 +64,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProductTax',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-                ('title', models.CharField(verbose_name='title', max_length=512)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
+                ('title', models.CharField(max_length=512, verbose_name='title')),
                 ('description', models.TextField(verbose_name='description')),
                 ('enabled', models.BooleanField(verbose_name='enabled', default=True)),
-                ('tax', models.DecimalField(verbose_name='tax', max_digits=5, help_text="A factor, e.g. '0.25' adds 25% to value in order.", decimal_places=4)),
+                ('tax', models.DecimalField(decimal_places=4, max_digits=5, verbose_name='tax', help_text="A factor, e.g. '0.25' adds 25% to value in order.")),
             ],
         ),
         migrations.AddField(

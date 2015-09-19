@@ -223,7 +223,6 @@ class ProfileView(LoginRequiredMixinView, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
-        profile = self.request.user.profile
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])

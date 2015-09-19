@@ -33,12 +33,18 @@ class Product(models.Model):
     def __str__(self):
         return "{} {} ({})".format(self.id, self.title, self.category)
 
+    class Meta:
+        app_label = 'webshop'
+
 
 class ProductCategory(models.Model):
 
     title = models.CharField(max_length=70)
     description = models.TextField()
     enabled = models.BooleanField(_("enabled"), default=True)
+
+    class Meta:
+        app_label = 'webshop'
 
 
 class ProductTax(models.Model):
@@ -58,3 +64,6 @@ class ProductTax(models.Model):
         max_digits=5,
         decimal_places=4
     )
+
+    class Meta:
+        app_label = 'webshop'
