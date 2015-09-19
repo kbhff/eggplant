@@ -1,30 +1,60 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Product(models.Model):
-    WEEKLY_BAG = 'weekly bag'
-    DRY_GOODS = 'dry goods'
-    LOOSE_WEIGHT_VEGETABLES = 'loose weight vegetables'
-    DAIRY = 'dairy'
-    FEE = 'fee'
-    CATEGORY_CHOICES = (
-        (WEEKLY_BAG, WEEKLY_BAG),
-        (DRY_GOODS, DRY_GOODS),
-        (LOOSE_WEIGHT_VEGETABLES, LOOSE_WEIGHT_VEGETABLES),
-        (DAIRY, DAIRY),
-        (FEE, FEE),
+    title = models.CharField(
+        _("title"),
+        max_length=512
     )
-    title = models.CharField(null=False, blank=False, max_length=70)
-    description = models.TextField(null=False, blank=False)
-    category = models.CharField(null=True, choices=CATEGORY_CHOICES,
-                                max_length=50)
-    price = models.DecimalField(blank=False, null=False, default=0,
-                                max_digits=5, decimal_places=2)
-    stock = models.PositiveIntegerField(null=False, default=1)
-    tax = models.DecimalField(blank=False, null=False, default=0,
-                              max_digits=5, decimal_places=2)
-    enabled = models.BooleanField(default=True, null=False, blank=False)
-    image = models.ImageField(upload_to='products', null=True)
+    description = models.TextField(
+        _("description"),
+    )
+    category = models.ForeignKey(
+        'webshop.ProductCategory',
+        verbose_name=_("category"),
+    )
+    price = models.DecimalField(
+        _("title"),
+        help_text=_("Price of product without VAT and taxes."),
+        default=0,
+        max_digits=12,
+        decimal_places=2
+    )
+    stock = models.PositiveIntegerField(
+        _("stock"),
+        null=True,
+        default=1,
+        help_text=_("Items in stock, leave blank if endless quantity available.")
+    )
+    tax = models.ForeignKey('ProductTax', verbose_name=_("tax"))
+    enabled = models.BooleanField(_("enabled"), default=True)
 
     def __str__(self):
         return "{} {} ({})".format(self.id, self.title, self.category)
+
+
+class ProductCategory(models.Model):
+
+    title = models.CharField(max_length=70)
+    description = models.TextField()
+    enabled = models.BooleanField(_("enabled"), default=True)
+
+
+class ProductTax(models.Model):
+
+    title = models.CharField(
+        _("title"),
+        max_length=512
+    )
+    description = models.TextField(
+        _("description"),
+    )
+    enabled = models.BooleanField(_("enabled"), default=True)
+
+    tax = models.DecimalField(
+        _("tax"),
+        help_text=_("A factor, e.g. '0.25' adds 25% to value in order."),
+        max_digits=5,
+        decimal_places=4
+    )

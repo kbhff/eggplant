@@ -1,7 +1,7 @@
-import uuid
 from decimal import Decimal
 
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 from django.db import models, transaction
 
 
@@ -13,7 +13,7 @@ class BasketManager(models.Manager):
         default kwargs or logic to basket in one place
             - perhaps a check if user payed some fees(?)...
         """
-        instance, created = self.get_queryset()\
+        instance, __ = self.get_queryset()\
             .get_or_create(user=user, status=self.model.OPEN)
         return instance
 
@@ -25,11 +25,10 @@ class Basket(models.Model):
         (OPEN, OPEN),
         (CHECKEDOUT, CHECKEDOUT),
     )
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey('auth.User', editable=False)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUES, default=OPEN, max_length=15)
-    order = models.OneToOneField('payments.Order', null=True)
+    # order = models.OneToOneField('payments.Order', null=True)
 
     objects = BasketManager()
 
@@ -76,13 +75,15 @@ class Basket(models.Model):
 
     @transaction.atomic
     def do_checkout(self):
-        from eggplant.payments.models import Order
-        name = "Order for {}".format(self.id)
-        order = Order.objects.create(name=name,
-                                     total=self.get_total_amount(),
-                                     user=self.user,
-                                     currency='DKK')
-        self.order = order
+        # TODO: Why on earth are we importing this here, and why is it in a
+        # separate application!?
+        from eggplant.payments.models import Payment
+        Payment.objects.create(
+            total=self.get_total_amount(),
+            user=self.user,
+            currency='DKK'
+        )
+        # self.order = payment
         self.status = self.CHECKEDOUT
         self.save()
 

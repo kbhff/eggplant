@@ -44,7 +44,7 @@ class AddToCart(BaseCartActionView):
                 form.cleaned_data['quantity']
             Product.objects.filter(id=form.cleaned_data['product'].id)\
                    .update(stock=stock)
-        msg = _("You have just added %s to your basket.") %\
+        msg = _("You have just added %s to your basket.") % \
             (form.cleaned_data['product'].title)
         messages.info(self.request, msg)
         return redirect('eggplant:webshop:webshop_home')
