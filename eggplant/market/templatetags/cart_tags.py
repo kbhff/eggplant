@@ -10,13 +10,13 @@ def cart_action(context, action, product_id=None, quantity=None,
                 delivery_date=None):
     btn_css_classes = 'btn btn-sm '
     if action == 'remove':
-        url = reverse('eggplant:webshop:remove_from_cart')
+        url = reverse('eggplant:market:remove_from_cart')
         btn_css_classes += 'btn-danger'
         delivery_date_field = '<input name="delivery_date" type="hidden" ' +\
             'value="{}"/>'.format(delivery_date or '')
     elif action == 'add':
         action = 'Add to cart'
-        url = reverse('eggplant:webshop:add_to_cart')
+        url = reverse('eggplant:market:add_to_cart')
         btn_css_classes += 'btn-success'
         delivery_date_field = '''
         <div class="input-group">

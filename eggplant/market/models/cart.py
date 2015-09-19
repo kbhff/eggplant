@@ -35,7 +35,7 @@ class Basket(models.Model):
         index_together = [
             ["user", "status"],
         ]
-        app_label = 'webshop'
+        app_label = 'market'
 
     def __str__(self):
         return 'Basket {} {} {}'.format(self.user, self.status, self.created)
@@ -88,9 +88,9 @@ class Basket(models.Model):
 
 
 class BasketItem(models.Model):
-    basket = models.ForeignKey('webshop.Basket', related_name='items')
+    basket = models.ForeignKey('market.Basket', related_name='items')
     # FIXME: it may be better to have generic contenttype in product...
-    product = models.ForeignKey('webshop.Product')
+    product = models.ForeignKey('market.Product')
     quantity = models.PositiveSmallIntegerField(default=1, null=False)
     delivery_date = models.DateField(null=False, blank=False,
                                      default=timezone.now)
@@ -99,4 +99,4 @@ class BasketItem(models.Model):
         unique_together = (
             ('basket', 'product')
         )
-        app_label = 'webshop'
+        app_label = 'market'

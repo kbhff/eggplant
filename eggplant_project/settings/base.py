@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     'eggplant.core',
     'eggplant.membership',
     'eggplant.dashboard',
-    'eggplant.webshop',
+    'eggplant.market',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -242,7 +242,7 @@ RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
 
-GETPAID_ORDER_MODEL = 'webshop.Payment'
+GETPAID_ORDER_MODEL = 'market.Payment'
 
 GETPAID_BACKENDS = (
     'getpaid.backends.epaydk',
@@ -256,8 +256,8 @@ GETPAID_BACKENDS_SETTINGS = {
     },
 }
 
-GETPAID_SUCCESS_URL_NAME = 'eggplant:webshop:payment_accepted'
-GETPAID_FAILURE_URL_NAME = 'eggplant:webshop:payment_rejected'
+GETPAID_SUCCESS_URL_NAME = 'eggplant:market:payment_accepted'
+GETPAID_FAILURE_URL_NAME = 'eggplant:market:payment_rejected'
 
 CURRENCIES = (
     ('DKK', 'DKK'),

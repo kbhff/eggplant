@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 @login_required
 def payments_home(request):
-    return redirect('eggplant:webshop:payment_list')
+    return redirect('eggplant:market:payment_list')
 
 
 @login_required
@@ -75,7 +75,7 @@ def payment_accepted(request, pk=None):
     __ = get_object_or_404(Payment, pk=pk, user=request.user)
     messages.info(request, _("Your payment has been accepted and"
                              " it's being processed."))
-    return redirect('eggplant:webshop:payments_list')
+    return redirect('eggplant:market:payments_list')
 
 
 @login_required
@@ -85,4 +85,4 @@ def payment_rejected(request, pk=None):
         raise PermissionDenied()
     __ = get_object_or_404(Payment, pk=pk, user=request.user)
     messages.error(request, _("Your payment has been cancelled."))
-    return redirect("eggplant:webshop:payments_list")
+    return redirect("eggplant:market:payments_list")

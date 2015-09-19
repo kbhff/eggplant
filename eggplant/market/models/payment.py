@@ -18,7 +18,7 @@ class Payment(models.Model):
                                    db_index=True)
 
     def get_absolute_url(self):
-        return reverse('eggplant:webshop:order_info', kwargs={'pk': self.pk})
+        return reverse('eggplant:market:order_info', kwargs={'pk': self.pk})
 
     def get_last_payment_status(self):
         payments = self.payments.all().order_by('-created_on')[:1]
@@ -37,7 +37,7 @@ class Payment(models.Model):
         return bool(self.total)
 
     class Meta:
-        app_label = 'webshop'
+        app_label = 'market'
 
 
 GetPaidPayment = getpaid.register_to_payment(

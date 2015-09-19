@@ -1,9 +1,9 @@
 
 from django.conf.urls import url, include
 
-from eggplant.webshop.views import cart as cart_views
-from eggplant.webshop.views import inventory as inventory_views
-from eggplant.webshop.views import payment as payment_views
+from .views import cart as cart_views
+from .views import inventory as inventory_views
+from .views import payment as payment_views
 
 
 uuid_re_param = '[a-zA-Z0-9]{8}\-?[a-zA-Z0-9]{4}\-?[a-zA-Z0-9]{4}\-?' + \

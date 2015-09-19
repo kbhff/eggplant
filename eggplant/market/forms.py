@@ -1,6 +1,6 @@
 from django import forms
 
-from eggplant.webshop.models.inventory import Product
+from .models.inventory import Product
 
 
 class BasketItemForm(forms.Form):

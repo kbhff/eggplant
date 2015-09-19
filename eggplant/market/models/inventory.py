@@ -11,7 +11,7 @@ class Product(models.Model):
         _("description"),
     )
     category = models.ForeignKey(
-        'webshop.ProductCategory',
+        'market.ProductCategory',
         verbose_name=_("category"),
     )
     price = models.DecimalField(
@@ -34,7 +34,7 @@ class Product(models.Model):
         return "{} {} ({})".format(self.id, self.title, self.category)
 
     class Meta:
-        app_label = 'webshop'
+        app_label = 'market'
 
 
 class ProductCategory(models.Model):
@@ -44,7 +44,7 @@ class ProductCategory(models.Model):
     enabled = models.BooleanField(_("enabled"), default=True)
 
     class Meta:
-        app_label = 'webshop'
+        app_label = 'market'
 
 
 class ProductTax(models.Model):
@@ -66,4 +66,4 @@ class ProductTax(models.Model):
     )
 
     class Meta:
-        app_label = 'webshop'
+        app_label = 'market'

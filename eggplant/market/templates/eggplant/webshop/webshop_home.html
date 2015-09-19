@@ -35,9 +35,9 @@ $jq(function() {
 {% if products %}
 <div class="row">
 <div class="col-md-12 text-right">
-	<a class="btn btn-primary" href="{% url 'eggplant:webshop:cart_details' %}">your basket</a>
+	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">your basket</a>
 	{% if basket_items %}
-	<a class="btn btn-primary" href="{% url 'eggplant:webshop:checkout' %}">go to checkout</a>
+	<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">go to checkout</a>
 	{% endif %}
 </div>
 </div>

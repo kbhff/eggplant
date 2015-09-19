@@ -43,19 +43,19 @@ class TestPayments(TestCase):
         self.client.login(email='test@eggplant.dk', password='pass')
 
     def test_payments_home(self):
-        response = self.client.get(reverse('eggplant:webshop:payments_home'))
+        response = self.client.get(reverse('eggplant:market:payments_home'))
         self.assertEqual(response.status_code, 302)
 
     def test_payment_accepted_nonexistent_order(self):
         non_existent = 1000000000000
         response = self.client.get(
-            reverse('eggplant:webshop:payment_accepted',
+            reverse('eggplant:market:payment_accepted',
                     kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)
 
     def test_payment_rejected_nonexistent_order(self):
         non_existent = 1000000000000
         response = self.client.get(
-            reverse('eggplant:webshop:payment_rejected',
+            reverse('eggplant:market:payment_rejected',
                     kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)

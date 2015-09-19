@@ -52,10 +52,10 @@
 <br />
 <div class="row">
 <div class="col-md-4 text-left">
-	<a class="btn btn-success" href="{% url 'eggplant:webshop:webshop_home' %}" >Go to webshop</a>
+	<a class="btn btn-success" href="{% url 'eggplant:market:webshop_home' %}" >Go to webshop</a>
 </div>
 <div class="col-md-4 text-right">
-	<form action="{% url 'eggplant:webshop:checkout' %}" method="POST">
+	<form action="{% url 'eggplant:market:checkout' %}" method="POST">
 		{% csrf_token %}
 		<button name="submit" class="btn btn-success">Go to Payment</button>
 	</form>

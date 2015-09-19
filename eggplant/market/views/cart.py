@@ -9,14 +9,14 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http.response import JsonResponse
 
-from eggplant.webshop.models.cart import Basket
-from eggplant.webshop.models.inventory import Product
-from eggplant.webshop.forms import BasketItemForm
+from ..models.cart import Basket
+from ..models.inventory import Product
+from ..forms import BasketItemForm
 
 
 class BaseCartActionView(FormView):
     form_class = BasketItemForm
-    success_url = reverse_lazy('eggplant:webshop:webshop_home')
+    success_url = reverse_lazy('eggplant:market:webshop_home')
 
     def get_template_names(self):
         return ['', ]
@@ -38,7 +38,7 @@ class AddToCart(BaseCartActionView):
                 msg = _("You are not allowed to have more "
                         "than %d items in your basket.") % (max_items)
                 messages.warning(self.request, msg)
-                return redirect('eggplant:webshop:webshop_home')
+                return redirect('eggplant:market:webshop_home')
             self.basket.add_to_items(**form.cleaned_data)
             stock = form.cleaned_data['product'].stock - \
                 form.cleaned_data['quantity']
@@ -47,7 +47,7 @@ class AddToCart(BaseCartActionView):
         msg = _("You have just added %s to your basket.") % \
             (form.cleaned_data['product'].title)
         messages.info(self.request, msg)
-        return redirect('eggplant:webshop:webshop_home')
+        return redirect('eggplant:market:webshop_home')
 add_to_cart = login_required(AddToCart.as_view())
 
 
@@ -60,7 +60,7 @@ class RemoveFromCart(BaseCartActionView):
                 form.cleaned_data['quantity']
             Product.objects.filter(id=form.cleaned_data['product'].id)\
                    .update(stock=stock)
-        return redirect('eggplant:webshop:cart_details')
+        return redirect('eggplant:market:cart_details')
 remove_from_cart = login_required(RemoveFromCart.as_view())
 
 
@@ -80,11 +80,11 @@ def checkout(request):
 
     items = basket.items.all()
     if items.count() < 1:
-        return redirect('eggplant:webshop:webshop_home')
+        return redirect('eggplant:market:webshop_home')
 
     if request.method == 'POST':
         basket.do_checkout()
-        return redirect('eggplant:webshop:order_detail',
+        return redirect('eggplant:market:order_detail',
                         pk=str(basket.order.id))
 
     ctx = {

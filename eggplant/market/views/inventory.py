@@ -4,8 +4,8 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from eggplant.webshop.models.inventory import Product
-from eggplant.webshop.models.cart import Basket
+from ..models.inventory import Product
+from ..models.cart import Basket
 
 
 log = logging.getLogger(__name__)
