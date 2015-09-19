@@ -16,7 +16,7 @@ eggplant_urls = [
     url(r'^payments/', include('eggplant.payments.urls',
                                namespace='payments')),
     url(r'^webshop/', include('eggplant.webshop.urls',
-                               namespace='webshop')),
+                              namespace='webshop')),
     url(r'^', include('eggplant.dashboard.urls',
                       namespace='dashboard')),
 ]
@@ -43,4 +43,3 @@ urlpatterns = [
     url(r'^', include(eggplant_urls, namespace='eggplant')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
