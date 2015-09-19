@@ -243,7 +243,7 @@ RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
 
-GETPAID_ORDER_MODEL = 'payments.Order'
+GETPAID_ORDER_MODEL = 'payments.Payment'
 
 GETPAID_BACKENDS = (
     'getpaid.backends.epaydk',
