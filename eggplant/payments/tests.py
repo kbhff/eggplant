@@ -1,6 +1,3 @@
-# coding: utf8
-import uuid
-
 from django.test import TestCase
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -12,8 +9,6 @@ from eggplant.membership.factories import (
     AccountFactory,
     DepartmentFactory,
 )
-
-from .models import Order
 
 
 class TestPayments(TestCase):
@@ -52,14 +47,14 @@ class TestPayments(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_payment_accepted_nonexistent_order(self):
-        non_existent = uuid.uuid4()
+        non_existent = 1000000000000
         response = self.client.get(
             reverse('eggplant:payments:payment_accepted',
                     kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)
 
     def test_payment_rejected_nonexistent_order(self):
-        non_existent = uuid.uuid4()
+        non_existent = 1000000000000
         response = self.client.get(
             reverse('eggplant:payments:payment_rejected',
                     kwargs=dict(pk=non_existent)))

@@ -1,5 +1,3 @@
-
-import uuid
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
@@ -7,7 +5,6 @@ import getpaid
 
 
 class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     total = models.DecimalField(decimal_places=2, max_digits=8, default=0)
     account = models.ForeignKey('membership.Account')
