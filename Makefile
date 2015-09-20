@@ -47,7 +47,6 @@ docs:
 	#sphinx-apidoc -o docs/ eggplant
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	xdg-open docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist upload
