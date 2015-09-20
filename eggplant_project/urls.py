@@ -14,7 +14,7 @@ eggplant_urls = [
     url(r'^membership/', include('eggplant.membership.urls',
                                  namespace='membership')),
     url(r'^market/', include('eggplant.market.urls',
-                              namespace='market')),
+                             namespace='market')),
     url(r'^', include('eggplant.dashboard.urls',
                       namespace='dashboard')),
 ]
