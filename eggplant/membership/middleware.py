@@ -17,7 +17,7 @@ class NewUserForceProfileMiddleware(object):
             )
             if request.path not in allowed_paths:
                 try:
-                    profile = request.user.userprofile
+                    profile = request.user.profile
                 except UserProfile.DoesNotExist:
                     profile = None
                 if not profile or not profile.is_complete():

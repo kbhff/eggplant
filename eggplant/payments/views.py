@@ -5,15 +5,16 @@ from django.utils.translation import ugettext as _
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import user_passes_test
 
 from getpaid.forms import PaymentMethodForm
 
 from eggplant.common.views import LoginRequiredMixinView
-from eggplant.membership.utils import is_active_account_owner
 from .models import Order
 from .models import FeeConfig
+from eggplant.membership.utils import is_account_owner
+from eggplant.membership.models.account import Account
 
 log = logging.getLogger(__name__)
 
@@ -36,7 +37,7 @@ def fees_list(request):
 
 @login_required
 def orders_list(request):
-    orders = Order.objects.filter(user=request.user).order_by('-created')
+    orders = Order.objects.filter(account__user_profile__user=request.user).order_by('-created')
     ctx = {
         'orders': orders
     }
@@ -44,11 +45,12 @@ def orders_list(request):
 
 
 @login_required
-@user_passes_test(is_active_account_owner,
-                  login_url='eggplant:payments:payments_home')
 def create_order_for_fee(request, fee_id):
     fee = get_object_or_404(FeeConfig, id=fee_id)
-    order = Order.objects.create_for_fee(request.user, fee)
+    account = Account.objects.get(user_profile__user=request.user)
+    order = Order.objects.create_for_fee(account, fee)
+    if not is_account_owner(request.user, account):
+        raise PermissionDenied()
     return redirect('eggplant:payments:order_detail', pk=str(order.id))
 
 
@@ -66,28 +68,33 @@ class OrderView(LoginRequiredMixinView, DetailView):
         )
         return context
 
-    @method_decorator(
-        user_passes_test(is_active_account_owner,
-                         login_url='eggplant:payments:payments_home'))
-    def dispatch(self, *args, **kwargs):
-        return super(OrderView, self).dispatch(*args, **kwargs)
+    @method_decorator
+    @login_required
+    def dispatch(self, request, *args, **kwargs):
+        account = Account.objects.get(user_profile__user=request.user)
+        if not is_account_owner(request.user, account):
+            raise PermissionDenied()
+        return super(OrderView, self).dispatch(request, *args, **kwargs)
+
 order_detail = OrderView.as_view()
 
 
 @login_required
-@user_passes_test(is_active_account_owner,
-                  login_url='eggplant:payments:payments_home')
 def payment_accepted(request, pk=None):
-    order = get_object_or_404(Order, pk=pk)
+    account = Account.objects.get(user_profile__user=request.user)
+    if not is_account_owner(request.user, account):
+        raise PermissionDenied()
+    __ = get_object_or_404(Order, pk=pk)
     messages.info(request, _("Your payment has been accepted and"
                              " it's being processed."))
     return redirect('eggplant:payments:orders_list')
 
 
 @login_required
-@user_passes_test(is_active_account_owner,
-                  login_url='eggplant:payments:payments_home')
 def payment_rejected(request, pk=None):
-    order = get_object_or_404(Order, pk=pk)
+    account = Account.objects.get(user_profile__user=request.user)
+    if not is_account_owner(request.user, account):
+        raise PermissionDenied()
+    __ = get_object_or_404(Order, pk=pk)
     messages.error(request, _("Your payment has been cancelled."))
     return redirect("eggplant:payments:orders_list")

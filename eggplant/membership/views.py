@@ -13,7 +13,7 @@ from django.conf import settings
 from django.db import transaction
 
 from allauth.account.models import EmailAddress
-from allauth.account.views import sensitive_post_parameters_m,\
+from allauth.account.views import sensitive_post_parameters_m, \
     PasswordSetView, PasswordChangeView
 
 from ..common.views import LoginRequiredMixinView
@@ -23,7 +23,6 @@ from .models import (
     DepartmentInvitation,
     UserProfile,
     Account,
-    AccountMembership,
 )
 from .utils import create_verified_user
 
@@ -80,15 +79,11 @@ def do_accept_invitation(request, invitation):
 
     with transaction.atomic():
         user = create_verified_user(invitation)
-        account = Account.objects.create(
+        user.profile.account = Account.objects.create(
             category=invitation.account_category,
             department=invitation.department
         )
-        AccountMembership.objects.create(
-            account=account,
-            user_profile=user.userprofile,
-            role=AccountMembership.ROLE_OWNER
-        )
+        user.profile.save()
 
     # authenticate user via InvitationBackend
     user = authenticate(username=invitation.email,
@@ -165,7 +160,7 @@ class NewUserPasswordView(LoginRequiredMixinView, PasswordSetView):
         return super(NewUserPasswordView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        profile = self.request.user.userprofile
+        profile = self.request.user.profile
         if profile.is_complete() or \
                 not request.session.pop('new-invited-user', False):
             # existing user
@@ -228,7 +223,7 @@ class ProfileView(LoginRequiredMixinView, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
-        profile = self.request.user.userprofile
+        profile = self.request.user.profile
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])

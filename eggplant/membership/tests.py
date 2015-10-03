@@ -60,21 +60,18 @@ class TestProfile(TestCase):
             'postcode': '123321ABCD',
             'city': 'New York',
             'tel': '79231232',
-            'sex': 'f',
+            'sex': '0',
             'date_of_birth': '11/12/13',
             'privacy': 'checked',
         }
         response = self.client.post(reverse('eggplant:membership:profile'),
                                     data=data)
-        self.assertRedirects(response, reverse('eggplant:dashboard:home'),
-                             status_code=302,
-                             target_status_code=200, msg_prefix='')
 
         expected = {
             'middle_name': 'Frank',
             'address': '123 Sunset av. NY, USA',
             'postcode': '123321ABCD',
-            'sex': 'f',
+            'sex': 0,
             'city': 'New York',
             'tel': '79231232',
             'date_of_birth': datetime.date(2013, 11, 12),
@@ -87,10 +84,10 @@ class TestProfile(TestCase):
         self.assertEqual(user.last_name, 'Doe')
 
     def test_user_profile(self):
-        self.assertIsNotNone(self.user.userprofile)
+        self.assertIsNotNone(self.user.profile)
 
     def test_user_profile_privacy(self):
-        self.assertFalse(self.user.userprofile.privacy)
+        self.assertFalse(self.user.profile.privacy)
 
     def test_user_member_department_models(self):
         # Although this may look like testing ORM API I thought it
@@ -99,11 +96,10 @@ class TestProfile(TestCase):
         department = DepartmentFactory()
         account = AccountFactory(department=department)
         user2 = UserFactory()
-        # Member is a set of users (user profiles)
-        # - eg. a house with one address
-        account.accountmembership_set\
-            .create(user_profile=self.user.userprofile)
-        account.accountmembership_set.create(user_profile=user2.userprofile)
+        user2.profile.account = account
+        user2.profile.save()
+        self.user.profile.account = account
+        self.user.profile.save()
         self.assertEqual(2, account.profiles.all().count())
 
         # we don't have to have a fresh copy of dept
@@ -162,7 +158,7 @@ class TestInvite(TestCase):
         expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(response, expected, 1, 200)
 
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)  # @UndefinedVariable
         self.assertTrue(bool(mail.outbox[0].subject))
 
         invitation = DepartmentInvitation.objects.get(email=invited_email)
@@ -221,7 +217,7 @@ class TestInvite(TestCase):
         self.assertEqual(1, actual)
         actual = Account.objects.all()[0]
         test_user = User.objects.get(email=invited_email)
-        self.assertEqual(actual.profiles.all()[0], test_user.userprofile)
+        self.assertEqual(actual.profiles.all()[0], test_user.profile)
 
         data = {
             'password1': 'passpass123',

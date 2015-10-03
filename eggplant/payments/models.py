@@ -14,11 +14,11 @@ CURRENCIES = (
 
 class OrderManager(models.Manager):
 
-    def create_for_fee(self, user, fee):
+    def create_for_fee(self, account, fee):
         name = "Order for {}".format(fee.name)
         instance = self.model(name=name,
                               total=fee.amount,
-                              user=user,
+                              account=account,
                               currency=fee.currency)
         instance.save()
         return instance
@@ -30,7 +30,7 @@ class Order(models.Model):
     total = models.DecimalField(decimal_places=2, max_digits=8, default=0)
     currency = models.CharField(max_length=3, default='DKK',
                                 choices=CURRENCIES)
-    user = models.ForeignKey('auth.User')
+    account = models.ForeignKey('membership.Account')
     created = models.DateTimeField(auto_now_add=True, null=False,
                                    db_index=True)
 
@@ -80,4 +80,4 @@ class FeeConfig(models.Model):
     enabled = models.BooleanField(default=True, null=False, blank=False)
 
 
-from .listeners import *
+from .listeners import *  # @UnusedWildImport

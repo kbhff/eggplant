@@ -6,18 +6,11 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from allauth.account.models import EmailAddress
 
-from eggplant.membership.models import (
-    UserProfile,
-    DepartmentInvitation,
-)
+from eggplant.membership.models import UserProfile
 from eggplant.membership.factories import (
     UserFactory,
-    UserProfileFactory,
     AccountFactory,
-    AccountCategoryFactory,
-    AccountMembershipFactory,
     DepartmentFactory,
-    DepartmentInvitationFactory,
 )
 
 from .models import Order, FeeConfig
@@ -50,7 +43,7 @@ class TestPayments(TestCase):
         department = DepartmentFactory()
         account = AccountFactory(department=department)
         account.accountmembership_set\
-            .create(user_profile=self.test_user.userprofile, role='owner')
+            .create(user_profile=self.test_user.profile, role='owner')
 
         self.client.login(email='test@eggplant.dk', password='pass')
 

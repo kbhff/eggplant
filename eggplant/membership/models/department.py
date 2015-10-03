@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Department(models.Model):
@@ -9,7 +11,15 @@ class Department(models.Model):
     of a specific single department.
     """
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        verbose_name=_("department name"),
+        max_length=255,
+        blank=False,
+    )
+    site = models.ForeignKey(
+        'sites.Site',
+        default=settings.SITE_ID
+    )
 
     def __str__(self):
         return self.name

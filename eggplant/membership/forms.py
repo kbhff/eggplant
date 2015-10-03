@@ -1,9 +1,5 @@
 from django import forms
-from allauth.account.forms import BaseSignupForm, SetPasswordForm
-from allauth.account.adapter import get_adapter
-from allauth.account.utils import user_email, setup_user_email, \
-    cleanup_email_addresses
-from allauth.account.models import EmailAddress
+from allauth.account.forms import SetPasswordForm
 from captcha.fields import ReCaptchaField
 
 from .models import (
