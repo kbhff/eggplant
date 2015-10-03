@@ -2,12 +2,14 @@ from django.db import models
 
 
 class Department(models.Model):
-    shortname = models.CharField(max_length=4)
-    name = models.CharField(max_length=255)
+    """
+    This can be a local office of a regional food coop.
 
-    # old system: webmembers
-    allow_webmembers = models.BooleanField(default=True)
-    contact = models.CharField(max_length=255)
+    A person/group is a member of a food coop. But their membership can be
+    of a specific single department.
+    """
+
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
