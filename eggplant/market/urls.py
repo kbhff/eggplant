@@ -27,7 +27,6 @@ payment_patterns = [
     url(r'payment-rejected/(?P<pk>\d+)/$',
         payment.payment_rejected,
         name="payment_rejected"),
-    url(r'$', payment.payments_home, name="payments_home"),
 ]
 
 
@@ -40,5 +39,5 @@ urlpatterns = [
         cart.cart_details, name="cart_details"),
     url(r'checkout/$',
         cart.checkout, name="checkout"),
-    url(r'$', inventory.webshop_home, name="webshop_home"),
+    url(r'$', inventory.market_home, name="market_home"),
 ]

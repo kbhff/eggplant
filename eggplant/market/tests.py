@@ -38,9 +38,9 @@ class TestPayments(TestCase):
 
         self.client.login(username=self.test_user.username, password='pass')
 
-    def test_payments_home(self):
-        response = self.client.get(reverse('eggplant:market:payments_home'))
-        self.assertEqual(response.status_code, 302)
+    def test_market_home(self):
+        response = self.client.get(reverse('eggplant:market:market_home'))
+        self.assertEqual(response.status_code, 200)
 
     def test_payment_accepted_nonexistent_order(self):
         non_existent = 1000000000000

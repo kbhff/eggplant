@@ -2,7 +2,6 @@
 {% load bootstrap3 %}
 {% load i18n %}
 {% load staticfiles %}
-{% load membership_tags %}
 {% load partition_slice %}
 {% load cart_tags %}
 
@@ -29,8 +28,6 @@ $jq(function() {
 	<h1 class="page-header">All products:</h1>
 	</div>
 </div>
-
-{% with user|is_active_account_owner as user_is_owner %}
 
 {% if products %}
 <div class="row">
@@ -63,5 +60,4 @@ $jq(function() {
 		<div class="col-md-4 col-span-5"><p>There are no products to purchase.</p></div>
 	</div>
 {% endfor %}
-{% endwith %}
 {% endblock%}

@@ -16,31 +16,26 @@ log = logging.getLogger(__name__)
 
 
 @login_required
-def payments_home(request):
-    return redirect('eggplant:market:payment_list')
-
-
-@login_required
 def payment_list(request):
-    payments = Payment.objects.filter(user=request.user).order_by('-created')
+    payments = Payment.objects.filter(account__profiles=request.user.profile).order_by('-created')
     ctx = {
         'payments': payments
     }
-    return render(request, 'eggplant/payments/payment_list.html', ctx)
+    return render(request, 'eggplant/market/payment_list.html', ctx)
 
 
 @login_required
 def payment_info(request, pk=None):
-    payment = get_object_or_404(Payment, pk=pk, user=request.user)
+    payment = get_object_or_404(Payment, pk=pk, account__profiles=request.user.profile)
     ctx = {
-        'payments': [payment, ]
+        'payments': [payment]
     }
-    return render(request, 'eggplant/payments/payment_list.html', ctx)
+    return render(request, 'eggplant/market/payment_list.html', ctx)
 
 
 class PaymentView(LoginRequiredMixinView, DetailView):
     model = Payment
-    template_name = 'eggplant/payments/payment_detail.html'
+    template_name = 'eggplant/market/payment_detail.html'
 
     @method_decorator
     @login_required

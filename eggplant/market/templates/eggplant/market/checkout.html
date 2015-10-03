@@ -1,7 +1,6 @@
 {% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
 {% load i18n %}
-{% load membership_tags %}
 {% block content %}
 
 <div class="row">
@@ -52,7 +51,7 @@
 <br />
 <div class="row">
 <div class="col-md-4 text-left">
-	<a class="btn btn-success" href="{% url 'eggplant:market:webshop_home' %}" >Go to webshop</a>
+	<a class="btn btn-success" href="{% url 'eggplant:market:market_home' %}" >Go to payments</a>
 </div>
 <div class="col-md-4 text-right">
 	<form action="{% url 'eggplant:market:checkout' %}" method="POST">
