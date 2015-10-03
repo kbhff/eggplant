@@ -15,16 +15,17 @@ class TestPayments(TestCase):
 
     def setUp(self):
         self.test_user = UserFactory()
-        # FIXME: mock Userprofile.is_complete to return True
+        self.assertTrue(UserProfile.objects.filter(user_id=self.test_user.id).exists())
+        department = DepartmentFactory()
         UserProfile.objects.filter(user_id=self.test_user.id).update(
             address=' test address',
             postcode='test postcode',
             city='test city',
-            sex='f',
+            sex='0',
             tel='test tel',
             date_of_birth=timezone.now(),
             privacy=True,
-            user=self.test_user
+            account=AccountFactory(department=department),
         )
         self.test_user.set_password('pass')
         self.test_user.save()
@@ -35,12 +36,7 @@ class TestPayments(TestCase):
         email_address.primary = True
         email_address.save()
 
-        department = DepartmentFactory()
-        account = AccountFactory(department=department)
-        account.accountmembership_set\
-            .create(user_profile=self.test_user.profile, role='owner')
-
-        self.client.login(email='test@eggplant.dk', password='pass')
+        self.client.login(username=self.test_user.username, password='pass')
 
     def test_payments_home(self):
         response = self.client.get(reverse('eggplant:market:payments_home'))
@@ -49,8 +45,8 @@ class TestPayments(TestCase):
     def test_payment_accepted_nonexistent_order(self):
         non_existent = 1000000000000
         response = self.client.get(
-            reverse('eggplant:market:payment_accepted',
-                    kwargs=dict(pk=non_existent)))
+            reverse('eggplant:market:payment_accepted', kwargs=dict(pk=non_existent)),
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_payment_rejected_nonexistent_order(self):

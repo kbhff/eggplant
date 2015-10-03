@@ -22,12 +22,3 @@ def create_verified_user(invitation):
                                  key=invitation.verification_key.hex)
     econfirm.save()
     return user
-
-
-# TODO: This should be a property of the user and possibly a queryset method
-# of the UserProfile manager.
-def is_account_owner(user, account):
-    return account.userprofilepermission_set.filter(
-        user_profile__user=user,
-        permission__can_change_accounts=True,
-    ).exists()

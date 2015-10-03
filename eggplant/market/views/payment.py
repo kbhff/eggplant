@@ -5,14 +5,11 @@ from django.utils.translation import ugettext as _
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 
 from getpaid.forms import PaymentMethodForm
 
 from eggplant.common.views import LoginRequiredMixinView
-from eggplant.membership.utils import is_account_owner
-from eggplant.membership.models.account import Account
 from ..models import Payment
 
 log = logging.getLogger(__name__)
@@ -48,13 +45,10 @@ class PaymentView(LoginRequiredMixinView, DetailView):
     @method_decorator
     @login_required
     def dispatch(self, request, *args, **kwargs):
-        account = Account.objects.get(user_profile__user=request.user)
-        if not is_account_owner(request.user, account):
-            raise PermissionDenied()
         return super(PaymentView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Payment.objects.filter(user=self.request.user)
+        return Payment.objects.filter(account__profiles=self.request.user.profile)
 
     def get_context_data(self, **kwargs):
         context = super(PaymentView, self).get_context_data(**kwargs)
@@ -67,12 +61,8 @@ class PaymentView(LoginRequiredMixinView, DetailView):
 payment_detail = PaymentView.as_view()
 
 
-@login_required
 def payment_accepted(request, pk=None):
-    account = Account.objects.get(user_profile__user=request.user)
-    if not is_account_owner(request.user, account):
-        raise PermissionDenied()
-    __ = get_object_or_404(Payment, pk=pk, user=request.user)
+    __ = get_object_or_404(Payment, pk=pk, account__profiles=request.user.profile)
     messages.info(request, _("Your payment has been accepted and"
                              " it's being processed."))
     return redirect('eggplant:market:payments_list')
@@ -80,9 +70,6 @@ def payment_accepted(request, pk=None):
 
 @login_required
 def payment_rejected(request, pk=None):
-    account = Account.objects.get(user_profile__user=request.user)
-    if not is_account_owner(request.user, account):
-        raise PermissionDenied()
-    __ = get_object_or_404(Payment, pk=pk, user=request.user)
+    __ = get_object_or_404(Payment, pk=pk, account__profiles=request.user.profile)
     messages.error(request, _("Your payment has been cancelled."))
     return redirect("eggplant:market:payments_list")

@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import post_save
 
 
 class UserProfile(models.Model):
@@ -72,8 +74,8 @@ class UserProfile(models.Model):
 
 # TODO: This does not work with AUTH_USER_MODEL
 # See: https://github.com/django/django/commit/fdb5c98d7ee54c7f89ec10b0203263f1f5b37510
-# @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
-# Instead, we create the user automatically through factories.
+from django.contrib.auth.models import User
+@receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
 def create_user_profile(sender, instance, created, **kwargs):
     """Every time a user is created, we automatically create a profile for
     the user."""

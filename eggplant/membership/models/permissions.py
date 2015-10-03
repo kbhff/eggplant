@@ -46,6 +46,9 @@ class UserProfilePermission(models.Model):
     department = models.ForeignKey(
         'membership.Department'
     )
+    account = models.ForeignKey(
+        'membership.Account'
+    )
 
 
 class Permission(models.Model):
@@ -79,6 +82,7 @@ class Permission(models.Model):
         max_length=64
     )
 
+    # NEVER USE THIS IN A LOOKUP! USE EXPLICIT FIELDS
     all_permissions = models.BooleanField(
         _("all permissions"),
         default=False,
