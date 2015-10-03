@@ -17,12 +17,8 @@
 					
 					{% if user.is_authenticated %}
 					<li>
-					  <a href="{% url 'eggplant:market:payments_home' %}">
-					  {% trans "Orders" %}</a>
-					</li>
-					<li class="active">
-					  <a href="{% url 'eggplant:market:webshop_home' %}">
-					  {% trans "Webshop" %}</a>
+					  <a href="{% url 'eggplant:market:market_home' %}">
+					  {% trans "Market" %}</a>
 					</li>
 					{% endif %}
             </ul>
