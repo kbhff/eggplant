@@ -19,12 +19,6 @@ class UserProfile(models.Model):
         verbose_name=_("permissions"),
         blank=True
     )
-    account = models.ForeignKey(
-        'membership.Account',
-        verbose_name=_("account"),
-        null=True,
-        related_name='profiles',
-    )
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,

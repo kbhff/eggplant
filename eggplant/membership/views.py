@@ -79,11 +79,12 @@ def do_accept_invitation(request, invitation):
 
     with transaction.atomic():
         user = create_verified_user(invitation)
-        user.profile.account = Account.objects.create(
+        user.profile.save()
+        account = Account.objects.create(
             category=invitation.account_category,
             department=invitation.department
         )
-        user.profile.save()
+        account.user_profiles.add(user.profile)
 
     # authenticate user via InvitationBackend
     user = authenticate(username=invitation.email,

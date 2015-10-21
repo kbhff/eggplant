@@ -17,7 +17,7 @@ class TestPayments(TestCase):
         self.test_user = UserFactory()
         self.assertTrue(UserProfile.objects.filter(user_id=self.test_user.id).exists())
         department = DepartmentFactory()
-        UserProfile.objects.filter(user_id=self.test_user.id).update(
+        self.user_profile = UserProfile.objects.filter(user_id=self.test_user.id).update(
             address=' test address',
             postcode='test postcode',
             city='test city',
@@ -25,8 +25,8 @@ class TestPayments(TestCase):
             tel='test tel',
             date_of_birth=timezone.now(),
             privacy=True,
-            account=AccountFactory(department=department),
         )
+        AccountFactory.create(department=department, user_profiles=[self.user_profile])
         self.test_user.set_password('pass')
         self.test_user.save()
         email_address = EmailAddress.objects\

@@ -94,13 +94,12 @@ class TestProfile(TestCase):
         # would be good to just write a test to show how we expect
         # membership to work
         department = DepartmentFactory()
-        account = AccountFactory(department=department)
         user2 = UserFactory()
-        user2.profile.account = account
         user2.profile.save()
-        self.user.profile.account = account
-        self.user.profile.save()
-        self.assertEqual(2, account.profiles.all().count())
+        account = AccountFactory(department=department)
+        account.user_profiles.add(user2.profile)
+        account.user_profiles.add(self.user.profile)
+        self.assertEqual(2, account.user_profiles.all().count())
 
         # we don't have to have a fresh copy of dept
         self.assertEqual(1, department.accounts.count())
@@ -217,7 +216,7 @@ class TestInvite(TestCase):
         self.assertEqual(1, actual)
         actual = Account.objects.all()[0]
         test_user = User.objects.get(email=invited_email)
-        self.assertEqual(actual.profiles.all()[0], test_user.profile)
+        self.assertEqual(actual.user_profiles.all()[0], test_user.profile)
 
         data = {
             'password1': 'passpass123',

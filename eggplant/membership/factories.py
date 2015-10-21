@@ -40,6 +40,17 @@ class AccountFactory(factory.DjangoModelFactory):
         'eggplant.membership.factories.AccountCategoryFactory'
     )
 
+    @factory.post_generation
+    def user_profiles(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of UserProfile instances were passed in, use them
+            for user_profile in extracted:
+                self.user_profiles.add(user_profile)
+
     class Meta:
         model = 'membership.Account'
 

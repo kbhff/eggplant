@@ -6,6 +6,9 @@ class Account(models.Model):
         'membership.AccountCategory',
         related_name='accounts',
     )
+    # TODO: Is an account associated to a department? Or are the departments
+    # actually associated to the membership such that economic transactions
+    # are NOT coupled to a department!?
     department = models.ForeignKey(
         'membership.Department',
         related_name='accounts',
@@ -18,6 +21,10 @@ class Account(models.Model):
 
     # TODO: An account cannot be deactivated
     active = models.BooleanField(default=True)
+
+    user_profiles = models.ManyToManyField(
+        'membership.UserProfile',
+    )
 
     def __str__(self):
         is_active = 'active' if self.active else 'inactive'
