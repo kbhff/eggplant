@@ -63,7 +63,7 @@ Ready to contribute? Here's how to set up `eggplant` for local development.
 
 e.g.::
 
-    $ git clone https://github.com/kbhff/eggplant
+    $ git clone git@github.com:USERNAME/eggplant.git
 
 Virtualenv
 ~~~~~~~~~~
