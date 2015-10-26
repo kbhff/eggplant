@@ -1,3 +1,8 @@
+"""
+Notice: getpaid calls it "order" objects, however since our payments app does
+not model orders, we also call this "payment" in eggplant.payments.models
+"""
+
 import logging
 
 from django.forms import ValidationError
@@ -10,8 +15,8 @@ def new_payment_query_listener(sender, order=None, payment=None, **kwargs):
     """
     Fills in required payment details.
     """
-    payment.amount = order.total
-    payment.currency = order.currency
+    payment.amount = order.amount.amount
+    payment.currency = order.amount.currency
 signals.new_payment_query.connect(new_payment_query_listener)
 
 

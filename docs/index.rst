@@ -15,6 +15,7 @@ Contents:
    contributing
    authors
    history
+   dev/index
 
 
 .. include:: ../README.rst

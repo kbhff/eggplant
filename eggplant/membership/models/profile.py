@@ -1,30 +1,53 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 class UserProfile(models.Model):
-    MALE = 'm'
-    FEMALE = 'f'
+    MALE, FEMALE, OTHER = range(3)
     SEX_CHOICES = (
         ('', '-----'),
-        (FEMALE, 'female'),
-        (MALE, 'male')
+        (FEMALE, _('female')),
+        (MALE, _('male')),
+        (OTHER, _('other')),
     )
 
-    user = models.OneToOneField('auth.User', editable=False)
-    middle_name = models.CharField(max_length=30, null=True)
+    permissions = models.ManyToManyField(
+        "Permission",
+        verbose_name=_("permissions"),
+        blank=True
+    )
 
-    # old system: adr1, adr2, streetno, floor, door
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        editable=False,
+        related_name='profile',
+        verbose_name=_("user"),
+    )
+    middle_name = models.CharField(
+        max_length=30,
+        blank=True,
+        verbose_name=_("middle name"),
+        help_text=_("Optional.")
+    )
+
+    # TODO: Why is this a TextField!?
     address = models.TextField(max_length=255)
     postcode = models.CharField(max_length=30)
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
-    tel2 = models.CharField(max_length=15, null=True)
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='')
+    tel2 = models.CharField(max_length=15)
+    sex = models.PositiveSmallIntegerField(
+        choices=SEX_CHOICES,
+        null=True,
+    )
+    # TODO: Can we just remove this!?
     date_of_birth = models.DateField(null=True)  # old system: birthday
+    # TODO: What does this mean???
     privacy = models.BooleanField(default=False)
+
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
 
@@ -43,7 +66,14 @@ class UserProfile(models.Model):
         return all([self.address, self.postcode, self.city, self.tel])
 
 
+# TODO: This does not work with AUTH_USER_MODEL
+# See: https://github.com/django/django/commit/fdb5c98d7ee54c7f89ec10b0203263f1f5b37510
+from django.contrib.auth.models import User
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
 def create_user_profile(sender, instance, created, **kwargs):
+    """Every time a user is created, we automatically create a profile for
+    the user."""
     if created:
-        UserProfile.objects.create(user=instance)
+        # Set the reverse instance.profile so the new profile is available
+        # immediately
+        instance.profile = UserProfile.objects.create(user=instance)
