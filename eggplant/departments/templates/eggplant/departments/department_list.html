@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for department in departments %}
+    <a href="{% url 'eggplant:departments:detail' department.slug %}">{{ department.name }}</a><br />
+  {% endfor %}
+{% endblock %}

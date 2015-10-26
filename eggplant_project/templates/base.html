@@ -60,7 +60,7 @@
                             <ul class="dropdown-menu">
                                  <li><a href="{% url 'eggplant:dashboard:home' %}">Home</a></li>
                                 {% if user.is_authenticated %}
-                                	<li><a href="{% url 'eggplant:membership:profile' %}">Profile</a></li>
+{#                                	<li><a href="{% url 'eggplant:profile' %}">Profile</a></li>#}
                                 	<li><a href="{% url 'account_logout' %}">Log out</a></li>
                                 {% else %}
                                 	<li><a href="{% url 'account_login' %}">Log in</a></li>

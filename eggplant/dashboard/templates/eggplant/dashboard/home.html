@@ -15,9 +15,9 @@
 <div class="btn-group">
 {% if perms.membership.can_invite %}
 
-  <a href="{% url 'eggplant:membership:invite' %}" role="button" class="btn btn-default">
-    {% trans "Send invitation" %}
-  </a>
+{#  <a href="{% url 'eggplant:membership:invite' %}" role="button" class="btn btn-default">#}
+{#    {% trans "Send invitation" %}#}
+{#  </a>#}
 {% endif %}
 
 {% if user.is_authenticated %}

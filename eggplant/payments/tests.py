@@ -1,25 +1,19 @@
 # coding: utf8
 import uuid
 
+from allauth.account.models import EmailAddress
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
-from django.core.urlresolvers import reverse
-from allauth.account.models import EmailAddress
-
 from eggplant.membership.models import (
     UserProfile,
-    DepartmentInvitation,
-)
-from eggplant.membership.factories import (
-    UserFactory,
-    UserProfileFactory,
-    AccountFactory,
-    AccountCategoryFactory,
-    AccountMembershipFactory,
-    DepartmentFactory,
-    DepartmentInvitationFactory,
 )
 
+from eggplant.factories import (
+    UserFactory,
+    AccountFactory,
+    DepartmentFactory,
+)
 from .models import Order, FeeConfig
 
 
