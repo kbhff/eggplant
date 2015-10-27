@@ -4,10 +4,10 @@ from django.contrib.sites.models import Site
 
 
 def absolute_url_reverse(url_name=None, **kwargs):
-    DOMAIN = Site.objects.get_current().domain
+    domain = Site.objects.get_current().domain
     path = '/'
     if url_name:
         path = reverse(url_name, **kwargs)
     full_url = "{}://{}{}".format(settings.DEFAULT_HTTP_PROTOCOL,
-                                  DOMAIN, path)
+                                  domain, path)
     return full_url
