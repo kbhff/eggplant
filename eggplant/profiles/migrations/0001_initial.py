@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(max_length=50)),
                 ('tel', models.CharField(max_length=15)),
                 ('tel2', models.CharField(null=True, max_length=15)),
-                ('sex', models.PositiveSmallIntegerField(choices=[('', '-----'), ('female', 'female'), ('male', 'male'), ('other', 'other')], null=True)),
+                ('sex', models.CharField(max_length=100, choices=[('', '-----'), ('female', 'female'), ('male', 'male'), ('other', 'other')], null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('changed', models.DateTimeField(auto_now=True)),
                 ('permissions', models.ManyToManyField(verbose_name='permissions', to='permissions.Permission', blank=True)),

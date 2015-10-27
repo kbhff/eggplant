@@ -6,10 +6,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from eggplant.accounts.models import Account
 
 from eggplant.core.utils import absolute_url_reverse
 from eggplant.factories import UserFactory, DepartmentFactory, \
     AccountCategoryFactory, DepartmentInvitationFactory
+from eggplant.profiles.models import UserProfile
+
+from .models import DepartmentInvitation
 
 
 class TestInvite(TestCase):
@@ -31,8 +35,8 @@ class TestInvite(TestCase):
 
     def test_get(self):
         self.client.login(username=self.user.username, password='pass')
-        response = self.client.get(reverse('eggplant:membership:invite'))
-        self.assertTemplateUsed(response, 'eggplant/membership/invite.html')
+        response = self.client.get(reverse('eggplant:invitations:invite'))
+        self.assertTemplateUsed(response, 'eggplant/invitations/invite.html')
 
     def test_user_already_verified(self):
         data = {
@@ -41,7 +45,7 @@ class TestInvite(TestCase):
             'account_category': self.account_category.id,
         }
         self.client.login(username=self.user.email, password='pass')
-        response = self.client.post(reverse('eggplant:membership:invite'),
+        response = self.client.post(reverse('eggplant:invitations:invite'),
                                     data=data, follow=True)
         expected = 'User {} already exists'.format(self.user.email)
         self.assertContains(response, expected, 1, 200)
@@ -54,7 +58,7 @@ class TestInvite(TestCase):
             'account_category': self.account_category.id,
         }
         self.client.login(username=self.user.username, password='pass')
-        response = self.client.post(reverse('eggplant:membership:invite'),
+        response = self.client.post(reverse('eggplant:invitations:invite'),
                                     data=data, follow=True)
 
         self.assertRedirects(response, reverse('eggplant:dashboard:home'))
@@ -62,13 +66,13 @@ class TestInvite(TestCase):
         expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(response, expected, 1, 200)
 
-        self.assertEqual(len(mail.outbox), 1)  # @UndefinedVariable
+        self.assertEqual(len(mail.outbox), 1)
         self.assertTrue(bool(mail.outbox[0].subject))
 
         invitation = DepartmentInvitation.objects.get(email=invited_email)
 
         url = absolute_url_reverse(
-            'eggplant:membership:accept_invitation',
+            'eggplant:invitations:accept_invitation',
             kwargs=dict(verification_key=invitation.verification_key.hex)
         )
         self.assertRegex(invitation.verification_key.hex, r'^[a-z0-9]{32}\Z')
@@ -83,7 +87,7 @@ class TestInvite(TestCase):
             account_category=self.account_category,
         )
         accept_invitation_url = reverse(
-            'eggplant:membership:accept_invitation',
+            'eggplant:invitations:accept_invitation',
             kwargs=dict(verification_key=invitation.verification_key.hex)
         )
 
@@ -134,7 +138,7 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('account_login') + '?next=' + reverse('eggplant:membership:profile'),
+            reverse('account_login') + '?next=' + reverse('eggplant:profiles:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -150,7 +154,7 @@ class TestInvite(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('eggplant:membership:profile'),
+            reverse('eggplant:profiles:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -160,7 +164,7 @@ class TestInvite(TestCase):
                                    follow=True)
         self.assertRedirects(
             response,
-            reverse('eggplant:membership:profile'),
+            reverse('eggplant:profiles:profile'),
             status_code=302,
             target_status_code=200
         )
@@ -177,10 +181,8 @@ class TestInvite(TestCase):
             'postcode': '123321',
             'tel': '231321321',
             'sex': UserProfile.FEMALE,
-            'date_of_birth': '1980-01-01',
-            'privacy': '1',
         }
-        response = self.client.post(reverse('eggplant:membership:profile'),
+        response = self.client.post(reverse('eggplant:profiles:profile'),
                                     data=data, follow=True)
         self.assertRedirects(
             response,

@@ -5,6 +5,7 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
     MALE = 'male'
     FEMALE = 'female'
@@ -40,7 +41,8 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
     tel2 = models.CharField(max_length=15, null=True)
-    sex = models.PositiveSmallIntegerField(
+    sex = models.CharField(
+        max_length=100,
         choices=SEX_CHOICES,
         null=True,
     )
@@ -84,7 +86,7 @@ class UserProfile(models.Model):
             account_filter['active'] = True
 
         return UserProfile.objects.filter(
-            account__in=department.accounts.filter(**account_filter)) \
+            accounts__in=department.accounts.filter(**account_filter)) \
             .order_by('user__last_name')
 
 

@@ -16,7 +16,7 @@ class UserFactory(factory.DjangoModelFactory):
     @classmethod
     def _generate(cls, create, attrs):
         """Override the default _generate() to disable the post-save signal."""
-        from eggplant.membership.models.profile import create_user_profile
+        from eggplant.profiles.models import create_user_profile
         user = super(UserFactory, cls)._generate(create, attrs)
         post_save.connect(create_user_profile, get_user_model(),
                           dispatch_uid='membership-user-profile')
@@ -25,19 +25,19 @@ class UserFactory(factory.DjangoModelFactory):
 
 class UserProfileFactory(factory.DjangoModelFactory):
     class Meta:
-        model = 'membership.UserProfile'
+        model = 'profiles.UserProfile'
 
-    user = factory.SubFactory('eggplant.membership.factories.UserFactory',
+    user = factory.SubFactory('eggplant.factories.UserFactory',
                               userprofile=None)
 
 
 class AccountFactory(factory.DjangoModelFactory):
 
     department = factory.SubFactory(
-        'eggplant.membership.factories.DepartmentFactory'
+        'eggplant.factories.DepartmentFactory'
     )
     category = factory.SubFactory(
-        'eggplant.membership.factories.AccountCategoryFactory'
+        'eggplant.factories.AccountCategoryFactory'
     )
 
     @factory.post_generation
@@ -52,29 +52,29 @@ class AccountFactory(factory.DjangoModelFactory):
                 self.user_profiles.add(user_profile)
 
     class Meta:
-        model = 'membership.Account'
+        model = 'accounts.Account'
 
 
 class AccountCategoryFactory(factory.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'category%d' % n)
 
     class Meta:
-        model = 'membership.AccountCategory'
+        model = 'accounts.AccountCategory'
 
 
 class DepartmentFactory(factory.DjangoModelFactory):
     class Meta:
-        model = 'membership.Department'
+        model = 'departments.Department'
 
 
 class DepartmentAdministratorFactory(factory.DjangoModelFactory):
-    profile = factory.SubFactory('membership.factories.UserProfileFactory')
-    department = factory.SubFactory('membership.factories.DepartmentFactory')
+    profile = factory.SubFactory('eggplant.factories.UserProfileFactory')
+    department = factory.SubFactory('eggplant.factories.DepartmentFactory')
 
     class Meta:
-        model = 'membership.DepartmentAdministrator'
+        model = 'departments.DepartmentAdministrator'
 
 
 class DepartmentInvitationFactory(factory.DjangoModelFactory):
     class Meta:
-        model = 'membership.DepartmentInvitation'
+        model = 'invitations.DepartmentInvitation'

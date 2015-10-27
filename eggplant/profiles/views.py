@@ -1,3 +1,4 @@
+import logging
 from allauth.account.views import PasswordSetView, sensitive_post_parameters_m, \
     PasswordChangeView
 from django.contrib import messages
@@ -11,13 +12,16 @@ from django.views.generic import FormView
 
 from eggplant.core.views import LoginRequiredMixin
 from eggplant.profiles.forms import NewUserSetPasswordForm, ProfileForm
+from eggplant.profiles.models import UserProfile
+
+logger = logging.getLogger(__name__)
 
 
 class NewUserPassword(LoginRequiredMixin, PasswordSetView):
     """
     Set password only for a new user. Existing users can use password change.
     """
-    success_url = reverse_lazy('eggplant:membership:profile')
+    success_url = reverse_lazy('eggplant:profiles:profile')
     form_class = NewUserSetPasswordForm
 
     def get_authenticated_redirect_url(self, *args, **kwargs):
@@ -35,12 +39,12 @@ class NewUserPassword(LoginRequiredMixin, PasswordSetView):
         return super(NewUserPassword, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        profile = self.request.user.userprofile
+        profile = self.request.user.profile
         if profile.is_complete() or \
                 not request.session.pop('new-invited-user', False):
             # existing user
             msg = "User with completed profile %s is trying to set password."
-            log.warn(msg, self.request.user)
+            logger.warn(msg, self.request.user)
             raise Http404()
         form = self.get_form()
         if form.is_valid():
@@ -95,7 +99,6 @@ class Profile(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
-        profile = self.request.user.userprofile
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])

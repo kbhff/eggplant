@@ -42,7 +42,7 @@ def do_accept_invitation(request, invitation):
             category=invitation.account_category,
             department=invitation.department
         )
-        account.profiles.create(user.profile)
+        account.user_profiles.add(user.profile)
 
     # authenticate user via InvitationBackend
     user = authenticate(username=invitation.email,
@@ -95,7 +95,7 @@ def accept_invitation(request, verification_key):
         'title': "accept invitation",
     }
     return render(request,
-                  'eggplant/membership/../invitations/templates/invitation/accept_invitation.html', ctx)
+                  'eggplant/invitations/accept_invitation.html', ctx)
 
 
 @permission_required('membership.can_invite')
@@ -127,4 +127,4 @@ def invite(request):
         'title': "send invitation",
     }
     return render(request,
-                  'eggplant/membership/../invitations/templates/invitation/invite.html', ctx)
+                  'eggplant/invitations/invite.html', ctx)
