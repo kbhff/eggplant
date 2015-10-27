@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.shortcuts import redirect, get_object_or_404, render
 
-from eggplant.accounts.models import Account, AccountMembership
+from eggplant.accounts.models import Account
 from eggplant.invitations.models import DepartmentInvitation
 from eggplant.invitations.forms import AcceptInvitationForm, \
     DepartmentInvitationForm
@@ -37,14 +37,12 @@ def do_accept_invitation(request, invitation):
 
     with transaction.atomic():
         user = create_verified_user(invitation)
+        user.profile.save()
         account = Account.objects.create(
             category=invitation.account_category,
             department=invitation.department
         )
-        account.profiles.create(
-            user_profile=user.userprofile,
-            role=AccountMembership.ROLE_OWNER
-        )
+        account.profiles.create(user.profile)
 
     # authenticate user via InvitationBackend
     user = authenticate(username=invitation.email,

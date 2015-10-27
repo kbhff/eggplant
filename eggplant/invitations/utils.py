@@ -1,7 +1,8 @@
 from uuid import uuid4
 
-from allauth.account.models import EmailAddress, EmailConfirmation
 from django.contrib.auth.models import User
+
+from allauth.account.models import EmailAddress, EmailConfirmation
 
 
 def create_verified_user(invitation):
@@ -17,4 +18,5 @@ def create_verified_user(invitation):
     econfirm = EmailConfirmation(email_address=email_address,
                                  key=invitation.verification_key.hex)
     econfirm.save()
+
     return user

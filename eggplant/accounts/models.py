@@ -6,51 +6,31 @@ class Account(models.Model):
         'accounts.AccountCategory',
         related_name='accounts',
     )
+
+    # TODO: Is an account associated to a department? Or are the departments
+    # actually associated to the membership such that economic transactions
+    # are NOT coupled to a department!?
     department = models.ForeignKey(
         'departments.Department',
         related_name='accounts',
     )
 
+    # TODO: Accounts do not start and end, we should track memberships that
+    # way instead.
     start = models.DateTimeField(auto_now_add=True)
     exit = models.DateTimeField(null=True, default=None, blank=True)
 
+    # TODO: An account cannot be deactivated
     active = models.BooleanField(default=True)
 
-    profiles = models.ManyToManyField(
+    user_profiles = models.ManyToManyField(
         'profiles.UserProfile',
-        through='accounts.AccountMembership',
         related_name='accounts'
     )
 
     def __str__(self):
         is_active = 'active' if self.active else 'inactive'
         return "{} {} {}".format(self.category, self.department, is_active)
-
-
-class AccountMembership(models.Model):
-    ROLE_NORMAL = 'normal'
-    ROLE_OWNER = 'owner'
-    ROLES = [
-        (ROLE_NORMAL, 'Normal'),
-        (ROLE_OWNER, 'Owner'),
-    ]
-
-    user_profile = models.ForeignKey('profiles.UserProfile')
-    account = models.ForeignKey('accounts.Account')
-    role = models.CharField(
-        max_length=10,
-        choices=ROLES,
-        default=ROLE_NORMAL
-    )
-
-    class Meta:
-        unique_together = (
-            ('user_profile', 'account'),
-        )
-
-    def __str__(self):
-        return '{} <-> {}'.format(self.account.id,
-                                  self.user_profile.user.email)
 
 
 class AccountCategory(models.Model):

@@ -32,7 +32,7 @@ class InvitationBackend(ModelBackend):
             if len(users) == 1 and confirmations_count == 1:
                 user = users[0]
                 try:
-                    profile = user.userprofile
+                    profile = user.profile
                 except UserProfile.DoesNotExist:
                     profile = None
                 if not profile.is_complete():

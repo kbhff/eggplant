@@ -1,14 +1,21 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        verbose_name=_("department name"),
+        max_length=255,
+        blank=False,
+    )
     slug = models.SlugField()
 
-    # old system: webmembers
-    allow_webmembers = models.BooleanField(default=True)
-    contact = models.CharField(max_length=255)
+    site = models.ForeignKey(
+        'sites.Site',
+        default=settings.SITE_ID
+    )
 
     def __str__(self):
         return self.name

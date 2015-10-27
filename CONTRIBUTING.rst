@@ -61,20 +61,23 @@ Ready to contribute? Here's how to set up `eggplant` for local development.
           `a simple git branching model <https://gist.github.com/jbenet/ee6c9ac48068889b0912>`_.
           Read the guide to get a good introduction to Git workflows.
 
+e.g.::
+
+    $ git clone git@github.com:USERNAME/eggplant.git
 
 Virtualenv
 ~~~~~~~~~~
 
 The project is pretty basic, these are classical just steps. Just make note
-that it's a Python 3 only project.
+that it's a Python 3 only project. Enter the git project folder.::
 
-    pip install virtualenv-wrapper  # If you don't have this already
-    mkvirtualenv eggplantenv -p python3
-    workon eggplant 
-    pip install -r requirements/development.txt
-    python manage.py syncdb
-    python manage.py runserver
+    $ pip install virtualenvwrapper
+    $ mkvirtualenv eggplantvenv -p python3
+    $ pip install -r requirements/development.txt
+    $ python manage.py syncdb
+    $ python manage.py runserver
 
+Use "workon eggplantenv" to activate the eggplan virtual environment, and "deactivate" to exit.
 
 This will deploy a local SQLite database and run a local webserver. If you are
 completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
@@ -82,6 +85,8 @@ completely new to Django and Python, notice that you need [pip](https://pip.pypa
 
 Vagrant
 ~~~~~~~
+
+(Optional)
 
 Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 

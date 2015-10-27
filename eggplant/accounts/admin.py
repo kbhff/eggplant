@@ -4,7 +4,7 @@ from . import models
 
 
 class AccountMembershipInline(admin.TabularInline):
-    model = models.AccountMembership
+    model = models.Account.user_profiles.through
 
 
 @admin.register(models.Account)

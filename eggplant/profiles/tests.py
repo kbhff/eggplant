@@ -80,14 +80,12 @@ class TestProfile(TestCase):
         # would be good to just write a test to show how we expect
         # membership to work
         department = DepartmentFactory()
-        account = AccountFactory(department=department)
         user2 = UserFactory()
-        # Member is a set of users (user profiles)
-        # - eg. a house with one address
-        account.accountmembership_set\
-            .create(user_profile=self.user.userprofile)
-        account.accountmembership_set.create(user_profile=user2.userprofile)
-        self.assertEqual(2, account.profiles.all().count())
+        user2.profile.save()
+        account = AccountFactory(department=department)
+        account.user_profiles.add(user2.profile)
+        account.user_profiles.add(self.user.profile)
+        self.assertEqual(2, account.user_profiles.all().count())
 
         # we don't have to have a fresh copy of dept
         self.assertEqual(1, department.accounts.count())

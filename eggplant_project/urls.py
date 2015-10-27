@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 
 import eggplant.profiles.views
@@ -43,8 +46,8 @@ eggplant_urls = [
         )
     ),
 
-    url(r'^payments/', include('eggplant.payments.urls',
-                               namespace='payments')),
+    url(r'^market/', include('eggplant.market.urls',
+                             namespace='market')),
     url(r'^', include('eggplant.dashboard.urls',
                       namespace='dashboard')),
 ]
@@ -68,4 +71,5 @@ urlpatterns = [
     url(r'^account/', include('allauth.urls')),
 
     url(r'^', include(eggplant_urls, namespace='eggplant')),
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

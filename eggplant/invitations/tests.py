@@ -7,7 +7,6 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-# Create your tests here.
 from eggplant.core.utils import absolute_url_reverse
 from eggplant.factories import UserFactory, DepartmentFactory, \
     AccountCategoryFactory, DepartmentInvitationFactory
@@ -63,7 +62,7 @@ class TestInvite(TestCase):
         expected = 'Invitation has been send to {}'.format(invited_email)
         self.assertContains(response, expected, 1, 200)
 
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)  # @UndefinedVariable
         self.assertTrue(bool(mail.outbox[0].subject))
 
         invitation = DepartmentInvitation.objects.get(email=invited_email)
@@ -122,7 +121,7 @@ class TestInvite(TestCase):
         self.assertEqual(1, actual)
         actual = Account.objects.all()[0]
         test_user = User.objects.get(email=invited_email)
-        self.assertEqual(actual.profiles.all()[0], test_user.userprofile)
+        self.assertEqual(actual.user_profiles.all()[0], test_user.profile)
 
         data = {
             'password1': 'passpass123',

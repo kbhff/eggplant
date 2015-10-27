@@ -1,31 +1,50 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
-from django.dispatch import receiver
-
+from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     MALE = 'male'
     FEMALE = 'female'
     OTHER = 'other'
     SEX_CHOICES = (
+        ('', '-----'),
         (FEMALE, 'female'),
         (MALE, 'male'),
         (OTHER, 'other'),
     )
 
-    user = models.OneToOneField('auth.User', editable=False)
-    middle_name = models.CharField(max_length=30, null=True)
+    permissions = models.ManyToManyField(
+        "permissions.Permission",
+        verbose_name=_("permissions"),
+        blank=True
+    )
 
-    # old system: adr1, adr2, streetno, floor, door
-    address = models.TextField(max_length=255)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        editable=False,
+        related_name='profile',
+        verbose_name=_("user"),
+    )
+    middle_name = models.CharField(
+        max_length=30,
+        blank=True,
+        verbose_name=_("middle name"),
+        help_text=_("Optional.")
+    )
+
+    address = models.CharField(max_length=255)
     postcode = models.CharField(max_length=30)
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
     tel2 = models.CharField(max_length=15, null=True)
-    sex = models.CharField(max_length=100, choices=SEX_CHOICES, blank=True)
-    date_of_birth = models.DateField(null=True)  # old system: birthday
-    privacy = models.BooleanField(default=False)
+    sex = models.PositiveSmallIntegerField(
+        choices=SEX_CHOICES,
+        null=True,
+    )
+
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
 
@@ -34,7 +53,7 @@ class UserProfile(models.Model):
 
     @property
     def full_name(self):
-        "Returns member's full name."
+        """Returns member's full name."""
         if self.middle_name:
             return '{0} {1} {2}'.format(self.user.firstname, self.middle_name,
                                         self.user.lastname)
@@ -56,10 +75,10 @@ class UserProfile(models.Model):
 
     @classmethod
     def in_department(cls, department, only_active_accounts=True):
-        '''
+        """
         Returns the user profiles linked to the given department via:
         UserProfile -> Account -> DepartmentMembership -> Department
-        '''
+        """
         account_filter = {}
         if only_active_accounts:
             account_filter['active'] = True
@@ -69,8 +88,13 @@ class UserProfile(models.Model):
             .order_by('user__last_name')
 
 
+# TODO: This does not work with AUTH_USER_MODEL
+# See: https://github.com/django/django/commit/fdb5c98d7ee54c7f89ec10b0203263f1f5b37510
 @receiver(post_save, sender=User, dispatch_uid='membership-user-profile')
 def create_user_profile(sender, instance, created, **kwargs):
+    """Every time a user is created, we automatically create a profile for
+    the user."""
     if created:
-        UserProfile.objects.create(user=instance)
-
+        # Set the reverse instance.profile so the new profile is available
+        # immediately
+        instance.profile = UserProfile.objects.create(user=instance)

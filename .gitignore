@@ -78,4 +78,5 @@ target/
 
 # PyCharm
 .idea
+/media/*
 

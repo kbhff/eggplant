@@ -52,7 +52,7 @@ AUTHENTICATION_BACKENDS = (
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',  # django-admin-bootstrapped
+    'suit',  # django-admin-bootstrapped
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,13 +71,14 @@ INSTALLED_APPS = (
     'getpaid.backends.epaydk',
 
     # Project apps.
-    'eggplant.core',
     'eggplant.accounts',
-    'eggplant.profiles',
+    'eggplant.core',
+    'eggplant.dashboard',
     'eggplant.departments',
     'eggplant.invitations',
-    'eggplant.dashboard',
-    'eggplant.payments',
+    'eggplant.market',
+    'eggplant.permissions',
+    'eggplant.profiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -155,6 +156,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 LOGGING = {
     'version': 1,
@@ -243,7 +246,10 @@ RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
 
-GETPAID_ORDER_MODEL = 'payments.Order'
+from moneyed import DKK
+DEFAULT_CURRENCY = DKK
+
+GETPAID_ORDER_MODEL = 'market.Payment'
 
 GETPAID_BACKENDS = (
     'getpaid.backends.epaydk',
@@ -257,5 +263,5 @@ GETPAID_BACKENDS_SETTINGS = {
     },
 }
 
-GETPAID_SUCCESS_URL_NAME = 'eggplant:payments:payment_accepted'
-GETPAID_FAILURE_URL_NAME = 'eggplant:payments:payment_rejected'
+GETPAID_SUCCESS_URL_NAME = 'eggplant:market:payment_accepted'
+GETPAID_FAILURE_URL_NAME = 'eggplant:market:payment_rejected'
