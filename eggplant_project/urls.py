@@ -20,7 +20,7 @@ eggplant_urls = [
     ),
 
     url(
-        r'^profile/',
+        r'^profiles/',
         include(
             'eggplant.profiles.urls',
             namespace='profiles',
@@ -29,7 +29,7 @@ eggplant_urls = [
     ),
 
     url(
-        r'^department/',
+        r'^departments/',
         include(
             'eggplant.departments.urls',
             namespace='departments',
