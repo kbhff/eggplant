@@ -37,6 +37,26 @@ interdependent.
 Possible scheme: Only allow models and decorators to be interdependent, all
 other common elements should live in ``eggplant.core``.
 
+Philosophy
+~~~~~~~~~~
+
+To quote Two Scoops of Django (1.8 version) that in turn quotes James Bennett
+(who in turn quotes Douglas McIlroy):
+
+    James Bennett volunteers as both a Django core developer and as its release
+    manager. He taught us everything that we know about good Django app design.
+    We quote him:
+
+        “The art of creating and maintaining a good Django app is that it should
+        follow the truncated Unix philosophy according to Douglas McIlroy:
+            
+            ‘Write programs that do one thing and do it well.’
+
+    In essence, each app should be tightly focused on its task. If an app can’t
+    be explained in a single sentence of moderate length, or you need to say
+    ‘and’ more than once, it probably means the app is too big and should be
+    broken up.
+
 TODO
 ~~~~
 
