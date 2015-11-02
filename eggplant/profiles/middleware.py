@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 
 
+from . import models
+
+
 class NewUserForceProfileMiddleware(object):
 
     def process_request(self, request):
@@ -16,7 +19,7 @@ class NewUserForceProfileMiddleware(object):
             if request.path not in allowed_paths:
                 try:
                     profile = request.user.profile
-                except UserProfile.DoesNotExist:
+                except models.UserProfile.DoesNotExist:
                     profile = None
                 if not profile or not profile.is_complete():
                     msg = "Please update your profile."

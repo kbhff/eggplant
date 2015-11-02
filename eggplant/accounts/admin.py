@@ -13,5 +13,5 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.AccountCategory)
-class AccountAdmin(admin.ModelAdmin):
+class AccountCategoryAdmin(admin.ModelAdmin):
     pass

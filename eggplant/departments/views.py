@@ -4,8 +4,6 @@ from eggplant.departments.models import Department
 from eggplant.profiles.models import UserProfile
 from eggplant.core.views import LoginRequiredMixin
 
-from . import models
-
 
 class DepartmentProfiles(LoginRequiredMixin, ListView):
     model = UserProfile

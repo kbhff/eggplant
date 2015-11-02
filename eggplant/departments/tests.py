@@ -16,8 +16,8 @@ class TestDeparmentAdmin(TestCase):
             profile=self.admin_user.profile, department=self.department)
 
         # let's add some account/profiles
-        account1 = AccountFactory(department=self.department)
-        u1 = UserFactory()
+        self.account1 = AccountFactory(department=self.department)
+        self.u1 = UserFactory()
 
     def test_user_is_department_admin(self):
         profile = self.admin_user.profile

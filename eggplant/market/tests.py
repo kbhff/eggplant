@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.utils import timezone
 from django.core.urlresolvers import reverse
 from allauth.account.models import EmailAddress
 

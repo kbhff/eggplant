@@ -30,7 +30,7 @@ def do_accept_invitation(request, invitation):
     if existing_user or existing_email:
         msg = "You have already accepted invitation for this email."
         messages.error(request, msg)
-        log.debug("already accepted")
+        logger.debug("already accepted")
         raise AlreadyAcceptedInvitationException()
     invitation.accepted = True
     invitation.save()
