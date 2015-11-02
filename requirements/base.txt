@@ -8,4 +8,5 @@ django-getpaid==1.7.2
 Pillow==2.9.0
 # Use master branch of django-money until 0.7.3 is out
 # benjaoming is maintainer.....
--e git://github.com/django-money/django-money.git#egg=django-oscar
+#-e git://github.com/django-money/django-money.git#egg=django-oscar
+django-money==0.7.4
