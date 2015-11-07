@@ -47,6 +47,9 @@ class UserProfile(models.Model):
         null=True,
     )
 
+    # Adding photo here as a binary field, however it could be a reference to external storage, such as Amazon S3
+    photo = models.BinaryField(null=True)
+
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
 
