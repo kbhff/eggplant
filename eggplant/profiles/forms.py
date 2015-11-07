@@ -18,7 +18,7 @@ class ProfileForm(forms.Form):
     postcode = forms.CharField(label='Post code', required=True, max_length=30)
     tel = forms.CharField(label='Phone', required=True, max_length=15)
     sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=False)
-
+    photo = forms.FileField(label='Photo', required=False)
 
 class NewUserSetPasswordForm(SetPasswordForm):
     def save(self, *args, **kwargs):
