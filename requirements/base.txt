@@ -1,5 +1,5 @@
-Django==1.8.3
-
+Django==1.8.6
+django-filter==0.11.0
 django-allauth==0.19.1
 django-suit==0.2.14
 django-bootstrap3==5.4.0
