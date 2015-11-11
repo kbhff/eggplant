@@ -31,7 +31,7 @@ class TestProfile(TestCase):
 
         self.client.login(username='test@food.net', password='pass')
         response = self.client.get(reverse('eggplant:profiles:profile'))
-        expected = '<form action="%s"' % reverse('eggplant:profiles:profile')
+        expected = '<form enctype="multipart/form-data" action="%s"' % reverse('eggplant:profiles:profile')
         self.assertContains(response, expected, 1, 200)
 
         data = {
