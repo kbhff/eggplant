@@ -63,7 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     # 3rd-party apps.
-    'django_filters', # django-filter
+    'django_filters',  # django-filter
     'bootstrap3',  # django-bootstrap3
     'allauth',  # django-allauth
     'allauth.account',

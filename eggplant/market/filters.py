@@ -18,7 +18,6 @@ class LinksGroupWidget(django_filters.widgets.LinkWidget):
         if value is None:
             value = ''
         base_attrs = {
-        #    "class": "",
         }
         base_attrs.update(attrs)
         final_attrs = self.build_attrs(base_attrs)
