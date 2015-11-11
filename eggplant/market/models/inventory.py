@@ -1,7 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from djmoney.models.fields import MoneyField
+
+from eggplant.core.utils import generate_upload_path
+
+
+def do_upload_product_image(inst, filename):
+    return generate_upload_path(inst, filename, dirname='product_images')
 
 
 class Product(models.Model):
@@ -29,6 +34,8 @@ class Product(models.Model):
     )
     tax = models.ForeignKey('ProductTax', verbose_name=_("tax"))
     enabled = models.BooleanField(_("enabled"), default=True)
+    image = models.ImageField(upload_to=do_upload_product_image, blank=True,
+                              null=True)
 
     def __str__(self):
         return "{} {} ({})".format(self.id, self.title, self.category)
@@ -40,11 +47,14 @@ class Product(models.Model):
 class ProductCategory(models.Model):
 
     title = models.CharField(max_length=70)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     enabled = models.BooleanField(_("enabled"), default=True)
 
     class Meta:
         app_label = 'market'
+
+    def __str__(self):
+        return self.title
 
 
 class ProductTax(models.Model):
@@ -67,3 +77,6 @@ class ProductTax(models.Model):
 
     class Meta:
         app_label = 'market'
+
+    def __str__(self):
+        return "{} ({:f}%)".format(self.title, (self.tax*100).normalize())

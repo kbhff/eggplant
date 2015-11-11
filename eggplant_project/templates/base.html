@@ -68,7 +68,12 @@
 
     <section id="content">
         <div class="container">
-          {% block content %}{% endblock %}
+          {% block content %}
+          <div class="row">
+            <div class="col-md-4">{% block content_left_col %}{% endblock %}</div>
+            <div class="col-md-8">{% block content_right_col %}{% endblock %}</div>
+          </div>
+          {% endblock %}
         </div>
     </section>
 

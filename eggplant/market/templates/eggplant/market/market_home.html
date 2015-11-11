@@ -21,37 +21,47 @@ $jq(function() {
 	</script>
 {% endblock%}
 
-{% block content %}
+{% block content_left_col %}
+<h2>{profile}</h2>
+<h2>{basket }</h2>
+{% endblock %}
+{% block content_right_col %}
 
 <div class="row">
-	<div class="col-sm-12 col-span-3">
-	<h1 class="page-header">All products:</h1>
+    <div class="col-10">
+        <h1 class="page-header">Order groceries:</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10">
+        <p>Filter products:</p>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-10">
+        {{product_filter.form}}
 	</div>
 </div>
 
 {% if products %}
 <div class="row">
-<div class="col-md-12 text-right">
-	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">your basket</a>
-	{% if basket_items %}
-	<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">go to checkout</a>
-	{% endif %}
-</div>
+ <div class="col-md-9 text-right">
+ 	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">your basket</a>
+ 	{% if basket_items %}
+ 	<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">go to checkout</a>
+ 	{% endif %}
+ </div>
 </div>
 <br />
 {% endif %}
 
-{% for sublist in products|partition:"3" %}
+{% for sublist in product_filter|partition:"3" %}
 <div class="row">
 	{% for product in sublist %}
 	<div class="col-md-3">
-		<span class="thumbnail"><img src="{{product.image.url}}" /></span>
-		<p class="left"><strong>{{ product.title }}</strong></p>
-		<p class="text-left">{{product.description}}</p>
-		<p class="text-left">{{product.price}} kroner</p>
-		<p>
-			{% cart_action 'add' product_id=product.id %}
-		</p>
+        {% include 'eggplant/market/_product.html' %}
 	</div>
 	{% endfor %}
 </div>
@@ -60,4 +70,5 @@ $jq(function() {
 		<div class="col-md-4 col-span-5"><p>There are no products to purchase.</p></div>
 	</div>
 {% endfor %}
+    
 {% endblock%}

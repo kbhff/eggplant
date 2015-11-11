@@ -1,0 +1,15 @@
+{% load static %}
+{% load cart_tags %}
+<span class="thumbnail">
+    {% if product.image %}
+        <img src="{{product.image.url}}" />
+    {% else %}
+        <img src="{% static 'img/eggplant_logo_mark_120.png' %}" />
+    {% endif %}
+</span>
+<p class="left"><strong>{{ product.title }}</strong></p>
+<p class="text-left">{{product.description}}</p>
+<p class="text-left">{{product.price}} kroner</p>
+<p>
+    {% cart_action 'add' product_id=product.id %}
+</p>

@@ -14,13 +14,24 @@ try:
     admin.site.register(GetPaidPayment, PaymentAdmin)
 except AlreadyRegistered:
     pass
+
 admin.site.register(Payment)
 
 
-admin.site.register(Product)
-admin.site.register(ProductCategory)
-admin.site.register(ProductTax)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'stock', 'price', 'enabled')
+    list_filter = ('enabled', 'category__title')
 
+admin.site.register(Product, ProductAdmin)
+
+
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'enabled')
+    list_filter = ('enabled', )
+
+admin.site.register(ProductCategory, ProductCategoryAdmin)
+
+admin.site.register(ProductTax)
 
 if settings.DEBUG:
     admin.site.register(Basket)

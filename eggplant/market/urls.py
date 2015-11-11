@@ -6,9 +6,6 @@ from .views import inventory
 from .views import payment
 
 
-uuid_re_param = '[a-zA-Z0-9]{8}\-?[a-zA-Z0-9]{4}\-?[a-zA-Z0-9]{4}\-?' + \
-    '[a-zA-Z0-9]{4}\-?[a-zA-Z0-9]{12}'
-
 payment_patterns = [
     url(r'payment-list/$', payment.payment_list, name="payment_list"),
 
