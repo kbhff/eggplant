@@ -1,12 +1,13 @@
 from uuid import uuid4
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from allauth.account.models import EmailAddress, EmailConfirmation
 
 
 def create_verified_user(invitation):
     password = uuid4().hex
+    User = get_user_model()
     user = User.objects.create_user(invitation.email, invitation.email,
                                     password)
     req = None

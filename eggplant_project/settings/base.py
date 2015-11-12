@@ -234,6 +234,7 @@ ACCOUNT_ADAPTER = 'eggplant_project.authnadapter.EggplantAccountAdapter'
 ACCOUNT_SESSION_REMEMBER = None
 
 SITE_OPEN_FOR_SIGNUP = True
+SIGNUP_URL_NAME = 'eggplant:profiles:signup'
 
 LOGOUT_URL = 'account_logout'
 LOGIN_URL = 'account_login'
@@ -266,3 +267,11 @@ GETPAID_BACKENDS_SETTINGS = {
 
 GETPAID_SUCCESS_URL_NAME = 'eggplant:market:payment_accepted'
 GETPAID_FAILURE_URL_NAME = 'eggplant:market:payment_rejected'
+
+# If a new user has not completed his/her profile we force him to complete it.
+NEW_USER_FORCE_PROFILE_ALLOWED_URL_NAMES = (
+    'eggplant:profiles:profile',
+    'account_login',
+    'account_logout',
+    'account_set_password',
+)

@@ -5,7 +5,8 @@ urlpatterns = [
         r'^invitations/',
         include('eggplant.invitations.urls', namespace='invitations')
     ),
-    url(r'^profiles/', include('eggplant.profiles.urls', namespace='profiles')),
+    url(r'^profiles/',
+        include('eggplant.profiles.urls', namespace='profiles')),
     url(
         r'^departments/',
         include('eggplant.departments.urls', namespace='departments',)
