@@ -5,7 +5,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 2
-DOMAIN = 'socialsquare-eggplant.herokuapp.com'
+DOMAIN = 'eggplant-demo.herokuapp.com'
 ALLOWED_HOSTS = [DOMAIN, ]
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
