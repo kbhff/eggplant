@@ -129,4 +129,3 @@ class TestSignup(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject,
                          '[localhost] Bekræft e-mailadresse')
-
