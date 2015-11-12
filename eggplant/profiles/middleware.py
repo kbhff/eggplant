@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -10,12 +11,8 @@ class NewUserForceProfileMiddleware(object):
 
     def process_request(self, request):
         if request.user.is_authenticated() and not request.user.is_superuser:
-            allowed_paths = (
-                reverse('eggplant:profiles:profile'),
-                reverse('account_login'),
-                reverse('account_logout'),
-                reverse('account_set_password'),
-            )
+            allowed_paths = [reverse(urlname) for urlname in
+                             settings.NEW_USER_FORCE_PROFILE_ALLOWED_URL_NAMES]
             if request.path not in allowed_paths:
                 try:
                     profile = request.user.profile

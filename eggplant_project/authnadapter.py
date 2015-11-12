@@ -32,5 +32,5 @@ class EggplantAccountAdapter(DefaultAccountAdapter):
         ret = DepartmentInvitation.objects.filter(
             email__iexact=email,
             accepted=True
-        ).count()
-        return bool(ret)
+        ).exists()
+        return ret

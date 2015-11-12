@@ -1,7 +1,9 @@
-from allauth.account.models import EmailAddress
+
+from django.core import mail
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from allauth.account.models import EmailAddress
 
 # Create your tests here.
 from eggplant.factories import UserFactory, DepartmentFactory, \
@@ -83,3 +85,48 @@ class TestProfile(TestCase):
         self.assertEqual(1, department.accounts.count())
         department.accounts.all().delete()
         self.assertEqual(0, department.accounts.count())
+
+
+class TestSignup(TestCase):
+
+    def test_signup_get(self):
+        url = reverse('eggplant:profiles:signup')
+        response = self.client.get(url)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'eggplant/profiles/signup.html')
+
+    def test_signup_post(self):
+        url = reverse('eggplant:profiles:signup')
+        profile_data = {
+            'address': 'Vestergade 20c',
+            'city': 'København',
+            'postcode': '1456',
+            'tel': '+45 71 99 91 93',
+            'sex': 'other',
+        }
+        user_data = {
+            'first_name': 'test first name',
+            'last_name': 'test last name',
+            'email': 'test@localhost',
+            'password1': '!super secure123',
+            'password2': '!super secure123',
+        }
+        user_data.update(profile_data)
+        response = self.client.post(url, user_data, follow=True)
+        expected_url = reverse('account_email_verification_sent')
+        self.assertRedirects(response, expected_url, status_code=302,
+                             target_status_code=200, msg_prefix='')
+        user_query = User.objects.filter(email=user_data['email'])
+        self.assertEqual(1, user_query.count())
+
+        actual = user_query[0]
+        profile_query = UserProfile.objects.filter(user=actual, **profile_data)
+        self.assertEqual(1, profile_query.count())
+
+        address_query = EmailAddress.objects.filter(email=user_data['email'])
+        self.assertEqual(1, address_query.count())
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject,
+                         '[localhost] Bekræft e-mailadresse')
+

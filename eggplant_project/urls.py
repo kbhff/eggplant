@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 
 import eggplant.profiles.views
 from eggplant.dashboard import views as dashboard_views
@@ -11,8 +12,10 @@ from eggplant.dashboard import views as dashboard_views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
-    # signup is disabled - we only allow invited users
-    url(r'^account/signup/$', dashboard_views.home, name='account_signup'),
+    # allauth signup is disabled - we have our own signup flow
+    url(r'^account/signup/$',
+        RedirectView.as_view(url=settings.SIGNUP_URL_NAME, permanent=True),
+        name='account_signup'),
 
     # override django-allauth password set and change views
     url(r'^account/password/change/$',

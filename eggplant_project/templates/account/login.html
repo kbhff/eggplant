@@ -26,7 +26,7 @@
 	
 	<p><strong>{% trans 'Want to become a member?' %}</strong></p>
 	
-	{% with signup_url='SIGN_UP_URL_HERE' %}
+	{% with signup_url=SIGNUP_URL %}
 	<p>{% blocktrans with coop_name=COOP_NAME %}
 	You can read more about {{coop_name}} and sign-up <a href="{{signup_url}}">here</a>.
 	{% endblocktrans %}
@@ -41,7 +41,7 @@
   <h3 class="text-center">{% trans "Member login" %}</h3>
 
   {% if socialaccount.providers %}
-  <p>{% blocktrans with site.name as site_name %}Please sign in with one
+  <p>{% blocktrans with site_name=site.name signup_url=SIGNUP_URL %}Please sign in with one
   of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
   for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
@@ -75,7 +75,7 @@
   <br />
   <br />
   <div class="text-center">
-  	<p>{% trans 'Not a member?' %} <a href="SIGN_UP_URL_HERE_2">{% trans 'Sign-up here' %}</a></p>
+  	<p>{% trans 'Not a member?' %} <a href="{{SIGNUP_URL}}">{% trans 'Sign-up here' %}</a></p>
     <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">
     {% trans "Forgot your password?" %}</a></p>
   </div>

@@ -4,5 +4,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'', views.Profile.as_view(), name='profile')
+    url(r'signup/$', views.signup, name='signup'),
+    url(r'$', views.Profile.as_view(), name='profile'),
 ]
