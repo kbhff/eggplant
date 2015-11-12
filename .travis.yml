@@ -18,7 +18,7 @@ deploy:
   buildpack: python
   on: production
   app:
-    production: socialsquare-eggplant
+    production: eggplant-demo
   run:
   - python manage.py migrate
   - restart
