@@ -9,6 +9,7 @@ script:
 - sed -i 's/\.dev/.test/' eggplant_project/settings/local.py
 - make lint
 - make coverage
+- python manage.py migrate
 notifications:
   slack: foodnet:SoPTFnHc2cwAnmpvJd94czXa
 after_success:
