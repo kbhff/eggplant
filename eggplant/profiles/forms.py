@@ -40,7 +40,6 @@ class SignupForm(ProfileForm):
             raise forms.ValidationError('This email is already registered.')
         return email
 
-
 class NewUserSetPasswordForm(SetPasswordForm):
     def save(self, *args, **kwargs):
         self.user.set_password(self.cleaned_data["password1"])
