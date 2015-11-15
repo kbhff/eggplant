@@ -6,7 +6,6 @@ from allauth.account.forms import SetPasswordForm, SetPasswordField,\
 
 from eggplant.profiles.models import UserProfile
 
-
 class ProfileForm(forms.Form):
     first_name = forms.CharField(label='First name', required=True,
                                  max_length=30)

@@ -37,10 +37,6 @@ $jq(function() {
 	<h3>Please update Your details</h3>
 {% endif %}
 
-{% if user.profile.photo %}
-<img src="data:image/png;base64,{{user.profile.photo }}" />
-{% endif %}
-
 <form enctype="multipart/form-data" action="{% url 'eggplant:profiles:profile' %}" method="post">
     {% csrf_token %}
 	{% bootstrap_form form %}

@@ -112,9 +112,10 @@ class Profile(LoginRequiredMixin, FormView):
                     last_name=form.cleaned_data['last_name'])
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
-        if photo:
-            form.cleaned_data['photo'] = base64.b64encode(photo.read())
+        del form.cleaned_data['photo']
+        form.cleaned_data['photo'] = photo
         UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
+
         msg = "Your profile has been successfully updated."
         messages.success(self.request, msg)
         return super(Profile, self).form_valid(form)
