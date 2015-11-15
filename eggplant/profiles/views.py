@@ -1,13 +1,15 @@
 import logging
-
+import base64
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
+
 from django.shortcuts import redirect, render
 from django.views.generic import FormView
 from django.db import transaction
+from django.core.files.base import ContentFile
 
 from allauth.account.views import PasswordSetView, PasswordChangeView, \
     sensitive_post_parameters_m
@@ -19,7 +21,6 @@ from eggplant.profiles.forms import NewUserSetPasswordForm, ProfileForm, \
 from eggplant.profiles.models import UserProfile
 
 logger = logging.getLogger(__name__)
-
 
 class NewUserPassword(LoginRequiredMixin, PasswordSetView):
     """
@@ -91,6 +92,10 @@ class Profile(LoginRequiredMixin, FormView):
 
     def get_object(self, queryset=None):
         self.objects = UserProfile.objects.get(user_id=self.request.user.id)
+
+        if self.objects.photo:
+            self.objects.photo = base64.b64decode(self.objects.photo)
+
         return self.objects
 
     def get_initial(self):
@@ -103,11 +108,14 @@ class Profile(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
+        photo = self.request.FILES.get('photo')
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
+        if photo:
+            form.cleaned_data['photo'] = base64.b64encode(photo.read())
         UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
         msg = "Your profile has been successfully updated."
         messages.success(self.request, msg)
