@@ -104,16 +104,20 @@ class Profile(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         user_id = self.request.user.id
-        photo = self.request.FILES.get('photo')
 
         User.objects.filter(id=user_id)\
             .update(first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'])
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
-        del form.cleaned_data['photo']
-        form.cleaned_data['photo'] = photo
-        UserProfile.objects.filter(user_id=user_id).update(**form.cleaned_data)
+
+        self.objects.address = form.cleaned_data['address']
+        self.objects.city = form.cleaned_data['city']
+        self.objects.postcode = form.cleaned_data['postcode']
+        self.objects.tel = form.cleaned_data['tel']
+        self.objects.sex = form.cleaned_data['sex']
+        self.objects.photo = form.cleaned_data['photo']
+        result = self.objects.save()
 
         msg = "Your profile has been successfully updated."
         messages.success(self.request, msg)
