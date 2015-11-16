@@ -4,16 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-from django.core.files.storage import FileSystemStorage
-import os
-
-# Prepare profile photo dir
-profile_photo_dir = settings.BASE_DIR + "/media/profile/"
-
-if not os.path.exists(profile_photo_dir):
-    os.makedirs(profile_photo_dir)
-
-profile_photo_fs = FileSystemStorage(location=profile_photo_dir)
 
 class UserProfile(models.Model):
     MALE = 'male'
@@ -55,7 +45,7 @@ class UserProfile(models.Model):
         choices=SEX_CHOICES,
         null=True,
     )
-    photo = models.ImageField(storage=profile_photo_fs)
+    photo = models.ImageField()
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
