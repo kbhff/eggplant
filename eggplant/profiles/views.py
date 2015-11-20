@@ -111,6 +111,7 @@ class Profile(LoginRequiredMixin, FormView):
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
 
+        self.objects.middle_name = form.cleaned_data['middle_name']
         self.objects.address = form.cleaned_data['address']
         self.objects.city = form.cleaned_data['city']
         self.objects.postcode = form.cleaned_data['postcode']
