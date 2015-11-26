@@ -90,9 +90,9 @@ class Profile(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('eggplant:dashboard:home')
 
     def get_object(self, queryset=None):
-        self.objects = UserProfile.objects.get(user_id=self.request.user.id)
+        self.object = UserProfile.objects.get(user_id=self.request.user.id)
 
-        return self.objects
+        return self.object
 
     def get_initial(self):
         initial = {
@@ -111,14 +111,14 @@ class Profile(LoginRequiredMixin, FormView):
         del form.cleaned_data['first_name']
         del form.cleaned_data['last_name']
 
-        self.objects.middle_name = form.cleaned_data['middle_name']
-        self.objects.address = form.cleaned_data['address']
-        self.objects.city = form.cleaned_data['city']
-        self.objects.postcode = form.cleaned_data['postcode']
-        self.objects.tel = form.cleaned_data['tel']
-        self.objects.sex = form.cleaned_data['sex']
-        self.objects.photo = form.cleaned_data['photo']
-        result = self.objects.save()
+        self.object.middle_name = form.cleaned_data['middle_name']
+        self.object.address = form.cleaned_data['address']
+        self.object.city = form.cleaned_data['city']
+        self.object.postcode = form.cleaned_data['postcode']
+        self.object.tel = form.cleaned_data['tel']
+        self.object.sex = form.cleaned_data['sex']
+        self.object.photo = form.cleaned_data['photo']
+        result = self.object.save()
 
         msg = "Your profile has been successfully updated."
         messages.success(self.request, msg)
