@@ -5,7 +5,6 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
-
 class UserProfile(models.Model):
     MALE = 'male'
     FEMALE = 'female'
@@ -46,6 +45,7 @@ class UserProfile(models.Model):
         choices=SEX_CHOICES,
         null=True,
     )
+    photo = models.ImageField()
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)

@@ -6,7 +6,6 @@ from allauth.account.forms import SetPasswordForm, SetPasswordField,\
 
 from eggplant.profiles.models import UserProfile
 
-
 class ProfileForm(forms.Form):
     first_name = forms.CharField(label='First name', required=True,
                                  max_length=30)
@@ -20,7 +19,7 @@ class ProfileForm(forms.Form):
     postcode = forms.CharField(label='Post code', required=True, max_length=30)
     tel = forms.CharField(label='Phone', required=True, max_length=15)
     sex = forms.ChoiceField(choices=UserProfile.SEX_CHOICES, required=False)
-
+    photo = forms.ImageField(label='Photo', required=False)
 
 class SignupForm(ProfileForm):
     email = forms.EmailField(required=True)
@@ -39,7 +38,6 @@ class SignupForm(ProfileForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('This email is already registered.')
         return email
-
 
 class NewUserSetPasswordForm(SetPasswordForm):
     def save(self, *args, **kwargs):

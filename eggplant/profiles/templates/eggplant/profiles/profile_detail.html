@@ -36,7 +36,8 @@ $jq(function() {
 {% else %}
 	<h3>Please update Your details</h3>
 {% endif %}
-<form action="{% url 'eggplant:profiles:profile' %}" method="post">
+
+<form enctype="multipart/form-data" action="{% url 'eggplant:profiles:profile' %}" method="post">
     {% csrf_token %}
 	{% bootstrap_form form %}
 	{% buttons %}
