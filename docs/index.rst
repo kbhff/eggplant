@@ -17,7 +17,6 @@ Contents:
    history
    dev/index
 
-
 .. include:: ../README.rst
 
 

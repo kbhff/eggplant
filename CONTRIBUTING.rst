@@ -57,19 +57,25 @@ Get Started!
 
 Ready to contribute? Here's how to set up `eggplant` for local development.
 
+If you are completely new to source code versioning using git, please search
+for a video explaining it. And ask for help getting a git tool set up on your
+machine.
+
 .. note:: We have decided to use the very conventional
           `a simple git branching model <https://gist.github.com/jbenet/ee6c9ac48068889b0912>`_.
           Read the guide to get a good introduction to Git workflows.
 
-e.g.::
+::
 
-    $ git clone git@github.com:USERNAME/eggplant.git
+    $ git clone git@github.com:kbhff/eggplant.git
 
 Virtualenv
 ~~~~~~~~~~
 
 The project is pretty basic, these are classical just steps. Just make note
-that it's a Python 3 only project. Enter the git project folder.::
+that it's a Python 3 only project. Enter the git project folder.
+
+::
 
     $ pip install virtualenvwrapper
     $ mkvirtualenv eggplantvenv -p python3
@@ -77,32 +83,36 @@ that it's a Python 3 only project. Enter the git project folder.::
     $ python manage.py syncdb
     $ python manage.py runserver
 
-Use "workon eggplantenv" to activate the eggplan virtual environment, and "deactivate" to exit.
+Use "workon eggplantenv" to activate the eggplan virtual environment,
+and "deactivate" to exit.
 
 This will deploy a local SQLite database and run a local webserver. If you are
-completely new to Django and Python, notice that you need [pip](https://pip.pypa.io/en/stable/installing.html), too.
+completely new to Django and Python, notice that you need
+[pip](https://pip.pypa.io/en/stable/installing.html), too.
 
 
 Vagrant
 ~~~~~~~
 
-(Optional)
+(Optional) This takes some time (downloading) and some harddisk capacity.
 
 Another way to get started contributing to this project is to 
 download and install git and [Vagrant](http://vagrantup.com/), 
-Clone the project, cd into the eggplant folder and then run the followin: 
+Clone the project (as mentioned above), change directory into the eggplant
+folder and then run the following commands:
 
+::
 
-    vagrant up
-    vagrant ssh
-    python manage.py migrate
-    python manage.py test
-    python manage.py createsuperuser
-    python manage.py runserver
+    $ vagrant up
+    $ vagrant ssh
+    $ python manage.py migrate
+    $ python manage.py test
+    $ python manage.py createsuperuser
+    $ python manage.py runserver
 
 This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
-start the django development server. The project should now be 
-available at [http://192.168.33.28:8000/](http://192.168.33.28:8000/)
+start the django development server. The project should now be available at
+[http://192.168.33.28:8000/](http://192.168.33.28:8000/).
 
 Pull Request Guidelines
 -----------------------
