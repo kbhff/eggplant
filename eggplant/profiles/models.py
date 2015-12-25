@@ -39,13 +39,13 @@ class UserProfile(models.Model):
     postcode = models.CharField(max_length=30)
     city = models.CharField(max_length=50)
     tel = models.CharField(max_length=15)
-    tel2 = models.CharField(max_length=15, null=True)
+    tel2 = models.CharField(max_length=15, blank=True)
     sex = models.CharField(
         max_length=100,
         choices=SEX_CHOICES,
-        null=True,
+        blank=True
     )
-    photo = models.ImageField()
+    photo = models.ImageField(blank=True, null=True)
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     changed = models.DateTimeField(auto_now=True, editable=False)
