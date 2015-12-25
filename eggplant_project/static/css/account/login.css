@@ -1,0 +1,28 @@
+.logo {
+    height: 120px;
+    width: 120px;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: #EDEDED;
+    border-radius: 60px;
+}
+
+.eggplants-bg {
+    background-image: url('../../img/eggplants-bg.jpg');
+    background-size: cover;
+    padding-top: 0;
+}
+
+.page-header {
+    padding: 20px;
+    background: white;
+    border: 0;
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
+.panel-opaque {
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.95);
+}

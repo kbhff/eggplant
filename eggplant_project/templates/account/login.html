@@ -6,6 +6,10 @@
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
+{% block app_css %}
+<link rel="stylesheet" href="{% static 'css/account/login.css' %}">
+{% endblock%}
+
 {% block content %}
 
 <div id="log_in_background" class="row">
@@ -33,6 +37,21 @@
 	</p>
 	{% endwith %}
 	
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-xs-3">
+                <div class="logo pull-right"
+                    style="background-image:url('{% static COOP_LOGO %}')">
+                </div>
+            </div>
+            <div class="col-md-10 col-xs-9">
+                <h1 class="hidden-xs">{{COOP_NAME}}</h1>
+                <h2 class="visible-xs-block">{{COOP_NAME}}</h2>
+                <p>{{COOP_DESCRIPTION}}</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 
