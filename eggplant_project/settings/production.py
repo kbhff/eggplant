@@ -6,7 +6,7 @@ TEMPLATE_DEBUG = DEBUG
 
 COOP_NAME = 'EggPlant Demo'
 COOP_DESCRIPTION = 'How can people say they don´t eat eggplant?'
-COOP_LOGO = 'img/kbhff-logo.png'
+COOP_LOGO = 'img/eggplant-logo-purple-bg.png'
 
 SITE_ID = 2
 DOMAIN = 'eggplant-demo.herokuapp.com'
