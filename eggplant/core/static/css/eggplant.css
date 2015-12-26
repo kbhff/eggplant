@@ -64,3 +64,68 @@ body {
     left: 0;
     right: 0;
 }
+
+/* === Colors ===
+
+TODO: Consider compiling from the bootstrap source and change the colors in
+the variables instead.
+
+Grayscale
+    gray-1: #0A0307
+    gray-2: #272426
+    gray-3: #403B3E
+    gray-4: #736B70
+    gray-5: #BFB2BA
+    gray-5: #EDEDED
+
+Purple
+    purple-1: #3D0F2C
+    purple-2: #57163E
+    purple-3: #8A2262
+
+Yellow
+    yellow-1: #A5C92E
+    yellow-2: #BBE434
+    yellow-3: #D3FF43
+
+Blue
+    blue-1: #34669E
+    blue-2: #4E96EA
+
+*/
+
+.btn-primary {
+    background-color: #57163E;
+    border-color: #8A2262;
+}
+
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.open>.dropdown-toggle.btn-primary {
+    background-color: #3D0F2C;
+    border-color: #57163E;
+}
+
+.btn-success {
+    background-color: #BBE434;
+    border-color: #A5C92E;
+}
+
+.btn-success.active,
+.btn-success.focus,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:hover,
+.open>.dropdown-toggle.btn-success {
+    background-color: #A5C92E;
+    border-color: #A5C92E;
+}
+
+.alert-success {
+    color: #403B3E;
+    background-color: #D3FF43;
+    border-color: #BBE434;
+}
