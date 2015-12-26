@@ -15,9 +15,9 @@ from os.path import dirname, abspath
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
 
-COOP_NAME = 'KBHFF'
+COOP_NAME = '{settings.COOP_NAME}'
 COOP_DESCRIPTION = '{settings.COOP_DESCRIPTION}'
-COOP_LOGO = 'img/no-coop-logo.png'
+COOP_LOGO = 'img/missing-coop-logo.png'
 
 
 MESSAGE_TAGS = {
