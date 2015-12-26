@@ -17,9 +17,9 @@ def cart_action(context, action, product_id=None, quantity=None,
     elif action == 'add':
         action = 'Add to cart'
         url = reverse('eggplant:market:add_to_cart')
-        btn_css_classes += 'btn-success'
+        btn_css_classes += 'btn-success btn-sm'
         delivery_date_field = '''
-        <div class="input-group">
+        <div class="input-group input-group-sm">
             <input class="datepicker form-control"
                 placeholder="delivery date" name="delivery_date"
                 type="text" value=""/>
