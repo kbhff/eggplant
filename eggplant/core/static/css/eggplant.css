@@ -2,32 +2,148 @@
     css
 */
 
-.form-group {
-  text-align: left;
+html, body {
+    height:100%;
 }
 
-body
-{
+.form-group {
+    text-align: left;
+}
+
+body {
     padding-top: 20px; /* Space because of static navbar at top */
     padding-bottom: 20px;
     background-color: #fff;
     color: #333;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.42857;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.375;
     margin: 0;
 }
 
-
-#log_in_background {
-  background-image: url("../img/log_in_background.jpg");
+.form-control, .btn {
+    font-size: 16px;
 }
 
-.log_in_box {
-  background-color: #cccccc;
-  margin: 30px 30px 15px 15px;
-  padding: 15px 15px 15px 15px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
+.btn-group-sm>.btn, .btn-sm {
+    font-size: 12px;
+}
+
+.h1, h1 {
+    font-size: 54px;
+    font-weight: 600; /* semibold */
+}
+
+.h2, h2 {
+    font-size: 36px;
+    font-weight: 600; /* semibold */
+}
+
+.h3, h3 {
+    font-size: 24px;
+    font-weight: 600; /* semibold */
+}
+
+.h4, h4 {
+    font-size: 16px;
+    font-weight: 600; /* semibold */
+}
+
+.h5, h5 {
+    font-size: 12px;
+    font-weight: 600; /* semibold */
+}
+
+.navbar-brand {
+    padding: 12px;
+}
+
+.navbar-brand .eggplant-logo {
+    height: 100%;
+}
+
+.messages {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* === Colors ===
+
+TODO: Consider compiling from the bootstrap source and change the colors in
+the variables instead.
+
+Grayscale
+    gray-1: #0A0307
+    gray-2: #272426
+    gray-3: #403B3E
+    gray-4: #736B70
+    gray-5: #BFB2BA
+    gray-6: #EDEDED
+
+Purple
+    purple-1: #3D0F2C
+    purple-2: #57163E
+    purple-3: #8A2262
+
+Yellow
+    yellow-1: #A5C92E
+    yellow-2: #BBE434
+    yellow-3: #D3FF43
+
+Blue
+    blue-1: #34669E
+    blue-2: #4E96EA
+
+*/
+
+a {
+    color: #8A2262;
+}
+
+a:focus, a:hover {
+    color: #3D0F2C;
+}
+
+.btn-primary {
+    background-color: #57163E;
+    border-color: #8A2262;
+}
+
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.open>.dropdown-toggle.btn-primary {
+    background-color: #3D0F2C;
+    border-color: #57163E;
+}
+
+.btn-success {
+    background-color: #BBE434;
+    border-color: #A5C92E;
+}
+
+.btn-success.active,
+.btn-success.focus,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:hover,
+.open>.dropdown-toggle.btn-success {
+    background-color: #A5C92E;
+    border-color: #A5C92E;
+}
+
+.alert-success {
+    color: #403B3E;
+    background-color: #D3FF43;
+    border-color: #BBE434;
+}
+
+.alert-info {
+    color: #BFB2BA;
+    background-color: #8A2262;
+    border-color: #57163E;
 }

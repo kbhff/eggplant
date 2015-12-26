@@ -15,8 +15,9 @@ from os.path import dirname, abspath
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
 
-COOP_NAME = 'KBHFF'
+COOP_NAME = '{settings.COOP_NAME}'
 COOP_DESCRIPTION = '{settings.COOP_DESCRIPTION}'
+COOP_LOGO = 'img/missing-coop-logo.png'
 
 
 MESSAGE_TAGS = {
@@ -156,6 +157,7 @@ USE_TZ = True
 # please use `collectstatic` command
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'), )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

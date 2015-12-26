@@ -5,84 +5,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>{% block head_title %}{% endblock %} | Eggplant</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>{% block head_title %}{% endblock %} | Eggplant</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-{# bootstrap_css #}
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<link rel="stylesheet"
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="{% static "css/eggplant.css" %}">
-
-{% block app_css %}{% endblock %}
-
+    {% bootstrap_css %}
+    <link rel="stylesheet"
+        href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link rel="stylesheet"
+        href="{% static 'css/eggplant.css' %}">
+    {% block app_css %}{% endblock %}
 </head>
-<body>
-<div class="container">
-	{% if user.is_authenticated %}
-		{% include '_navbar.html' %}
+<body class="{% block body_classes %}{% endblock %}">
+    <div class="container">
+    {% if user.is_authenticated %}
+        {% include '_navbar.html' %}
     {% endif %}
+    </div>
 
-	<div class="container">
-	
-	<div class="col-md-2">
-      <img src="{% static 'img/eggplant_logo_mark_120.png' %}" alt="LOGO">
-	</div>
-	
-	<div class="col-md-10">
-	<div class="page-header">
-	  <h1>{{COOP_NAME}}</h1>
-	  <p>{{COOP_DESCRIPTION}}</p>
-	</div>
-	</div>
-	</div>
-
-    <!-- Messages -->
-    <section id="messages">
-	    <div class="container">
-		<div class="row">
-		<div class="col-md-5 col-md-offset-3">
-    {% if messages %}
-        {% for message in messages %}
-        <!-- {{ message.level }} -->
-        <div class="alert alert-{{ message.tags }} alert-dismissible"
-            role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
-    	</div>
-    	</div>
-    	</div>
-   </section>
-
-
-    <section id="content">
-        <div class="container">
-          {% block content %}
-          <div class="row">
+    <!-- Content -->
+    <section class="{% block content_classes %}container{% endblock %}">
+    {% block content %}
+        <div class="row">
             <div class="col-md-4">{% block content_left_col %}{% endblock %}</div>
             <div class="col-md-8">{% block content_right_col %}{% endblock %}</div>
-          </div>
-          {% endblock %}
         </div>
+    {% endblock %}
     </section>
 
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Messages -->
+    <div class="messages">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                {% if messages %}
+                {% for message in messages %}
+                    <!-- {{ message.level }} -->
+                    <div class="alert alert-{{ message.tags }} alert-dismissible"
+                        role="alert">
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close" >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-</div>
-	{% block app_js %}{% endblock %}
+    {% bootstrap_javascript jquery=1 %}
+    {% block app_js %}{% endblock %}
 </body>
 </html>

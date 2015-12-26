@@ -4,6 +4,10 @@ from .base import *  # @UnusedWildImport
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+COOP_NAME = 'EggPlant Demo'
+COOP_DESCRIPTION = 'How can people say they don´t eat eggplant?'
+COOP_LOGO = 'img/kbhff-logo.png'
+
 SITE_ID = 2
 DOMAIN = 'eggplant-demo.herokuapp.com'
 ALLOWED_HOSTS = [DOMAIN, ]
