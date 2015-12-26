@@ -25,6 +25,10 @@ body {
     font-size: 16px;
 }
 
+.btn-group-sm>.btn, .btn-sm {
+    font-size: 12px;
+}
+
 .h1, h1 {
     font-size: 54px;
     font-weight: 600; /* semibold */
@@ -76,7 +80,7 @@ Grayscale
     gray-3: #403B3E
     gray-4: #736B70
     gray-5: #BFB2BA
-    gray-5: #EDEDED
+    gray-6: #EDEDED
 
 Purple
     purple-1: #3D0F2C
@@ -128,4 +132,10 @@ Blue
     color: #403B3E;
     background-color: #D3FF43;
     border-color: #BBE434;
+}
+
+.alert-info {
+    color: #BFB2BA;
+    background-color: #8A2262;
+    border-color: #57163E;
 }
