@@ -2,22 +2,58 @@
     css
 */
 
-.form-group {
-  text-align: left;
+html, body {
+    height:100%;
 }
 
-body
-{
+.form-group {
+    text-align: left;
+}
+
+body {
     padding-top: 20px; /* Space because of static navbar at top */
     padding-bottom: 20px;
     background-color: #fff;
     color: #333;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.42857;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.375;
     margin: 0;
 }
 
-
+.form-control, .btn {
+    font-size: 16px;
 }
 
+
+.h1, h1 {
+    font-size: 54px;
+    font-weight: 600; /* semibold */
+}
+
+.h2, h2 {
+    font-size: 36px;
+    font-weight: 600; /* semibold */
+}
+
+.h3, h3 {
+    font-size: 24px;
+    font-weight: 600; /* semibold */
+}
+
+.h4, h4 {
+    font-size: 16px;
+    font-weight: 600; /* semibold */
+}
+
+.h5, h5 {
+    font-size: 12px;
+    font-weight: 600; /* semibold */
+}
+
+.messages {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
