@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load account %}
 {% load bootstrap3 %}
+{% load staticfiles %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
@@ -10,33 +11,10 @@
 <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
 {% endblock%}
 
+{% block body_classes %}{{ block.super }} eggplants-bg{% endblock %}
+{% block content_classes %}{% endblock %}
+
 {% block content %}
-
-<div id="log_in_background" class="row">
-
-<div class="log_in_box col-md-6">
-	<p>
-	{% blocktrans with coop_name=COOP_NAME %}
-	This is <strong>Eggplant</strong>, the membership system for {{coop_name}}
-	{% endblocktrans %}
-	</p>
-	<p>
-	{% blocktrans with coop_name=COOP_NAME %}
-	As a member, you can use the system to order and pay for weekly
-	bags and other produce, sign up for shifts and update your
-	membership information.
-	{% endblocktrans %}
-	</p>
-	
-	<p><strong>{% trans 'Want to become a member?' %}</strong></p>
-	
-	{% with signup_url=SIGNUP_URL %}
-	<p>{% blocktrans with coop_name=COOP_NAME %}
-	You can read more about {{coop_name}} and sign-up <a href="{{signup_url}}">here</a>.
-	{% endblocktrans %}
-	</p>
-	{% endwith %}
-	
 <div class="page-header">
     <div class="container">
         <div class="row">
@@ -54,52 +32,96 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default panel-opaque">
+                <div class="panel-body">
+                    <p>
+                    {% blocktrans with coop_name=COOP_NAME %}
+                    This is <strong>Eggplant</strong>, the membership system for
+                    {{coop_name}}
+                    {% endblocktrans %}
+                    </p>
+                    <p>
+                    {% blocktrans with coop_name=COOP_NAME %}
+                    As a member, you can use the system to order and pay for weekly
+                    bags and other produce, sign up for shifts and update your
+                    membership information.
+                    {% endblocktrans %}
+                    </p>
+                    
+                    <p><strong>{% trans 'Want to become a member?' %}</strong></p>
+                    
+                    {% with signup_url=SIGNUP_URL %}
+                    <p>{% blocktrans with coop_name=COOP_NAME %}
+                    You can read more about {{coop_name}} and sign-up
+                    <a href="{{signup_url}}">here</a>.
+                    {% endblocktrans %}
+                    </p>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
 
-<div class="log_in_box col-md-5">
+        <div class="col-md-6">
+            <div class="panel panel-default panel-opaque">
+                <div class="panel-body">
+                    <h3 class="text-center">{% trans "Member login" %}</h3>
+                    {% if socialaccount.providers %}
+                        <p>{% blocktrans with site_name=site.name signup_url=SIGNUP_URL %}
+                            Please sign in with one of your existing third party accounts.
+                            Or, <a href="{{ signup_url }}">sign up</a> for a {{ site_name }}
+                            account and sign in below:{% endblocktrans %}
+                        </p>
 
-  <h3 class="text-center">{% trans "Member login" %}</h3>
+                        <div class="socialaccount_ballot">
+                            <ul class="socialaccount_providers">
+                                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                            </ul>
+                            <div class="login-or">{% trans 'or' %}</div>
+                        </div>
 
-  {% if socialaccount.providers %}
-  <p>{% blocktrans with site_name=site.name signup_url=SIGNUP_URL %}Please sign in with one
-  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-  for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+                        {% include "socialaccount/snippets/login_extra.html" %}
 
-  <div class="socialaccount_ballot">
+                    {% endif %}
 
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
+                    <form class="form" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form layout="form-horizontal" %}
+                        {% if redirect_field_value %}
+                            <input
+                                type="hidden"
+                                name="{{ redirect_field_name }}"
+                                value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <span class="pull-right">
+                        {% buttons %}
+                            <button class="btn btn-primary" type="submit">
+                                {% trans "Log In" %}
+                            </button>
+                        {% endbuttons %}
+                        </span>
+                    </form>
 
-    <div class="login-or">{% trans 'or' %}</div>
-
-  </div>
-
-  {% include "socialaccount/snippets/login_extra.html" %}
-
-  {% endif %}
-
-
-  <form class="form" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {% bootstrap_form form layout="form-horizontal" %}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-    <span class="pull-right">
-    {% buttons %}
-    <button class="btn btn-primary" type="submit">{% trans "Log In" %}</button>
-    {% endbuttons %}
-    </span>
-  </form>
-  <br />
-  <br />
-  <div class="text-center">
-  	<p>{% trans 'Not a member?' %} <a href="{{SIGNUP_URL}}">{% trans 'Sign-up here' %}</a></p>
-    <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">
-    {% trans "Forgot your password?" %}</a></p>
-  </div>
-
-</div>
+                    <div class="text-center">
+                        <p>
+                            {% trans 'Not a member?' %}
+                            <a href="{{SIGNUP_URL}}">
+                                {% trans 'Sign-up here' %}
+                            </a>
+                        </p>
+                        <p>
+                            <a class="button secondaryAction"
+                            href="{% url 'account_reset_password' %}">
+                                {% trans "Forgot your password?" %}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
