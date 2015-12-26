@@ -98,6 +98,14 @@ Blue
 
 */
 
+a {
+    color: #8A2262;
+}
+
+a:focus, a:hover {
+    color: #3D0F2C;
+}
+
 .btn-primary {
     background-color: #57163E;
     border-color: #8A2262;
