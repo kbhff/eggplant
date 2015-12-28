@@ -1,11 +1,20 @@
 .logo {
     height: 120px;
     width: 120px;
+    margin: auto;
     background-size: contain;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-color: #EDEDED;
     border-radius: 60px;
+}
+
+/* sm */
+@media (max-width: 991px) and (min-width: 768px) {
+    .logo {
+        height: 90px;
+        width: 90px;
+    }
 }
 
 .eggplants-bg {
