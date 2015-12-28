@@ -21,6 +21,8 @@ body {
     margin: 0;
 }
 
+/* Setting up font sizes */
+
 .form-control, .btn {
     font-size: 16px;
 }
@@ -61,6 +63,8 @@ body {
 .navbar-brand .eggplant-logo {
     height: 100%;
 }
+
+/* Fixing messages to the bottom of the window */
 
 .messages {
     position: fixed;
@@ -146,4 +150,12 @@ a:focus, a:hover {
     color: #BFB2BA;
     background-color: #8A2262;
     border-color: #57163E;
+}
+
+/* A helper to vertically center content in cells */
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
