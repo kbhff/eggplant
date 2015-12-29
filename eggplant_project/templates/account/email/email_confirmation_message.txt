@@ -1,4 +1,4 @@
-{% extends 'email/base.txt' %}
+{% extends 'eggplant/email/base.txt' %}
 {% load account %}
 {% load i18n %}
 {% block content %}
