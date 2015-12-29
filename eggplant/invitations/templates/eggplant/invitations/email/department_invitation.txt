@@ -1,0 +1,7 @@
+{% extends "eggplant/email/base.txt" %}{% load i18n %}{% block content %}{% blocktrans %}Hi there!
+
+Thank you for signing up as a member of the {{department}} department of {{coop_name}}. We're happy that you want to be part of our community.
+
+Please click the following link to confirm you email address and fill out your membership details:
+{{invite_url}}{% endblocktrans %}
+{% endblock %}

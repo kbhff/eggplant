@@ -1,0 +1,8 @@
+{% load i18n %}{% block content %}{% endblock %}
+--
+{% if coop_name and department %}{% blocktrans %}
+{{department}}'s department of {{coop_name}}
+{% endblocktrans %}{% elif coop_name and not department %}{% blocktrans %}
+{{coop_name}}
+{% endblocktrans %}{% endif %}
+{% blocktrans %}EggPlant — open source community software{% endblocktrans %}
