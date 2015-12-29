@@ -2,8 +2,8 @@
 
 {% load i18n %}
 {% load account %}
-{% load bootstrap3 %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
@@ -15,26 +15,6 @@
 {% block content_classes %}{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2 col-xs-12 vcenter">
-                <div class="logo"
-                    style="background-image:url('{% static COOP_LOGO %}')">
-                </div>
-            </div><!--
-            This comment eliminates whitespace, see:
-            http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3
-            --><div class="col-sm-10 col-xs-12 vcenter">
-                <h1 class="visible-md-block visible-lg-block">{{COOP_NAME}}</h1>
-                <h2 class="visible-sm-block">{{COOP_NAME}}</h2>
-                <h3 class="visible-xs-block">{{COOP_NAME}}</h3>
-                <p>{{COOP_DESCRIPTION}}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6">

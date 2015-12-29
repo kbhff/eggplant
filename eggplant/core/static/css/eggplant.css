@@ -21,6 +21,35 @@ body {
     margin: 0;
 }
 
+/* Everything _header.html related */
+.page-header {
+    margin-top: -20px;
+    padding: 20px;
+    background: white;
+    border: 0;
+    margin-bottom: 50px;
+}
+
+.page-header .logo {
+    height: 120px;
+    width: 120px;
+    margin: auto;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: #EDEDED;
+    border-radius: 60px;
+    display: block;
+}
+
+/* sm */
+@media (max-width: 991px) and (min-width: 768px) {
+    .page-header .logo {
+        height: 90px;
+        width: 90px;
+    }
+}
+
 /* Setting up font sizes */
 
 .form-control, .btn {
