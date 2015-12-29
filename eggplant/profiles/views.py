@@ -21,6 +21,7 @@ from eggplant.profiles.models import UserProfile
 
 logger = logging.getLogger(__name__)
 
+
 class NewUserPassword(LoginRequiredMixin, PasswordSetView):
     """
     Set password only for a new user. Existing users can use password change.
@@ -69,18 +70,6 @@ class NewUserPassword(LoginRequiredMixin, PasswordSetView):
         else:
             handler = self.http_method_not_allowed
         return handler(request, *args, **kwargs)
-
-
-class LoginAfterPasswordChange(LoginRequiredMixin, PasswordChangeView):
-    """
-    After password change, log user out and redirect to account_login.
-    """
-    success_url = reverse_lazy('account_login')
-
-    def form_valid(self, form):
-        ret = super(LoginAfterPasswordChange, self).form_valid(form)
-        logout(self.request)
-        return ret
 
 
 class Profile(LoginRequiredMixin, FormView):
