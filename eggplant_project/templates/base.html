@@ -20,11 +20,14 @@
     {% block app_css %}{% endblock %}
 </head>
 <body class="{% block body_classes %}{% endblock %}">
-    <div class="container">
+    
     {% if user.is_authenticated %}
-        {% include '_navbar.html' %}
+        <div class="container">
+            {% include '_navbar.html' %}
+        </div>
+    {% else%}
+        {% include '_header.html' %}
     {% endif %}
-    </div>
 
     <!-- Content -->
     <section class="{% block content_classes %}container{% endblock %}">
