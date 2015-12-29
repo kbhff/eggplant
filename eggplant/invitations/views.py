@@ -69,9 +69,6 @@ def accept_invitation(request, verification_key):
                     user = do_accept_invitation(request, invitation)
                 except AlreadyAcceptedInvitationException:
                     return redirect(reverse('eggplant:dashboard:home'))
-            else:
-                msg = 'Invalid captcha.'
-                messages.add_message(request, messages.WARNING, msg)
         else:
             # If not using recaptcha we don't show
             # the form so there is no POST
