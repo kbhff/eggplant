@@ -75,14 +75,14 @@ def send_email_invitation(sender, instance, created, **kwargs):
             'invite_url': invite_url,
         })
         plain_template_path = 'eggplant/invitations/email/department_invitation.txt'
-        #html_template_path = 'eggplant/invitations/email/department_invitation.html'
+        # html_template_path = 'eggplant/invitations/email/department_invitation.html'
         plain_body = get_template(plain_template_path).render(context)
-        #html_body = get_template(html_template_path).render(context)
+        # html_body = get_template(html_template_path).render(context)
         send_mail(
             subject,
             plain_body,
             settings.DEFAULT_FROM_EMAIL,
             to_addrs,
             fail_silently=not settings.DEBUG,
-            #html_message=html_body
+            # html_message=html_body
         )
