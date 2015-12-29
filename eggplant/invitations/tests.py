@@ -199,4 +199,4 @@ class TestInvite(TestCase):
         self.client.login(username=self.user.username, password='pass')
         response = self.client.get(reverse('account_change_password'))
         self.assertTemplateUsed(response, 'account/password_change.html')
-        self.assertContains(response, 'Change Password')
+        self.assertContains(response, 'Change password')
