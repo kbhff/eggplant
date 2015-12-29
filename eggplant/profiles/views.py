@@ -45,7 +45,7 @@ class NewUserPassword(LoginRequiredMixin, PasswordSetView):
     def post(self, request, *args, **kwargs):
         profile = self.request.user.profile
         if profile.is_complete() or \
-                not request.session.pop('new-invited-user', False):
+                not request.session.get('new-invited-user', False):
             # existing user
             msg = "User with completed profile %s is trying to set password."
             logger.warn(msg, self.request.user)
