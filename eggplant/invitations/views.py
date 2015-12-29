@@ -91,8 +91,7 @@ def accept_invitation(request, verification_key):
         return redirect(reverse('account_set_password'))
     ctx = {
         'form': form,
-        'verification_key': verification_key,
-        'title': "accept invitation",
+        'verification_key': verification_key
     }
     return render(request,
                   'eggplant/invitations/accept_invitation.html', ctx)
@@ -123,8 +122,7 @@ def invite(request):
                 messages.add_message(request, messages.SUCCESS, msg)
                 return redirect(reverse('eggplant:dashboard:home'))
     ctx = {
-        'form': form,
-        'title': "send invitation",
+        'form': form
     }
     return render(request,
                   'eggplant/invitations/invite.html', ctx)

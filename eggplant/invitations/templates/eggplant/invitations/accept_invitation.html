@@ -1,22 +1,22 @@
 {% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
+{% load i18n %}
+
+{% block head_title %}{% trans 'Accept invitation' %}{% endblock %}
+
 {% block content %}
-
-<div class="container">
 <div class="row">
-<div class="col-md-5 col-md-offset-3">
-
-<h4>{{title}}</h4>
-<form action="{% url 'eggplant:invitations:accept_invitation' verification_key=verification_key %}" method="post">
-    {% csrf_token %}
-	{% bootstrap_form form %}
-	{% buttons %}
-	  <button type="submit" class="btn btn-primary">
-	    {% bootstrap_icon "star" %} Submit
-	  </button>
-	{% endbuttons %}
-
-</div>
-</div>
+    <div class="col-md-6 col-md-offset-3">
+        <h3>{% trans 'Accept invitation' %}</h3>
+        <form action="{% url 'eggplant:invitations:accept_invitation' verification_key=verification_key %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form layout='horizontal' form_group_class='form-group row' %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon 'ok' %} {% trans 'Accept' %}
+            </button>
+            {% endbuttons %}
+        </form>
+    </div>
 </div>
 {% endblock%}
