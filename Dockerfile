@@ -9,4 +9,4 @@ COPY . /app
 RUN pip install -r ./requirements/development.txt
 RUN pip install -r ./requirements/production.txt
 
-CMD gunicorn eggplant_project.wsgi:application --env DJANGO_SETTINGS_MODULE=eggplant_project.settings.dev --log-file -
+CMD python manage.py runserver 
