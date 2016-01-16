@@ -1,0 +1,11 @@
+.basket {
+    width: 100%;
+}
+
+.basket .price {
+    text-align: right;
+}
+
+.basket .controls {
+    padding-left: 10px;
+}
