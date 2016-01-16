@@ -1,1 +1,2 @@
-Bekræft e-mailadresse
+{% load i18n %}
+{% trans "Confirm e-mail address" %}

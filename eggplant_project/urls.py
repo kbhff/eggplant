@@ -18,9 +18,6 @@ urlpatterns = [
         name='account_signup'),
 
     # override django-allauth password set and change views
-    url(r'^account/password/change/$',
-        eggplant.profiles.views.PasswordChangeView.as_view(),
-        name='account_change_password'),
     url(r'^account/password/set/$',
         eggplant.profiles.views.NewUserPassword.as_view(),
         name='account_set_password'),
