@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
+
 class UserProfile(models.Model):
     MALE = 'male'
     FEMALE = 'female'
