@@ -70,13 +70,6 @@ $jq(function() {
     </div>
 </div>
 
-{% if user.is_superuser %}
-<!-- TODO: this button should probably go in the profile view -->
-<div class="pull-right">
-<a class="btn btn-danger" href="{% url 'eggplant:market:add_product'%}">Create product</a>
-</div>
-{% endif %}
-
 <div class="row">
     <div class="col-10">
         <p>Filter products:</p>
