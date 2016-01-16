@@ -11,6 +11,8 @@ urlpatterns = [
         include('eggplant.accounts.urls', namespace='accounts')),
     url(r'^market/',
         include('eggplant.market.urls', namespace='market')),
+    url(r'^roles/',
+        include('eggplant.roles.urls', namespace='roles')),
     url(r'^',
         include('eggplant.dashboard.urls', namespace='dashboard')),
 ]

@@ -1,0 +1,20 @@
+{% extends "eggplant/core/base.html" %}
+{% load i18n %}
+
+{% block content_left_col %}
+    {{ block.super }}
+    <p>
+        <a href="" class="btn btn-default">
+            {% trans 'Create new product' %}
+        </a>
+    </p>
+    <p>
+        <a href="" class="btn btn-default">
+            {% trans 'Create day of delivery' %}
+        </a>
+    </p>
+{% endblock %}
+
+{% block content_right_col %}
+    <h2>Purchaser</h2>
+{% endblock %}
