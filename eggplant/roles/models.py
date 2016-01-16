@@ -10,11 +10,11 @@ class RoleAssignment(models.Model):
     CASHIER = 'cashier'
     ACCOUNTANT = 'accountant'
     ROLE_CHOICES = (
-        (PURCHASER, _('Purchaser')),
-        (COMMUNICATOR,  _('Communicator')),
-        (PACKER, _('Packer')),
-        (CASHIER,  _('Cashier')),
-        (ACCOUNTANT,  _('Accountant')),
+        (PURCHASER, _('purchaser')),
+        (COMMUNICATOR,  _('communicator')),
+        (PACKER, _('packer')),
+        (CASHIER,  _('cashier')),
+        (ACCOUNTANT,  _('accountant')),
     )
 
     role = models.CharField(
@@ -24,6 +24,9 @@ class RoleAssignment(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='roles',
-        verbose_name=_("user")
+        related_name='role_assignments',
+        verbose_name=_('user')
     )
+
+    def __str__(self):
+        return '%s is %s' % (self.user, self.get_role_display())

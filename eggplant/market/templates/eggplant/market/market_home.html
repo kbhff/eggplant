@@ -8,6 +8,7 @@
 {% block app_css %}
 	<link href="{% static 'css/bootstrap-datepicker3.min.css' %}"
 		rel="stylesheet" />
+	<link href="{% static 'css/market/basket.css' %}" rel="stylesheet" />
 {% endblock%}
 {% block app_js %}
 	<script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
@@ -23,7 +24,42 @@ $jq(function() {
 
 {% block content_left_col %}
     {{ block.super }}
-    <h2>{basket}</h2>
+    {% if basket_items %}
+    <h3>{% trans 'Basket' %}</h3>
+    <table class="basket">
+        <tr>
+            <th>
+                {% trans 'Amount' %}
+            </th>
+            <th>
+                {% trans 'Product' %}
+            </th>
+            <th class="price">
+                {% trans 'Price' %}
+            </th>
+            <th></th>
+        </tr>
+        {% for item in basket_items %}
+            <tr>
+                <td>
+                    {{item.quantity}}
+                </td>
+                <td>
+                    {{item.product.title}}
+                </td>
+                <td class="price">
+                    {{item.product.price}}
+                </td>
+                <td class="controls">
+                    <a href="" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
 {% endblock %}
 
 {% block content_right_col %}
