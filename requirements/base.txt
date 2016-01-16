@@ -7,3 +7,4 @@ django-recaptcha==1.0.4
 django-getpaid==1.7.2
 Pillow==2.9.0
 django-money==0.7.4
+py-moneyed==0.6.0
