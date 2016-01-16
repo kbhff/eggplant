@@ -78,7 +78,7 @@ that it's a Python 3 only project. Enter the git project folder.
 ::
 
     $ pip install virtualenvwrapper
-    $ mkvirtualenv eggplantvenv -p python3
+    $ mkvirtualenv eggplantenv -p python3
     $ pip install -r requirements/development.txt
     $ python manage.py syncdb
     $ python manage.py runserver
