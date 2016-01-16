@@ -5,6 +5,7 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
     MALE = 'male'
     FEMALE = 'female'
@@ -57,9 +58,12 @@ class UserProfile(models.Model):
     def full_name(self):
         """Returns member's full name."""
         if self.middle_name:
-            return '{0} {1} {2}'.format(self.user.firstname, self.middle_name,
-                                        self.user.lastname)
-        return '{0} {2}'.format(self.user.firstname, self.user.lastname)
+            names = [self.user.first_name,
+                     self.middle_name,
+                     self.user.last_name]
+        else:
+            names = [self.user.first_name, self.user.last_name]
+        return ' '.join(names)
 
     def is_complete(self):
         return all([self.address, self.postcode, self.city, self.tel])
@@ -74,6 +78,13 @@ class UserProfile(models.Model):
             if user_profile.has_admin_permission(department=account.department):
                 return True
         return False
+
+    def active_accounts(self):
+        """
+        Returns the active accounts.
+        """
+        # TODO: Figure out what accounts are active based on memberships.
+        return self.accounts.all()
 
     @classmethod
     def in_department(cls, department, only_active_accounts=True):
