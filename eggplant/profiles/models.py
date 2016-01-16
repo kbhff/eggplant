@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
 class UserProfile(models.Model):
@@ -85,6 +86,12 @@ class UserProfile(models.Model):
         """
         # TODO: Figure out what accounts are active based on memberships.
         return self.accounts.all()
+
+    def photo_url_or_default(self):
+        if self.photo:
+            return self.photo.url
+        else:
+            return static('img/default-profile-photo.png')
 
     @classmethod
     def in_department(cls, department, only_active_accounts=True):

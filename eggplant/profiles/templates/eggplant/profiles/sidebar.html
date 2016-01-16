@@ -7,7 +7,7 @@
 
 <div class="panel panel-default profile">
     <div class="panel-body">
-        <div style="background-image:url('{{ user.profile.photo.url }}');"
+        <div style="background-image:url('{{ user.profile.photo_url_or_default }}');"
             class="profile-photo">
         </div>
         <h3>{{ user.profile.full_name }}</h3>
