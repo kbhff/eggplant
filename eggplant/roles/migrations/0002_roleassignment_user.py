@@ -9,13 +9,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('roles', '0001_initial'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='RoleAssignment',
-            fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-            ],
+        migrations.AddField(
+            model_name='roleassignment',
+            name='user',
+            field=models.ForeignKey(verbose_name='user', editable=False, default=None, to=settings.AUTH_USER_MODEL, related_name='roles'),
+            preserve_default=False,
         ),
     ]
