@@ -12,6 +12,7 @@ from ..forms import ProductForm
 
 log = logging.getLogger(__name__)
 
+
 @login_required
 def market_home(request, category_id=None):
     default_filters = dict(stock__gt=0, enabled=True)
@@ -28,6 +29,7 @@ def market_home(request, category_id=None):
     }
     return render(request, 'eggplant/market/market_home.html', ctx)
 
+
 @login_required
 def add_product(request):
     if request.method == 'POST':
@@ -36,7 +38,7 @@ def add_product(request):
         if form.is_valid():
             return HttpResponseRedirect('eggplant/market/market_home.html')
     else:
-        ctx= {
+        ctx = {
             'form': ProductForm()
         }
         return render(request, 'eggplant/market/add_product.html', ctx)
