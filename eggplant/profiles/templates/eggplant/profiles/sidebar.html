@@ -19,5 +19,15 @@
                 {% endblocktrans %}
             </p>
         {% endfor %}
+        {% if roles %}
+            <h4>Roles</h4>
+            <p class="text-center">
+                {% for role in user.profile.roles %}
+                    <button class="btn btn-default btn-sm">
+                        {{role}}
+                    </button>
+                {% endfor %}
+            </p>
+        {% endif %}
     </div>
 </div>
