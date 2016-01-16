@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'eggplant.market',
     'eggplant.permissions',
     'eggplant.profiles',
+    'eggplant.roles',
 )
 
 MIDDLEWARE_CLASSES = (
