@@ -20,7 +20,7 @@
     {% block app_css %}{% endblock %}
 </head>
 <body class="{% block body_classes %}{% endblock %}">
-    
+
     {% if user.is_authenticated %}
         <div class="container">
             {% include '_navbar.html' %}
@@ -33,8 +33,8 @@
     <section class="{% block content_classes %}container{% endblock %}">
     {% block content %}
         <div class="row">
-            <div class="col-md-4">{% block content_left_col %}{% endblock %}</div>
-            <div class="col-md-8">{% block content_right_col %}{% endblock %}</div>
+            <div class="col-md-3">{% block content_left_col %}{% endblock %}</div>
+            <div class="col-md-9">{% block content_right_col %}{% endblock %}</div>
         </div>
     {% endblock %}
     </section>

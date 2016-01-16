@@ -1,0 +1,15 @@
+.profile {
+    background: #f8f8f8;
+}
+
+.profile-photo {
+    width: 170px;
+    height: 170px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background-position: 50% 50%;
+    background-size: cover;
+    display: block;
+    margin: -25px auto 0 auto;
+    background-color: white;
+}

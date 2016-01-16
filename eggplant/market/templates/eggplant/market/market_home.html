@@ -22,9 +22,10 @@ $jq(function() {
 {% endblock%}
 
 {% block content_left_col %}
-<h2>{profile}</h2>
-<h2>{basket }</h2>
+    {{ block.super }}
+    <h2>{basket}</h2>
 {% endblock %}
+
 {% block content_right_col %}
 
 <div class="row">
@@ -70,5 +71,5 @@ $jq(function() {
 		<div class="col-md-4 col-span-5"><p>There are no products to purchase.</p></div>
 	</div>
 {% endfor %}
-    
+
 {% endblock%}
