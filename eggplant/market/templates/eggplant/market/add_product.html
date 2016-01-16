@@ -1,0 +1,20 @@
+{% extends "eggplant/core/base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12 col-span-3">
+		<h3 class="page-header">Add product</h3>
+
+		<form action="{% url 'eggplant:market:add_product' %}" method="post">
+		    {% csrf_token %}
+				{% bootstrap_form form layout='horizontal' form_group_class='form-group row' %}
+		    <input type="submit" value="Submit" />
+		</form>
+	</div>
+</div>
+
+</div>
+
+{% endblock%}

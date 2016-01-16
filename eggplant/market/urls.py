@@ -26,15 +26,12 @@ payment_patterns = [
         name="payment_rejected"),
 ]
 
-
 urlpatterns = [
     url(r'payment/', include(payment_patterns)),
     url(r'add-to-cart/$', cart.add_to_cart, name="add_to_cart"),
-    url(r'remove-from-cart/$', cart.remove_from_cart,
-        name="remove_from_cart"),
-    url(r'your-cart/$',
-        cart.cart_details, name="cart_details"),
-    url(r'checkout/$',
-        cart.checkout, name="checkout"),
+    url(r'remove-from-cart/$', cart.remove_from_cart,name="remove_from_cart"),
+    url(r'your-cart/$', cart.cart_details, name="cart_details"),
+    url(r'checkout/$', cart.checkout, name="checkout"),
+    url(r'market/add-product/$', inventory.add_product, name="add_product"),
     url(r'$', inventory.market_home, name="market_home"),
 ]

@@ -1,7 +1,7 @@
 from django import forms
+from django.forms import ModelForm
 
 from .models.inventory import Product
-
 
 class BasketItemForm(forms.Form):
     product = forms.ModelChoiceField(Product.objects.filter(stock__gt=0,
@@ -9,3 +9,9 @@ class BasketItemForm(forms.Form):
     quantity = forms.fields.IntegerField(min_value=0, max_value=100,
                                          required=True)
     delivery_date = forms.fields.DateField(required=True)
+
+class ProductForm(ModelForm):
+
+    class Meta:
+        model = Product
+        fields = ['title', 'description', 'price', 'category', 'tax', 'stock']
