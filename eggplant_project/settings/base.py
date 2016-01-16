@@ -277,3 +277,8 @@ NEW_USER_FORCE_PROFILE_ALLOWED_URL_NAMES = (
     'account_logout',
     'account_set_password',
 )
+
+BOOTSTRAP3 = {
+    'horizontal_label_class': 'col-md-4',
+    'horizontal_field_class': 'col-md-8',
+}
