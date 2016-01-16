@@ -81,7 +81,7 @@ that it's a Python 3.4 only project. Enter the git project folder.
 
 To get the mkvirtualenv command you need to::
 
-    source  /usr/local/bin.virtualenvwrapper.sh
+    source  /usr/local/bin/virtualenvwrapper.sh
 
 On debian this file in::
 
@@ -91,7 +91,7 @@ start a new bash session to source it.
 
 ::
 
-    $ mkvirtualenv eggplantenv2 -p python3.4
+    $ mkvirtualenv eggplantenv -p python3.4
     $ workon eggplantenv
     $ pip install -r requirements/development.txt
     $ python manage.py syncdb
