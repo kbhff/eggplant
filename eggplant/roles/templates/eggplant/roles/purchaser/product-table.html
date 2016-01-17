@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% block app_css %}
+	<link href="{% static 'css/roles/purchaser/product-table.css' %}" rel="stylesheet" />
+{% endblock%}
+
+<h2 class="pull-left">{% trans 'Products' %}</h2>
+<div class="table-controls">
+    {% if show_disabled_products %}
+        <a class="btn btn-default btn-sm" href="?">
+            <span class="glyphicon glyphicon-eye-close"></span>
+            {% trans 'Hide disabled products' %}
+        </a>
+    {% else %}
+        <a class="btn btn-default btn-sm" href="?show-disabled-products">
+            <span class="glyphicon glyphicon-eye-open"></span>
+            {% trans 'Show disabled products' %}
+        </a>
+    {% endif %}
+</div>
+<table class="table">
+    <tr>
+        <th>
+            {% trans 'Title' %}
+        </th>
+        <th>
+            {% trans 'Stock' %}
+        </th>
+        <th>
+            {% trans 'Category' %}
+        </th>
+        <th>
+            {% trans 'Price' %}
+        </th>
+        <th>
+            {% trans 'Tax' %}
+        </th>
+        {% if show_disabled_products %}
+            <th>
+                {% trans 'Enabled' %}
+            </th>
+        {% endif %}
+    </tr>
+    {% for product in products %}
+        <tr>
+            <td>
+                {{product.title}}
+            </td>
+            <td>
+                {{product.stock}}
+            </td>
+            <td>
+                {{product.category}}
+            </td>
+            <td>
+                {{product.price}}
+            </td>
+            <td>
+                {{product.tax}}
+            </td>
+            {% if show_disabled_products %}
+                <td>
+                    {{product.enabled}}
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>

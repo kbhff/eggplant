@@ -1,0 +1,13 @@
+{% block content %}{% endblock %}
+<hr />
+
+<h3>
+    {% if coop_name and department %}
+        {% blocktrans %}{{department}}'s department of {{coop_name}}{% endblocktrans %}
+    {% elif coop_name and not department %}
+        {% blocktrans %}{{coop_name}}{% endblocktrans %}
+    {% endif %}
+</h3>
+
+{# TODO: Consider adding an EggPlant logo #}
+<h4>{% blocktrans %}EggPlant — open source community software{% endblocktrans %}</h4>

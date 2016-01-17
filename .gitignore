@@ -80,3 +80,5 @@ target/
 .idea
 /media/*
 
+# Atom editors build config
+.atom-build.json

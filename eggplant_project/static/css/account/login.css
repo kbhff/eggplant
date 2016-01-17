@@ -1,34 +1,6 @@
-.logo {
-    height: 120px;
-    width: 120px;
-    margin: auto;
-    background-size: contain;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-color: #EDEDED;
-    border-radius: 60px;
-}
-
-/* sm */
-@media (max-width: 991px) and (min-width: 768px) {
-    .logo {
-        height: 90px;
-        width: 90px;
-    }
-}
-
 .eggplants-bg {
     background-image: url('../../img/eggplants-bg.jpg');
     background-size: cover;
-    padding-top: 0;
-}
-
-.page-header {
-    padding: 20px;
-    background: white;
-    border: 0;
-    margin-top: 0;
-    margin-bottom: 60px;
 }
 
 .panel-opaque {

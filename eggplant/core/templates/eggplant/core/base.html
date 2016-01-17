@@ -5,3 +5,7 @@ ensure that all eggplant templates inherit from the same template, which is
 not necessarily a project-wide template... so you can overwrite
 eggplant/base.html in your own project's local TEMPLATE_DIRS
 {% endcomment %}
+
+{% block content_left_col %}
+    {% include 'eggplant/profiles/sidebar.html' %}
+{% endblock %}

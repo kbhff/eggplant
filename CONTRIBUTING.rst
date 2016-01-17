@@ -73,12 +73,26 @@ Virtualenv
 ~~~~~~~~~~
 
 The project is pretty basic, these are classical just steps. Just make note
-that it's a Python 3 only project. Enter the git project folder.
+that it's a Python 3.4 only project. Enter the git project folder.
 
 ::
 
     $ pip install virtualenvwrapper
-    $ mkvirtualenv eggplantvenv -p python3
+
+To get the mkvirtualenv command you need to::
+
+    source  /usr/local/bin/virtualenvwrapper.sh
+
+On debian this file in::
+
+    /etc/bash_completion.d/virtualenvwrapper
+
+start a new bash session to source it.
+
+::
+
+    $ mkvirtualenv eggplantenv -p python3.4
+    $ workon eggplantenv
     $ pip install -r requirements/development.txt
     $ python manage.py syncdb
     $ python manage.py runserver

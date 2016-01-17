@@ -1,24 +1,24 @@
 {% extends "eggplant/core/base.html" %}
 {% load bootstrap3 %}
+{% load i18n %}
+
+{% block head_title %}{% trans 'Send invitation' %}{% endblock %}
+
 {% block content %}
-
-<div class="container">
 <div class="row">
-<div class="col-md-5 col-md-offset-3">
-
-{# if perms.foo.can_vote #}
-<h4>{{title}}</h4>
-<form action="{% url 'eggplant:invitations:invite' %}" method="post">
-    {% csrf_token %}
-	{% bootstrap_form form layout="form-horizontal" %}
-	{% buttons %}
-	  <button type="submit" class="btn btn-primary">
-	    {% bootstrap_icon "star" %} Submit
-	  </button>
-	{% endbuttons %}
-</form>
-
-</div>
-</div>
+    <div class="col-md-6 col-md-offset-3">
+        <form action="{% url 'eggplant:invitations:invite' %}"
+            method="post"
+            class="form-horizontal">
+            <h3>{% trans 'Send invitation' %}</h3>
+            {% csrf_token %}
+            {% bootstrap_form form layout='horizontal' form_group_class='form-group row' %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary pull-right">
+                {% bootstrap_icon 'send' %} {% trans 'Send invitation' %}
+            </button>
+            {% endbuttons %}
+        </form>
+    </div>
 </div>
 {% endblock%}

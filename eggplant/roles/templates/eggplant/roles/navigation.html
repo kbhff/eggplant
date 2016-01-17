@@ -1,0 +1,12 @@
+{% load active_url %}
+{% load i18n %}
+{% if user.role_assignments %}
+    <div class="panel-body roles text-center">
+        {% for role_assignment in user.role_assignments.all %}
+            <a class="btn btn-default btn-sm {% active role_assignment.role %}"
+                href="{% url 'eggplant:roles:role' role=role_assignment.role %}">
+                {{role_assignment.get_role_display | capfirst }}
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}

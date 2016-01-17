@@ -1,0 +1,12 @@
+{% extends "eggplant/core/centered-base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block centered_content %}
+<h3>{% trans 'Add product' %}</h3>
+<form action="{% url 'eggplant:market:add_product' %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' form_group_class='form-group row' %}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock%}

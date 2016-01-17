@@ -92,10 +92,13 @@ class BasketItem(models.Model):
     # FIXME: it may be better to have generic contenttype in product...
     product = models.ForeignKey('market.Product')
     quantity = models.PositiveSmallIntegerField(default=1, null=False)
-    # TODO: This is not the way to do it, we should have delivery dates specified
+
+    # TODO:This is not the way to do it,we should have delivery dates specified
     # on the products themselves -- they are not to be decided by the member
     # but are preconfigured
-    delivery_date = models.DateField(null=False, blank=False,
+
+    # Ignoring Delivery date: https://github.com/kbhff/eggplant/issues/114
+    delivery_date = models.DateField(null=True, blank=False,
                                      default=timezone.now)
 
     class Meta:

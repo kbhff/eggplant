@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="292.11853"
+   height="412.09991"
+   viewBox="0 0 292.11853 412.09991"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="default-profile-photo.svg"
+   inkscape:export-filename="/home/kraen/Projects/Socialsquare/Clients/KBHFF/eggplant/eggplant/profiles/static/img/default-profile-photo.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>eggplant_logo_mark</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="0.93227486"
+     inkscape:cx="312.719"
+     inkscape:cy="154.61118"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="eggplant_logo_mark"
+     fit-margin-top="50"
+     fit-margin-left="20"
+     fit-margin-right="20"
+     fit-margin-bottom="5" />
+  <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4">eggplant_logo_mark</title>
+  <desc
+     id="desc6">Created with Sketch.</desc>
+  <defs
+     id="defs8" />
+  <g
+     id="Page-1"
+     sketch:type="MSPage"
+     style="fill:none;stroke:none"
+     transform="translate(19.526449,49.871395)">
+    <g
+       id="Logos-for-ze-web"
+       sketch:type="MSArtboardGroup"
+       transform="translate(-594,-2245)">
+      <g
+         id="eggplant_logo_mark"
+         sketch:type="MSLayerGroup"
+         transform="translate(593,2244)">
+        <path
+           d="m 127.56562,42.664581 c 210.51144,0 93.71141,274.566799 93.71141,274.566799 0,0 -33.57996,40.99713 -93.71141,40.99713 -60.131447,0 -93.85366,-40.99713 -93.85366,-40.99713 0,0 -116.65777,-274.566799 93.85366,-274.566799 z"
+           id="Triangle-1"
+           sketch:type="MSShapeGroup"
+           transform="matrix(-1,0,0,-1,255.06563,400.89309)"
+           inkscape:connector-curvature="0"
+           style="fill:#57163e" />
+        <path
+           d="m 144.10691,-1.7047838 c 0,-14.5121732 7.17582,-20.4396812 23.37269,-20.4396812 l 0,-28.002363 c -43.05495,0 -59.66186,9.811047 -59.66186,40.8793621 l 0,17.7825227 c 0,15.3297612 -6.35573,21.2572682 -22.962644,21.2572682 l 0,28.002364 c 16.606914,0 22.962644,5.927507 22.962644,21.257268 l 0,17.578126 c 0,31.272717 16.60691,41.083757 59.66186,41.083757 l 0,-28.00236 c -16.19687,0 -23.37269,-5.92751 -23.37269,-20.644079 l 0,-21.257269 c 0,-12.876999 -6.15071,-20.030887 -17.83705,-24.118823 11.68634,-3.88354 17.83705,-11.037428 17.83705,-23.914428 l 0,-21.4616648 z"
+           id="{"
+           sketch:type="MSShapeGroup"
+           transform="matrix(0,1,-1,0,171.27351,-83.726493)"
+           inkscape:connector-curvature="0"
+           style="fill:#d3ff43" />
+      </g>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="eyes"
+     transform="translate(19.526449,49.871395)">
+    <path
+       inkscape:connector-curvature="0"
+       d="M 109.64481,254.28829 C 75.173196,248.30562 54.37627,221.52602 49.248269,187.90906 v -2.27911 l -7.122242,-0.28489 -0.284886,-5.12801 H 178.87294 c 1.70933,3.70357 2.84888,7.69201 3.70356,11.68047 3.70355,26.7796 -10.8258,41.59384 -32.47739,54.98364 -12.82003,6.55246 -26.49471,8.2618 -40.4543,7.40713 z"
+       id="path7" />
+    <path
+       style="fill:#871945"
+       inkscape:connector-curvature="0"
+       d="m 123.03461,249.16027 c 14.81426,-1.70933 27.91916,-7.9769 39.31474,-17.66312 7.9769,-7.12225 13.1049,-15.95382 14.52936,-24.78539 1.13956,-5.69778 0.28489,-16.23868 -1.42446,-19.94225 L 54.946055,186.48462 c -0.569785,15.9538 11.110685,33.61694 21.081813,44.72763 8.83157,9.68624 20.512028,15.38402 33.047172,17.94802 3.13377,0.56979 10.82579,0.56979 13.95957,0 z"
+       id="path9" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 38.707356,162.26902 c -3.703557,-7.40711 -3.703557,-16.23868 -2.564,-24.2156 1.709342,-7.692 5.128013,-14.81424 9.971128,-19.37247 5.982671,-5.69778 14.24447,-6.55245 21.936484,-5.12801 4.273342,1.13956 7.9769,3.41867 11.110685,6.55246 5.128,4.84312 8.546672,11.39558 10.256014,19.08758 1.139557,5.6978 1.139557,11.68047 0,17.09337 l -1.709342,5.98267 z"
+       id="path11" />
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       d="m 83.719881,156.85612 c 1.424443,-1.70933 1.70933,-11.39557 0.569772,-16.52358 -0.854658,-4.55823 -1.139557,-4.55823 -2.848886,-2.84889 -3.988456,3.98846 -10.825799,3.98846 -14.814255,0 -4.273343,-5.12801 -3.418672,-11.68047 1.709342,-15.66891 0.854671,-0.85467 1.424443,-1.42445 1.424443,-1.70934 -0.284886,-1.13956 -6.26757,-2.27912 -9.686242,-1.99423 -11.965343,1.13955 -16.409622,11.39558 -18.859673,21.93648 -0.854671,4.84313 -0.284886,15.09914 1.139557,16.80847 h 41.365942 z"
+       id="path13" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 124.74396,162.55392 c -0.56979,-0.85467 -1.70935,-5.6978 -1.99423,-8.2618 -1.42444,-7.9769 -0.28489,-16.2387 3.13378,-23.64581 4.27335,-8.54669 11.68046,-14.81426 20.51203,-17.09337 8.2618,-1.99422 16.2387,0 23.36093,4.27334 7.40713,4.84313 12.82003,13.95959 14.24447,23.36093 0.56978,3.41867 0.56978,9.40135 0,12.82003 -0.28489,2.84888 -1.42444,7.40711 -2.27912,8.54668 z"
+       id="path15" />
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       d="m 178.01827,157.14102 c 1.13955,-1.42445 1.42444,-9.68624 1.13955,-14.24447 -0.56978,-3.98846 -1.70934,-6.83734 -2.27911,-6.83734 -0.2849,0 -0.85467,0.56977 -1.70934,1.42444 -4.84312,4.84312 -13.3898,3.70356 -16.52359,-2.564 -1.99421,-4.55823 -1.13955,-8.83157 2.27912,-12.25024 1.13956,-1.13956 1.99423,-2.27912 1.99423,-2.56401 0,0 -1.13956,-0.56978 -2.27912,-0.85468 -14.52935,-4.84311 -29.91338,5.6978 -32.76227,22.79116 -0.85467,4.27334 0,12.25024 0.85466,15.09914 z"
+       id="path17" />
+    <path
+       style="fill:#f9bedd"
+       inkscape:connector-curvature="0"
+       d="m 160.64001,232.92159 c 0,0 -13.10491,11.39557 -29.91338,15.09913 -18.80271,4.27334 -32.477392,-1.99422 -32.477392,-1.99422 0,0 3.988442,-21.6516 26.494722,-27.0645 21.65158,-5.128 35.89605,13.95959 35.89605,13.95959 z"
+       id="path19" />
+  </g>
+</svg>

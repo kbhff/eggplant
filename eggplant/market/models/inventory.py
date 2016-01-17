@@ -28,6 +28,7 @@ class Product(models.Model):
     )
     stock = models.PositiveIntegerField(
         _("stock"),
+        blank=True,
         null=True,
         default=1,
         help_text=_("Items in stock, leave blank if endless quantity available.")
@@ -79,4 +80,4 @@ class ProductTax(models.Model):
         app_label = 'market'
 
     def __str__(self):
-        return "{} ({:f}%)".format(self.title, (self.tax*100).normalize())
+        return "{} ({:f}%)".format(self.title, (self.tax * 100).normalize())

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+{% load i18n %}
+{% block app_css %}
+	<link href="{% static 'css/profiles/sidebar.css' %}"
+		rel="stylesheet" />
+{% endblock%}
+
+<div class="panel panel-default profile">
+    <div class="panel-body">
+        <div style="background-image:url('{{ user.profile.photo_url_or_default }}');"
+            class="profile-photo">
+        </div>
+        <h3 class="text-center">
+            {{ user.profile.full_name }}
+        </h3>
+        {% for account in user.profile.active_accounts %}
+            <p class="account-name text-center">{{account.name_or_profile_names}}</p>
+            <p class="department-name text-center">
+                {% blocktrans with name=account.department.name%}
+                    {{name}} department
+                {% endblocktrans %}
+            </p>
+        {% endfor %}
+    </div>
+    {% include 'eggplant/roles/navigation.html' %}
+</div>

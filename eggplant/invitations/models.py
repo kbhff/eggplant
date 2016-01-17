@@ -6,6 +6,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
+from django.template import Context
+from django.template.loader import get_template
+
 from eggplant.core.utils import absolute_url_reverse
 
 
@@ -48,12 +51,16 @@ class DepartmentInvitation(InvitationBase):
     dispatch_uid='membership-invitation-send_email_invitation'
 )
 def send_email_invitation(sender, instance, created, **kwargs):
+    '''
+    TODO: Implement an HTML message, commenting out the html_* lines below
+    '''
 
     department = instance.department.name
 
     if created:
-        subject = _('You have been invited to join {department}!').format(
-            department=department
+        subject = _('Your invitation to join the {department} department of {coop_name}!').format(
+            department=department,
+            coop_name=settings.COOP_NAME
         )
         to_addrs = [instance.email, ]
         invite_url = absolute_url_reverse(
@@ -62,23 +69,20 @@ def send_email_invitation(sender, instance, created, **kwargs):
                 verification_key=instance.verification_key.hex
             )
         )
-        body = _(
-            """Hi there!\n"""
-            """Thank you for signing up as a member for {department}. We're """
-            """happy that you want to be part of our community.\n"""
-            """\n"""
-            """Please click the following link to confirm you email address """
-            """and fill out your membership details:\n"""
-            """{invite_url}\n"""
-            """\n"""
-            """\n"""
-            """Cheers,\n"""
-            """all of us at {department}"""
-        ).format(invite_url=invite_url, department=department)
+        context = Context({
+            'department': department,
+            'coop_name': settings.COOP_NAME,
+            'invite_url': invite_url,
+        })
+        plain_template_path = 'eggplant/invitations/email/department_invitation.txt'
+        # html_template_path = 'eggplant/invitations/email/department_invitation.html'
+        plain_body = get_template(plain_template_path).render(context)
+        # html_body = get_template(html_template_path).render(context)
         send_mail(
             subject,
-            body,
+            plain_body,
             settings.DEFAULT_FROM_EMAIL,
             to_addrs,
-            fail_silently=not settings.DEBUG
+            fail_silently=not settings.DEBUG,
+            # html_message=html_body
         )

@@ -69,9 +69,6 @@ def accept_invitation(request, verification_key):
                     user = do_accept_invitation(request, invitation)
                 except AlreadyAcceptedInvitationException:
                     return redirect(reverse('eggplant:dashboard:home'))
-            else:
-                msg = 'Invalid captcha.'
-                messages.add_message(request, messages.WARNING, msg)
         else:
             # If not using recaptcha we don't show
             # the form so there is no POST
@@ -91,8 +88,7 @@ def accept_invitation(request, verification_key):
         return redirect(reverse('account_set_password'))
     ctx = {
         'form': form,
-        'verification_key': verification_key,
-        'title': "accept invitation",
+        'verification_key': verification_key
     }
     return render(request,
                   'eggplant/invitations/accept_invitation.html', ctx)
@@ -123,8 +119,7 @@ def invite(request):
                 messages.add_message(request, messages.SUCCESS, msg)
                 return redirect(reverse('eggplant:dashboard:home'))
     ctx = {
-        'form': form,
-        'title': "send invitation",
+        'form': form
     }
     return render(request,
                   'eggplant/invitations/invite.html', ctx)

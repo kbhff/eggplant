@@ -1,0 +1,92 @@
+[
+{
+  "model": "departments.department",
+  "pk": 1,
+  "fields": {
+    "slug": "amager",
+    "site": 1,
+    "name": "Amager"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 2,
+  "fields": {
+    "slug": "frederiksberg",
+    "site": 1,
+    "name": "Frederiksberg"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 3,
+  "fields": {
+    "slug": "islands-brygge",
+    "site": 1,
+    "name": "Islands Brygge"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 4,
+  "fields": {
+    "slug": "nordvest",
+    "site": 1,
+    "name": "Nordvest"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 5,
+  "fields": {
+    "slug": "nrrebro",
+    "site": 1,
+    "name": "N\u00f8rrebro"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 6,
+  "fields": {
+    "slug": "sydhavnen",
+    "site": 1,
+    "name": "Sydhavnen"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 7,
+  "fields": {
+    "slug": "vanlse",
+    "site": 1,
+    "name": "Vanl\u00f8se"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 8,
+  "fields": {
+    "slug": "vesterbro",
+    "site": 1,
+    "name": "Vesterbro"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 9,
+  "fields": {
+    "slug": "ydre-nrrebro",
+    "site": 1,
+    "name": "Ydre N\u00f8rrebro"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 10,
+  "fields": {
+    "slug": "sterbro",
+    "site": 1,
+    "name": "\u00d8sterbro"
+  }
+}
+]

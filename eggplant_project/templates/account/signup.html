@@ -2,7 +2,7 @@
 
 {% load account %}
 
-{% block head_title %}Opret bruger{% endblock %}
+{% block head_title %}{% trans 'Create user' %}{% endblock %}
 
 {% block content %}
 
@@ -11,7 +11,9 @@
     <h2>Opret bruger på FoodNet</h2>
 
     <p>
-      Her kan du oprette en bruger på FoodNet
+      {% blocktrans %}
+      Create an Eggplant user
+      {% endblocktrans %}
     </p>
 
     <div class="row">
@@ -47,7 +49,8 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
           {% endif %}
 
-          <button class="btn btn-success pull-right" type="submit">Opret bruger</button>
+          <button class="btn btn-success pull-right" type="submit">
+            {% trans 'Create user' %}</button>
         </form>
       </div>
     </div>

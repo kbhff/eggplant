@@ -15,6 +15,8 @@ from os.path import dirname, abspath
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.messages import constants as messages_constants
 
+from moneyed import DKK
+
 COOP_NAME = '{settings.COOP_NAME}'
 COOP_DESCRIPTION = '{settings.COOP_DESCRIPTION}'
 COOP_LOGO = 'img/missing-coop-logo.png'
@@ -81,6 +83,7 @@ INSTALLED_APPS = (
     'eggplant.market',
     'eggplant.permissions',
     'eggplant.profiles',
+    'eggplant.roles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,7 +118,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'allauth.account.context_processors.account',
-                'eggplant.core.context_processors.coop_vars',
+                'eggplant.core.context_processors.coop_vars'
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -167,7 +170,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(asctime)s  [%(name)s:%(lineno)s]  %(levelname)s - %(message)s',
+            'format': ('%(asctime)s  [%(name)s:%(lineno)s]  '
+                       '%(levelname)s - %(message)s'),
         },
         'simple': {
             'format': '%(levelname)s %(message)s',
@@ -227,8 +231,11 @@ USER_MODEL_USERNAME_FIELD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
+
+
 def ACCOUNT_USER_DISPLAY(u):
     return u.email
+
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
 ACCOUNT_ADAPTER = 'eggplant_project.authnadapter.EggplantAccountAdapter'
@@ -243,14 +250,14 @@ LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'eggplant:dashboard:home'
 
 USE_RECAPTCHA = False
-RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', '6LfCEAcTAAAAAJsJhexp8LznEvngOghaw2ckFfq1')
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY',
+                                 '6LfCEAcTAAAAAJsJhexp8LznEvngOghaw2ckFfq1')
 RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', '')
 NOCAPTCHA = False
 RECAPTCHA_USE_SSL = False
 
 DATABASES = {}
 
-from moneyed import DKK
 DEFAULT_CURRENCY = DKK
 
 GETPAID_ORDER_MODEL = 'market.Payment'
@@ -277,3 +284,8 @@ NEW_USER_FORCE_PROFILE_ALLOWED_URL_NAMES = (
     'account_logout',
     'account_set_password',
 )
+
+BOOTSTRAP3 = {
+    'horizontal_label_class': 'col-md-4',
+    'horizontal_field_class': 'col-md-8',
+}

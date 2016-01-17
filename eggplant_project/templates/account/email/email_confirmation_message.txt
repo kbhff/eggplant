@@ -1,6 +1,12 @@
-{% extends 'account/email/base.txt' %}{% load account %}{% block content %}Hej!
+{% extends 'eggplant/email/base.txt' %}
+{% load account %}
+{% load i18n %}
+{% block content %}
+{% blocktrans %}
+Hi!
 
-En konto er blevet oprettet på FoodNet med denne e-mail.
+An account has been created with this e-mail.
 
-For at bekræfte din e-mail følg dette link {{ activate_url }}
+Please confirm your e-mail by following this link: {{ activate_url }}
+{% endblocktrans %}
 {% endblock %}
