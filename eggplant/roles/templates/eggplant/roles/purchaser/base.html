@@ -1,0 +1,16 @@
+{% extends "eggplant/core/base.html" %}
+{% load i18n %}
+
+{% block content_left_col %}
+    {{ block.super }}
+    <p>
+        <a href="{% url 'eggplant:market:add_product'%}" class="btn btn-default">
+            {% trans 'Add new product' %}
+        </a>
+    </p>
+    <p>
+        <a href="" class="btn btn-default">
+            {% trans 'Create day of delivery' %}
+        </a>
+    </p>
+{% endblock %}
