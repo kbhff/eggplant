@@ -28,6 +28,7 @@ class Product(models.Model):
     )
     stock = models.PositiveIntegerField(
         _("stock"),
+        blank=True,
         null=True,
         default=1,
         help_text=_("Items in stock, leave blank if endless quantity available.")

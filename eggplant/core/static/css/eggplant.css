@@ -188,3 +188,11 @@ a:focus, a:hover {
     vertical-align: middle;
     float: none;
 }
+
+input.form-control.money-widget {
+    width: 55%;
+}
+select.form-control.money-widget {
+    width: 45%;
+    border-left: 0;
+}
