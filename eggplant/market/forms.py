@@ -6,7 +6,6 @@ from .models.inventory import Product
 from eggplant.core.widgets import MoneyWidget
 
 
-
 class BasketItemForm(forms.Form):
     product = forms.ModelChoiceField(Product.objects.filter(stock__gt=0,
                                                             enabled=True))
