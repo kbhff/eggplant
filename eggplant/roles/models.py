@@ -28,5 +28,9 @@ class RoleAssignment(models.Model):
         verbose_name=_('user')
     )
 
+    class Meta:
+        unique_together = (('user', 'role'), )
+        ordering = ('role', )
+
     def __str__(self):
         return '%s is %s' % (self.user, self.get_role_display())
