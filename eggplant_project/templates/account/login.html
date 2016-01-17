@@ -27,7 +27,7 @@
                     {% endblocktrans %}
                     </p>
                     <p>
-                    {% blocktrans with coop_name=COOP_NAME %}
+                    {% blocktrans %}
                     As a member, you can use the system to order and pay for weekly
                     bags and other produce, sign up for shifts and update your
                     membership information.
@@ -36,13 +36,11 @@
                     
                     <p><strong>{% trans 'Want to become a member?' %}</strong></p>
                     
-                    {% with signup_url=SIGNUP_URL %}
-                    <p>{% blocktrans with coop_name=COOP_NAME %}
+                    <p>{% blocktrans with coop_name=COOP_NAME signup_url=SIGNUP_URL %}
                     You can read more about {{coop_name}} and sign-up
                     <a href="{{signup_url}}">here</a>.
                     {% endblocktrans %}
                     </p>
-                    {% endwith %}
                 </div>
             </div>
         </div>
