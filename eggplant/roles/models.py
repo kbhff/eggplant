@@ -11,10 +11,10 @@ class RoleAssignment(models.Model):
     ACCOUNTANT = 'accountant'
     ROLE_CHOICES = (
         (PURCHASER, _('purchaser')),
-        (COMMUNICATOR,  _('communicator')),
+        (COMMUNICATOR, _('communicator')),
         (PACKER, _('packer')),
-        (CASHIER,  _('cashier')),
-        (ACCOUNTANT,  _('accountant')),
+        (CASHIER, _('cashier')),
+        (ACCOUNTANT, _('accountant')),
     )
 
     role = models.CharField(
