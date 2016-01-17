@@ -79,4 +79,4 @@ class ProductTax(models.Model):
         app_label = 'market'
 
     def __str__(self):
-        return "{} ({:f}%)".format(self.title, (self.tax*100).normalize())
+        return "{} ({:f}%)".format(self.title, (self.tax * 100).normalize())

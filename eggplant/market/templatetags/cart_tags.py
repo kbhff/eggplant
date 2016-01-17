@@ -18,14 +18,10 @@ def cart_action(context, action, product_id=None, quantity=None,
         action = 'Add to cart'
         url = reverse('eggplant:market:add_to_cart')
         btn_css_classes += 'btn-success btn-sm'
-        delivery_date_field = '''
-        <div class="input-group input-group-sm">
-            <input class="datepicker form-control"
-                placeholder="delivery date" name="delivery_date"
-                type="text" value=""/>
-            <div class="input-group-addon">&#x25BC;</div>
-        </div>
-        '''
+
+        # https://github.com/kbhff/eggplant/issues/114
+        delivery_date_field = '<input name="delivery_date" type="hidden" ' +\
+            'value="{}"/>'.format(delivery_date or '')
     else:
         raise TemplateSyntaxError("action `{}` not supported".format(action))
     quantity = quantity or 1
