@@ -4,8 +4,8 @@
 {% block content_left_col %}
     {{ block.super }}
     <p>
-        <a href="" class="btn btn-default">
-            {% trans 'Create new product' %}
+        <a href="{% url 'eggplant:market:add_product'%}" class="btn btn-default">
+            {% trans 'Add new product' %}
         </a>
     </p>
     <p>
@@ -13,8 +13,4 @@
             {% trans 'Create day of delivery' %}
         </a>
     </p>
-{% endblock %}
-
-{% block content_right_col %}
-    <h2>Purchaser</h2>
 {% endblock %}
