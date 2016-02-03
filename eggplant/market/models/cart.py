@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.utils import timezone
 from django.db import models, transaction
-
+from .payment import Payment
 
 class BasketManager(models.Manager):
     def open_for_user(self, user):
@@ -76,16 +76,13 @@ class Basket(models.Model):
 
     @transaction.atomic
     def do_checkout(self):
-        # TODO: Why on earth are we importing this here
-        from .payment import Payment
-        Payment.objects.create(
+        self.order = Payment.objects.create(
             amount=self.get_total_amount(),
-            user=self.user,
+            account=self.user.profile.accounts.first(),
         )
         # self.order = payment
         self.status = self.CHECKEDOUT
         self.save()
-
 
 class BasketItem(models.Model):
     basket = models.ForeignKey('market.Basket', related_name='items')

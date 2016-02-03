@@ -50,18 +50,13 @@ $jq(function() {
                 <td class="price">
                     {{item.product.price}}
                 </td>
-                <td class="controls">
-                    <a href="" class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                </td>
             </tr>
         {% endfor %}
     </table>
     {% endif %}
+		<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">go to checkout</a>
 
 {% endblock %}
-
 {% block content_right_col %}
 
 <div class="row">
@@ -81,18 +76,6 @@ $jq(function() {
         {{product_filter.form}}
 	</div>
 </div>
-
-{% if products %}
-<div class="row">
- <div class="col-md-9 text-right">
- 	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">your basket</a>
- 	{% if basket_items %}
- 	<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">go to checkout</a>
- 	{% endif %}
- </div>
-</div>
-<br />
-{% endif %}
 
 {% for sublist in product_filter|partition:"3" %}
 <div class="row">

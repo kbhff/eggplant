@@ -21,7 +21,7 @@
   <div class="col-md-3 text-left">{{item.product.title}}</div>
   <div class="col-md-3">{{item.delivery_date|date:"d/m - Y"|default:"-"}}</div>
   <div class="col-md-3">{{item.delivered_to}}</div>
-  <div class="col-md-3">{{item.product.price}} DKK</div>
+  <div class="col-md-3">{{item.product.price}}</div>
 </div>
 {% endfor %}
 
@@ -50,13 +50,10 @@
 <br />
 <br />
 <div class="row">
-<div class="col-md-4 text-left">
-	<a class="btn btn-success" href="{% url 'eggplant:market:market_home' %}" >Go to payments</a>
-</div>
 <div class="col-md-4 text-right">
 	<form action="{% url 'eggplant:market:checkout' %}" method="POST">
 		{% csrf_token %}
-		<button name="submit" class="btn btn-success">Go to Payment</button>
+		<button name="submit" class="btn btn-success">Pay</button>
 	</form>
 </div>
 </div>

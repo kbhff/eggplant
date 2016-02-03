@@ -14,7 +14,6 @@ from ..models import Payment
 
 log = logging.getLogger(__name__)
 
-
 @login_required
 def payment_list(request):
     payments = Payment.objects.filter(account__user_profiles=request.user.profile).order_by('-created')
@@ -37,8 +36,7 @@ class PaymentView(LoginRequiredMixin, DetailView):
     model = Payment
     template_name = 'eggplant/market/payment_detail.html'
 
-    @method_decorator
-    @login_required
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(PaymentView, self).dispatch(request, *args, **kwargs)
 
