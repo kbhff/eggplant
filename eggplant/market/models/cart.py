@@ -9,8 +9,7 @@ class BasketManager(models.Manager):
         """
         Get open basket for a given user.
         This is just a wrapper around get_or_create so we can add more
-        default kwargs or logic to basket in one place
-            - perhaps a check if user payed some fees(?)...
+        default kwargs or logic to basket in one place - perhaps a check if user payed some fees(?)...
         """
         instance, __ = self.get_queryset()\
             .get_or_create(user=user, status=self.model.OPEN)

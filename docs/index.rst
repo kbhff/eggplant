@@ -16,6 +16,7 @@ Contents:
    authors
    history
    dev/index
+   modules
 
 .. include:: ../README.rst
 
