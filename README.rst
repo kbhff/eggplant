@@ -16,11 +16,6 @@ Eggplant is an open source web application that provides simple and flexible
 infrastructure for organizing food coops and other local
 community-driven projects.
 
-.. image:: docs/styleguide/logos/eggplant_logo_all_horizontal.png
-				:alt: The EggPlant logo
-				:width: 25%
-				:align: center
-
 
 How to contribute
 =================
