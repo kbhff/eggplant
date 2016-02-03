@@ -45,7 +45,7 @@ MoneyFieldProxy.__get__ = lambda self, *args, **kwargs: self
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if on_rtd:
-    os.system("find eggplant -name migrations | xargs sphinx-apidoc -d 10 -H 'Python Reference' -o docs/ eggplant")
+    os.system("find ../eggplant -name migrations | xargs sphinx-apidoc -d 10 -H 'Python Reference' -o . ../eggplant")
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
