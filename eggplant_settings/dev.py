@@ -24,16 +24,9 @@ SITE_ID = 1
 DOMAIN = 'localhost'
 DEFAULT_HTTP_PROTOCOL = 'http'
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = 'username'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_USE_TLS = True
-EMAIL_SUBJECT_PREFIX = '[Eggplant]'
-EMAIL_TIMEOUT = 5
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DEFAULT_FROM_EMAIL = 'info@localhost'
+DEFAULT_FROM_EMAIL = 'dev@eggplant.dk'
 SERVER_EMAIL = 'django@localhost'
 
 ADMINS = ()

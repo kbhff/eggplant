@@ -19,7 +19,6 @@ from moneyed import DKK
 
 COOP_NAME = '{settings.COOP_NAME}'
 COOP_DESCRIPTION = '{settings.COOP_DESCRIPTION}'
-COOP_LOGO = 'img/missing-coop-logo.png'
 
 
 MESSAGE_TAGS = {
@@ -27,8 +26,7 @@ MESSAGE_TAGS = {
 }
 
 
-BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
-PROJECT_DIR = os.path.join(BASE_DIR, 'eggplant_project')
+BASE_DIR = dirname(dirname(abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -65,15 +63,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    # 3rd-party apps.
-    'django_filters',  # django-filter
-    'bootstrap3',  # django-bootstrap3
-    'allauth',  # django-allauth
-    'allauth.account',
-    'captcha',  # django-recaptcha
-    'getpaid',  # django-getpaid
-    'getpaid.backends.epaydk',
-
     # Project apps.
     'eggplant.accounts',
     'eggplant.core',
@@ -84,6 +73,15 @@ INSTALLED_APPS = (
     'eggplant.permissions',
     'eggplant.profiles',
     'eggplant.roles',
+
+    # 3rd-party apps.
+    'django_filters',  # django-filter
+    'bootstrap3',  # django-bootstrap3
+    'allauth',  # django-allauth
+    'allauth.account',
+    'captcha',  # django-recaptcha
+    'getpaid',  # django-getpaid
+    'getpaid.backends.epaydk',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,14 +97,11 @@ MIDDLEWARE_CLASSES = (
     'getpaid.middleware.SetRemoteAddrFromForwardedForMiddleware',
 )
 
-ROOT_URLCONF = 'eggplant_project.urls'
+ROOT_URLCONF = 'eggplant.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
-        ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -127,9 +122,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-WSGI_APPLICATION = 'eggplant_project.wsgi.application'
 
 
 # Database
@@ -160,7 +152,6 @@ USE_TZ = True
 # please use `collectstatic` command
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'), )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -238,7 +229,7 @@ def ACCOUNT_USER_DISPLAY(u):
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
-ACCOUNT_ADAPTER = 'eggplant_project.authnadapter.EggplantAccountAdapter'
+ACCOUNT_ADAPTER = 'eggplant.core.authnadapter.EggplantAccountAdapter'
 # ACCOUNT_SIGNUP_FORM_CLASS
 ACCOUNT_SESSION_REMEMBER = None
 

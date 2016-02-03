@@ -3,10 +3,10 @@ import os
 import sys
 
 try:
-    from eggplant_project.settings import local  # @UnusedImport
+    from eggplant_settings import local  # @UnusedImport
 except ImportError:
 
-    from eggplant_project import settings
+    import eggplant_settings as settings
     local_location = os.path.join(
         os.path.dirname(settings.__file__),
         'local.py'
@@ -23,7 +23,7 @@ except ImportError:
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                          'eggplant_project.settings.local')
+                          'eggplant_settings.local')
 
     os.environ.setdefault('LANG', 'en_US.utf8')
 

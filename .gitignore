@@ -1,6 +1,5 @@
-# Always ignore this, it's private business!!
-eggplant_project/settings/local.py
-eggplant_project/settings/pawel.py
+# Always ignore local settings files
+eggplant_settings/local.py
 
 # For oh-my-zsh plugin for virtualenv
 .venv

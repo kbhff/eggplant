@@ -5,8 +5,8 @@ install:
 - pip install -r requirements/test.txt
 - pip install coveralls
 script:
-- cp eggplant_project/settings/local.py.sample eggplant_project/settings/local.py
-- sed -i 's/\.dev/.test/' eggplant_project/settings/local.py
+- cp settings/local.py.sample esettings/local.py
+- sed -i 's/\.dev/.test/' settings/local.py
 - make lint
 - make coverage
 - python manage.py migrate

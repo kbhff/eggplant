@@ -1,12 +1,7 @@
+from eggplant_settings.base import *
+from .base import *
+
 import dj_database_url
-from .base import *  # @UnusedWildImport
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-COOP_NAME = 'EggPlant Demo'
-COOP_DESCRIPTION = 'How can people say they don´t eat eggplant?'
-COOP_LOGO = 'img/eggplant-logo-purple-bg.png'
 
 SITE_ID = 2
 DOMAIN = 'eggplant-demo.herokuapp.com'
@@ -49,5 +44,5 @@ DEFAULT_FROM_EMAIL = 'Info <info@{0}>'.format(DOMAIN)
 SERVER_EMAIL = 'Alerts <alerts@{0}>'.format(DOMAIN)
 
 ADMINS = (
-    ('Paweł', 'pawel+foodnet-heroku@socialsquare.dk',)
+    ('Andreas Lloyd', 'eggplant@kbhff.dk')
 )
