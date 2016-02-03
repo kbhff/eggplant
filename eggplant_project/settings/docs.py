@@ -1,6 +1,6 @@
 """
 This file is for sphinx autodocs
 """
-from .dev import *  # @UnusedWildImport
+from .base import *  # @UnusedWildImport
 
 SECRET_KEY = "not_secret"
