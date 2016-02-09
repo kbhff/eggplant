@@ -20,8 +20,8 @@ community-driven projects.
 How to contribute
 =================
 
-:doc:`Read our documentation </contributing>` to get started reporting bugs,
-developing code etc. The project description, organisation and goals are on
+:doc:`Read our documentation </dev/contributing>` to get started reporting bugs,
+developing code etc. The project description, organization and goals are on
 `our website eggplant.dk <http://eggplant.dk/>`_. The list of tickets is
 available on our `GitHub project <https://github.com/kbhff/eggplant/issues>`_.
 

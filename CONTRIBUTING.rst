@@ -52,6 +52,8 @@ If you are proposing a feature:
 * Remember that this is a volunteer-driven project, and that contributions
   are welcome :)
 
+.. _getstarted:
+
 Get Started!
 ------------
 
