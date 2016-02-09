@@ -146,4 +146,5 @@ Tips
 
 To run a subset of tests::
 
-    $ python -m unittest tests.test_eggplant
+    $ python manage.py test --tests=eggplant.profiles.tests.TestProfile
+
