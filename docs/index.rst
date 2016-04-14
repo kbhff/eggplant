@@ -12,10 +12,10 @@ Contents:
    :maxdepth: 2
 
    installation
-   contributing
    authors
    history
    dev/index
+   modules
 
 .. include:: ../README.rst
 

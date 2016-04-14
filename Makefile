@@ -44,8 +44,9 @@ coverage:
 	coverage report -m
 
 docs:
-	#sphinx-apidoc -o docs/ eggplant
 	$(MAKE) -C docs clean
+	rm -f docs/eggplant.*
+	find eggplant -name migrations | xargs sphinx-apidoc -d 10 -H "Python Reference" -o docs/ eggplant
 	$(MAKE) -C docs html
 
 release: clean

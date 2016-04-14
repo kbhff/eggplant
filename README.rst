@@ -16,17 +16,12 @@ Eggplant is an open source web application that provides simple and flexible
 infrastructure for organizing food coops and other local
 community-driven projects.
 
-.. image:: docs/styleguide/logos/eggplant_logo_all_horizontal.png
-				:alt: The EggPlant logo
-				:width: 25%
-				:align: center
-
 
 How to contribute
 =================
 
-:doc:`Read our documentation </contributing>` to get started reporting bugs,
-developing code etc. The project description, organisation and goals are on
+:doc:`Read our documentation </dev/contributing>` to get started reporting bugs,
+developing code etc. The project description, organization and goals are on
 `our website eggplant.dk <http://eggplant.dk/>`_. The list of tickets is
 available on our `GitHub project <https://github.com/kbhff/eggplant/issues>`_.
 

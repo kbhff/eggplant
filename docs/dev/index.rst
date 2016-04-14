@@ -1,6 +1,13 @@
 Developer documentation
 =======================
 
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   dev/contributing
+
 Component overview
 ------------------
 
