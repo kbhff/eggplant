@@ -12,7 +12,7 @@ Contributors:
  * Viðir Valberg: valberg
  * Kræn Hansen: kraenhansen
  * Benjamin Bach: benjaoming
- * Pawel: pawciobiel
+ * Paweł Bielecki: pawciobiel
  * Francesco Zanitti: cheng81
  * James Brooking: jambroo
  * Sean Bendtsen Powell: sepow
