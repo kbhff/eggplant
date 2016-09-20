@@ -113,11 +113,6 @@ class Profile(LoginRequiredMixin, FormView):
         messages.success(self.request, msg)
         return super(Profile, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(Profile, self).get_context_data(**kwargs)
-        context['form'] = kwargs['form']
-        return context
-
 
 def signup(request):
     if request.user.is_authenticated():
