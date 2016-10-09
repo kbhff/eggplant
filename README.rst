@@ -34,4 +34,4 @@ Get in touch
 
 For AFK stuff, you can join us in Copenhagen on `meetup.com <http://www.meetup.com/Eggplant/>`_.
 
-We use Slack for ad-hoc communication: `Click to recieve an invitation <https://eggplant-slackin.herokuapp.com/>`_. The techical discussion takes place on `Slack#teamblue <https://foodnet.slack.com/messages/teamblue/>`_. The design and organisational issues can also be raised on `Slack#teamgreen <https://foodnet.slack.com/messages/teamgreen/>`_.
+We use Slack for ad-hoc communication: `Click to recieve an invitation <https://eggplant-slackin.herokuapp.com/>`_. The techical discussion takes place on IRC **#eggplant** (Freenode) and `Slack#teamblue <https://foodnet.slack.com/messages/teamblue/>`_ (both rooms automatically forward to each other). The design and organisational issues can also be raised on `Slack#teamgreen <https://foodnet.slack.com/messages/teamgreen/>`_.
