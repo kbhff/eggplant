@@ -58,41 +58,22 @@ $jq(function() {
             </tr>
         {% endfor %}
     </table>
+		<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">
+			{% trans 'Go to checkout' %}
+		</a>
+  	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">
+			{% trans 'Your basket' %}
+		</a>
     {% endif %}
 
 {% endblock %}
 
 {% block content_right_col %}
+<h2>Market</h2>
 
-<div class="row">
-    <div class="col-10">
-        <h1 class="page-header">Order groceries:</h1>
-    </div>
+<div>
+	Filter products: {{product_filter.form}}
 </div>
-
-<div class="row">
-    <div class="col-10">
-        <p>Filter products:</p>
-    </div>
-</div>
-
-<div class="row">
-	<div class="col-10">
-        {{product_filter.form}}
-	</div>
-</div>
-
-{% if products %}
-<div class="row">
- <div class="col-md-9 text-right">
- 	<a class="btn btn-primary" href="{% url 'eggplant:market:cart_details' %}">your basket</a>
- 	{% if basket_items %}
- 	<a class="btn btn-primary" href="{% url 'eggplant:market:checkout' %}">go to checkout</a>
- 	{% endif %}
- </div>
-</div>
-<br />
-{% endif %}
 
 {% for sublist in product_filter|partition:"3" %}
 <div class="row">
