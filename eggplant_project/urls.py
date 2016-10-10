@@ -5,6 +5,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from django.contrib.auth.views import logout
 
 import eggplant.profiles.views
 from eggplant.dashboard import views as dashboard_views
@@ -25,7 +26,7 @@ urlpatterns = [
     # override django-allauth logout so no confirmation is needed
     # see: http://www.sarahhagstrom.com/2013/09/the-missing-django-allauth-tutorial/#Remove_the_logout-confirmation_step
     url(r'^account/logout/$',
-        'django.contrib.auth.views.logout',
+        logout,
         {'next_page': '/'}),
 
     url(r'^getpaid/', include('getpaid.urls')),

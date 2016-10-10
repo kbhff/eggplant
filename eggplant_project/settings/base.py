@@ -117,7 +117,6 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'allauth.account.context_processors.account',
                 'eggplant.core.context_processors.coop_vars'
             ],
             'loaders': [
