@@ -1,4 +1,5 @@
 from django import template
+from django.template import Template
 from django.core.urlresolvers import reverse
 from django.template.base import TemplateSyntaxError
 
@@ -25,24 +26,23 @@ def cart_action(context, action, product_id=None, quantity=None,
     else:
         raise TemplateSyntaxError("action `{}` not supported".format(action))
     quantity = quantity or 1
-    fmt = {
+    context.update({
         'action': action,
         'action_url': url,
         'btn_css_classes': btn_css_classes,
         'product_id': int(product_id),
         'quantity': int(quantity),
         'csrf_token': context['csrf_token'],
-    }
-    html = ('''
-    <form action="{action_url}" method="POST">
+    })
+    return Template('''
+    <form action="{{action_url}}" method="POST">
         ''' + delivery_date_field + '''
-        <input name="product" type="hidden" value="{product_id}"/>
-        <input name="quantity" type="hidden" value="{quantity}"/>
-        <input name="csrfmiddlewaretoken" type="hidden" value="{csrf_token}" />
+        <input name="product" type="hidden" value="{{product_id}}"/>
+        <input name="quantity" type="hidden" value="{{quantity}}"/>
+        <input name="csrfmiddlewaretoken" type="hidden" value="{{csrf_token}}" />
         <p class="pull-right">
         <button type="submit"
-            class="{btn_css_classes}"
-            role="button" >{action}</button>
+            class="{{btn_css_classes}}"
+            role="button" >{{action}}</button>
         </p>
-    </form>''').format(**fmt)
-    return html
+    </form>''').render(context)

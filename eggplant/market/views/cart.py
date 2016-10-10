@@ -39,15 +39,17 @@ class AddToCart(BaseCartActionView):
                         "than %d items in your basket.") % (max_items)
                 messages.warning(self.request, msg)
                 return redirect('eggplant:market:market_home')
-            if form.cleaned_data['product'].stock < 1 or not form.cleaned_data['product'].enabled:
-                msg = _("Sorry, this product is currently out of stock")
+            product = form.cleaned_data['product']
+            quantity = form.cleaned_data['quantity']
+            if not product.enabled or (product.stock is not None and
+                                       product.stock < quantity):
+                msg = _("Sorry, this product is currently not this much on stock")
                 messages.warning(self.request, msg)
                 return redirect('eggplant:market:market_home')
             self.basket.add_to_items(**form.cleaned_data)
-            stock = form.cleaned_data['product'].stock - \
-                form.cleaned_data['quantity']
-            Product.objects.filter(id=form.cleaned_data['product'].id)\
-                   .update(stock=stock)
+            if product.stock is not None:
+                stock = product.stock - quantity
+                Product.objects.filter(id=product.id).update(stock=stock)
         msg = _("You have just added %s to your basket.") % \
             (form.cleaned_data['product'].title)
         messages.info(self.request, msg)
