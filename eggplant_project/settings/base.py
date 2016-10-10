@@ -90,6 +90,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -137,7 +138,7 @@ WSGI_APPLICATION = 'eggplant_project.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', _('English')),
@@ -151,6 +152,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+PROJECT_PATHS = os.path.join(BASE_DIR, 'eggplant_project', 'locale')
 
 
 # Static files (CSS, JavaScript, Images)

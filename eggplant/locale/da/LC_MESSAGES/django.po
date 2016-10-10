@@ -1,0 +1,307 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-10 20:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: Danish (https://www.transifex.com/kbhff/teams/68044/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/models.py:42
+msgid "account"
+msgstr ""
+
+#: dashboard/templates/eggplant/dashboard/home.html:5
+#: dashboard/templates/eggplant/dashboard/home.html:12
+msgid "Dashboard"
+msgstr ""
+
+#: dashboard/templates/eggplant/dashboard/home.html:13
+msgid "A membership system for food coops and other local community projects."
+msgstr ""
+
+#: departments/models.py:9
+msgid "department name"
+msgstr ""
+
+#: invitations/models.py:61
+#, python-brace-format
+msgid "Your invitation to join the {department} department of {coop_name}!"
+msgstr ""
+
+#: invitations/templates/eggplant/invitations/accept_invitation.html:5
+#: invitations/templates/eggplant/invitations/accept_invitation.html:10
+msgid "Accept invitation"
+msgstr ""
+
+#: invitations/templates/eggplant/invitations/accept_invitation.html:16
+msgid "Accept"
+msgstr ""
+
+#: invitations/templates/eggplant/invitations/email/department_invitation.txt:1
+#, python-format
+msgid ""
+"Hi there!\n"
+"\n"
+"Thank you for signing up as a member of the %(department)s department of %(coop_name)s. We're happy that you want to be part of our community.\n"
+"\n"
+"Please click the following link to confirm you email address and fill out your membership details:\n"
+"%(invite_url)s"
+msgstr ""
+
+#: invitations/templates/eggplant/invitations/invite.html:5
+#: invitations/templates/eggplant/invitations/invite.html:13
+#: invitations/templates/eggplant/invitations/invite.html:18
+msgid "Send invitation"
+msgstr ""
+
+#: market/filters.py:35
+msgid "All"
+msgstr ""
+
+#: market/models/inventory.py:14 market/models/inventory.py:64
+msgid "title"
+msgstr ""
+
+#: market/models/inventory.py:18 market/models/inventory.py:68
+msgid "description"
+msgstr ""
+
+#: market/models/inventory.py:22
+msgid "category"
+msgstr ""
+
+#: market/models/inventory.py:25
+msgid "price"
+msgstr ""
+
+#: market/models/inventory.py:30
+msgid "stock"
+msgstr ""
+
+#: market/models/inventory.py:34
+msgid "Items in stock, leave blank if endless quantity available."
+msgstr ""
+
+#: market/models/inventory.py:36 market/models/inventory.py:73
+msgid "tax"
+msgstr ""
+
+#: market/models/inventory.py:37 market/models/inventory.py:52
+#: market/models/inventory.py:70
+msgid "enabled"
+msgstr ""
+
+#: market/models/inventory.py:74
+msgid "A factor, e.g. '0.25' adds 25% to value in order."
+msgstr ""
+
+#: market/models/payment.py:12
+msgid "amount to be paid"
+msgstr ""
+
+#: market/templates/eggplant/market/add_product.html:6
+msgid "Add product"
+msgstr ""
+
+#: market/templates/eggplant/market/cart_details.html:9
+msgid "Your basket"
+msgstr ""
+
+#: market/templates/eggplant/market/checkout.html:8
+msgid "Your cart"
+msgstr ""
+
+#: market/templates/eggplant/market/market_home.html:28
+msgid "Basket"
+msgstr ""
+
+#: market/templates/eggplant/market/market_home.html:32
+msgid "Amount"
+msgstr ""
+
+#: market/templates/eggplant/market/market_home.html:35
+msgid "Product"
+msgstr ""
+
+#: market/templates/eggplant/market/market_home.html:38
+#: roles/templates/eggplant/roles/purchaser/product-table.html:34
+msgid "Price"
+msgstr ""
+
+#: market/views/cart.py:38
+#, python-format
+msgid "You are not allowed to have more than %d items in your basket."
+msgstr ""
+
+#: market/views/cart.py:43
+msgid "Sorry, this product is currently out of stock"
+msgstr ""
+
+#: market/views/cart.py:51
+#, python-format
+msgid "You have just added %s to your basket."
+msgstr ""
+
+#: market/views/payment.py:61
+msgid "Your payment has been accepted and it's being processed."
+msgstr ""
+
+#: market/views/payment.py:69
+msgid "Your payment has been cancelled."
+msgstr ""
+
+#: permissions/models.py:48
+msgid "global"
+msgstr ""
+
+#: permissions/models.py:49
+msgid "This permission gives access across all departments"
+msgstr ""
+
+#: permissions/models.py:93
+msgid "name"
+msgstr ""
+
+#: permissions/models.py:96
+msgid "Human readable name, not used for any lookups so can be anything"
+msgstr ""
+
+#: permissions/models.py:102
+msgid "all permissions"
+msgstr ""
+
+#: permissions/models.py:104
+msgid "Grant all permissions"
+msgstr ""
+
+#: permissions/models.py:108
+msgid "add users"
+msgstr ""
+
+#: permissions/models.py:111
+msgid ""
+"Can add users to associated account or department, meaning that setting this"
+" value is only meaningful if an account or department is associated."
+msgstr ""
+
+#: permissions/models.py:118
+msgid "change account(s)"
+msgstr ""
+
+#: permissions/models.py:121
+msgid ""
+"Can change associated accounts' data. If associated to a department, gives "
+"global access to change all the accounts. If associated to an account, only "
+"gives access to that account."
+msgstr ""
+
+#: profiles/models.py:23
+msgid "permissions"
+msgstr ""
+
+#: profiles/models.py:31 roles/models.py:28
+msgid "user"
+msgstr ""
+
+#: profiles/models.py:36
+msgid "middle name"
+msgstr ""
+
+#: profiles/models.py:37
+msgid "Optional."
+msgstr ""
+
+#: profiles/templates/eggplant/profiles/profile_detail.html:33
+msgid "Your details"
+msgstr ""
+
+#: profiles/templates/eggplant/profiles/profile_detail.html:35
+msgid "Please update your details"
+msgstr ""
+
+#: profiles/templates/eggplant/profiles/profile_detail.html:42
+msgid "Submit"
+msgstr ""
+
+#: profiles/templates/eggplant/profiles/profile_detail.html:46
+msgid "Change Password"
+msgstr ""
+
+#: profiles/templates/eggplant/profiles/sidebar.html:19
+#, python-format
+msgid ""
+"\n"
+"                    %(name)s department\n"
+"                "
+msgstr ""
+
+#: roles/models.py:13
+msgid "purchaser"
+msgstr ""
+
+#: roles/models.py:14
+msgid "communicator"
+msgstr ""
+
+#: roles/models.py:15
+msgid "packer"
+msgstr ""
+
+#: roles/models.py:16
+msgid "cashier"
+msgstr ""
+
+#: roles/models.py:17
+msgid "accountant"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/base.html:8
+msgid "Add new product"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/base.html:13
+msgid "Create day of delivery"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:8
+msgid "Products"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:13
+msgid "Hide disabled products"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:18
+msgid "Show disabled products"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:25
+msgid "Title"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:28
+msgid "Stock"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:31
+msgid "Category"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:37
+msgid "Tax"
+msgstr ""
+
+#: roles/templates/eggplant/roles/purchaser/product-table.html:41
+msgid "Enabled"
+msgstr ""
