@@ -62,10 +62,10 @@ class RemoveFromCart(BaseCartActionView):
         with transaction.atomic():
             super().form_valid(form)
             self.basket.remove_from_items(**form.cleaned_data)
-            stock = form.cleaned_data['product'].stock + \
-                form.cleaned_data['quantity']
-            Product.objects.filter(id=form.cleaned_data['product'].id)\
-                   .update(stock=stock)
+            product = form.cleaned_data['product']
+            if product.stock is not None:
+                stock = product.stock + form.cleaned_data['quantity']
+                Product.objects.filter(id=product.id).update(stock=stock)
         return redirect('eggplant:market:cart_details')
 remove_from_cart = login_required(RemoveFromCart.as_view())
 
