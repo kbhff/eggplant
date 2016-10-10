@@ -54,8 +54,8 @@ AUTHENTICATION_BACKENDS = (
 
 # Application definition
 
-INSTALLED_APPS = (
-    'suit',  # django-admin-bootstrapped
+INSTALLED_APPS = [
+    'suit',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,7 +84,7 @@ INSTALLED_APPS = (
     'eggplant.permissions',
     'eggplant.profiles',
     'eggplant.roles',
-)
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
