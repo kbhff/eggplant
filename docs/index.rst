@@ -19,6 +19,18 @@ Contents:
 
 .. include:: ../README.rst
 
+How to contribute
+=================
+
+:doc:`Read our documentation </dev/contributing>` to get started reporting bugs,
+developing code etc. The project description, organization and goals are on
+`our website eggplant.dk <http://eggplant.dk/>`_. The list of tickets is
+available on our `GitHub project <https://github.com/kbhff/eggplant/issues>`_.
+
+*Write code, write tests, have fun.*
+
+.. also, *write docs*.
+
 
 Indices and tables
 ==================

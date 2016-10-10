@@ -107,29 +107,6 @@ completely new to Django and Python, notice that you need
 `pip <https://pip.pypa.io/en/stable/installing.html>`_, too.
 
 
-Vagrant
-~~~~~~~
-
-(Optional) This takes some time (downloading) and some harddisk capacity.
-
-Another way to get started contributing to this project is to 
-download and install git and `Vagrant <http://vagrantup.com/>`_, 
-Clone the project (as mentioned above), change directory into the eggplant
-folder and then run the following commands:
-
-::
-
-    $ vagrant up
-    $ vagrant ssh
-    $ python manage.py migrate
-    $ python manage.py test
-    $ python manage.py createsuperuser
-    $ python manage.py runserver
-
-This will download and bootstrap an ubuntu 14.04 vagrant box, connect to it,
-start the django development server. The project should now be available at
-http://192.168.33.28:8000/.
-
 Pull Request Guidelines
 -----------------------
 
