@@ -102,6 +102,9 @@ start a new bash session to source it.
 Use "workon eggplantenv" to activate the eggplan virtual environment,
 and "deactivate" to exit.
 
+After installing, you probably want a superuser so you can log in. Use
+``python manage.py createsuperuser`` to create your first user.
+
 This will deploy a local SQLite database and run a local webserver. If you are
 completely new to Django and Python, notice that you need
 `pip <https://pip.pypa.io/en/stable/installing.html>`_, too.
