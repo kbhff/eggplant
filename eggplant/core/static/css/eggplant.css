@@ -196,3 +196,25 @@ select.form-control.money-widget {
     width: 45%;
     border-left: 0;
 }
+
+.language-chooser
+{
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.language-chooser ul.nav
+{
+    margin-right: -5px;
+}
+
+.language-chooser ul.nav > li > a
+{
+    padding: 5px;
+}
+
+.language-chooser ul.nav > li.active > a
+{
+    background-color: rgb(138, 34, 98);
+}
