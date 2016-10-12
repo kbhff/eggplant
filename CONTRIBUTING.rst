@@ -123,6 +123,21 @@ Before you submit a pull request, check that it meets these guidelines:
    https://travis-ci.org/kbhff/eggplant/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
+
+Translation
+-----------
+
+As a translator, you can contribute through our
+`Transifex project <https://www.transifex.com/kbhff/eggplant/>`__.
+
+Once something has changed, either in the codebase or in Transifex, we use the
+Transifex command line client to sync stuff. From within the repo::
+
+    pip install transifex-client  # Installs the client
+    tx pull -a  # Pulls all the translation languages
+    tx push -s  # Pushes current English source language to Transifex
+
+
 Tips
 ----
 
