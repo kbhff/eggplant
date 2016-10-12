@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-10 20:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: settings/base.py:143
+msgid "English"
+msgstr ""
+
+#: settings/base.py:144
+msgid "Danish"
+msgstr ""
+
+#: templates/_navbar.html:18
+msgid "Send invitation"
+msgstr ""
+
+#: templates/_navbar.html:26
+msgid "Market"
+msgstr ""
+
+#: templates/account/email/email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi!\n"
+"\n"
+"An account has been created with this e-mail.\n"
+"\n"
+"Please confirm your e-mail by following this link: %(activate_url)s\n"
+msgstr ""
+
+#: templates/account/email/email_confirmation_subject.txt:2
+msgid "Confirm e-mail address"
+msgstr ""
+
+#: templates/account/email/password_reset_key_message.txt:4
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+
+#: templates/account/email/password_reset_key_message.txt:11
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr ""
+
+#: templates/account/email/password_reset_key_subject.txt:2
+msgid "Request to change password"
+msgstr ""
+
+#: templates/account/login.html:8
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/login.html:24
+#, python-format
+msgid ""
+"\n"
+"                    This is <strong>Eggplant</strong>, the membership system "
+"for\n"
+"                    %(coop_name)s\n"
+"                    "
+msgstr ""
+
+#: templates/account/login.html:30
+msgid ""
+"\n"
+"                    As a member, you can use the system to order and pay for "
+"weekly\n"
+"                    bags and other produce, sign up for shifts and update "
+"your\n"
+"                    membership information.\n"
+"                    "
+msgstr ""
+
+#: templates/account/login.html:37
+msgid "Want to become a member?"
+msgstr ""
+
+#: templates/account/login.html:39
+#, python-format
+msgid ""
+"\n"
+"                    You can read more about %(coop_name)s and sign-up\n"
+"                    <a href=\"%(signup_url)s\">here</a>.\n"
+"                    "
+msgstr ""
+
+#: templates/account/login.html:51
+msgid "Member login"
+msgstr ""
+
+#: templates/account/login.html:53
+#, python-format
+msgid ""
+"\n"
+"                            Please sign in with one of your existing third "
+"party accounts.\n"
+"                            Or, <a href=\"%(signup_url)s\">sign up</a> for a "
+"%(site_name)s\n"
+"                            account and sign in below:"
+msgstr ""
+
+#: templates/account/login.html:63
+msgid "or"
+msgstr ""
+
+#: templates/account/login.html:82
+msgid "Log In"
+msgstr ""
+
+#: templates/account/login.html:90
+msgid "Not a member?"
+msgstr ""
+
+#: templates/account/login.html:92
+msgid "Sign-up here"
+msgstr ""
+
+#: templates/account/login.html:98
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/account/logout.html:4 templates/account/logout.html.py:16
+msgid "Log out"
+msgstr ""
+
+#: templates/account/logout.html:12
+msgid "Are you sure you want to log-out?"
+msgstr ""
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:13
+#: templates/account/password_change.html:20
+#: templates/account/password_reset_from_key.html:6
+#: templates/account/password_reset_from_key.html:13
+#: templates/account/password_reset_from_key.html:49
+msgid "Change password"
+msgstr ""
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset.html:12
+msgid "Forgotten your password?"
+msgstr ""
+
+#: templates/account/password_reset.html:14
+msgid ""
+"\n"
+"            Have you forgotten your password? Enter your e-mail below and "
+"we\n"
+"            will send you an e-mail which gives you a possibility to create "
+"a\n"
+"            new password.\n"
+"            "
+msgstr ""
+
+#: templates/account/password_reset.html:28
+msgid "Send mail"
+msgstr ""
+
+#: templates/account/password_reset_done.html:6
+msgid "Mail sent"
+msgstr ""
+
+#: templates/account/password_reset_done.html:9
+msgid "Mail sent!"
+msgstr ""
+
+#: templates/account/password_reset_done.html:11
+msgid ""
+"\n"
+"    We've sent you an email with instructions on how to create yourself a\n"
+"    new password.\n"
+"    "
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:12
+msgid "Invalid link"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:16
+msgid ""
+"\n"
+"      The link is not valid.  This is likely because the link has already "
+"been\n"
+"      visited.\n"
+"      "
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:23
+msgid "Send a new link"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:54
+msgid "Your password has been changed."
+msgstr ""
+
+#: templates/account/password_reset_from_key_done.html:6
+#: templates/account/password_reset_from_key_done.html:10
+msgid "Password changed"
+msgstr ""
+
+#: templates/account/password_reset_from_key_done.html:13
+#, python-format
+msgid ""
+"\n"
+"    Your password has been changed. You can now <a href=\"%(login_url)s"
+"\">log in</a>.\n"
+"    "
+msgstr ""
+
+#: templates/account/password_set.html:6 templates/account/password_set.html:15
+#: templates/account/password_set.html:25
+msgid "Set password"
+msgstr ""
+
+#: templates/account/password_set.html:17
+msgid "Choose a password for your personal profile"
+msgstr ""
+
+#: templates/account/signup.html:5 templates/account/signup.html.py:53
+msgid "Create user"
+msgstr ""
+
+#: templates/account/signup.html:14
+msgid ""
+"\n"
+"      Create an Eggplant user\n"
+"      "
+msgstr ""
+
+#: templates/eggplant/email/base.html:6
+#, python-format
+msgid "%(department)s's department of %(coop_name)s"
+msgstr ""
+
+#: templates/eggplant/email/base.html:8
+#, python-format
+msgid "%(coop_name)s"
+msgstr ""
+
+#: templates/eggplant/email/base.html:13 templates/eggplant/email/base.txt:8
+msgid "EggPlant — open source community software"
+msgstr ""
+
+#: templates/eggplant/email/base.txt:3
+#, python-format
+msgid ""
+"\n"
+"%(department)s's department of %(coop_name)s\n"
+msgstr ""
+
+#: templates/eggplant/email/base.txt:5
+#, python-format
+msgid ""
+"\n"
+"%(coop_name)s\n"
+msgstr ""

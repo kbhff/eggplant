@@ -21,6 +21,8 @@
 </head>
 <body class="{% block body_classes %}{% endblock %}">
 
+    {% include '_language_chooser.html' %}
+
     {% if user.is_authenticated %}
         <div class="container">
             {% include '_navbar.html' %}

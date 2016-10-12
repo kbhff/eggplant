@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[eggplant.app]
+file_filter = eggplant/locale/<lang>/LC_MESSAGES/django.po
+source_file = eggplant/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[eggplant.project]
+file_filter = eggplant_project/locale/<lang>/LC_MESSAGES/django.po
+source_file = eggplant_project/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
