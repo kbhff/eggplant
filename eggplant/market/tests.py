@@ -1,3 +1,6 @@
+from decimal import Decimal
+from datetime import date
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from allauth.account.models import EmailAddress
@@ -8,10 +11,16 @@ from eggplant.factories import (
     AccountFactory,
     DepartmentFactory,
 )
+from eggplant.market.models.inventory import (
+    Product,
+    ProductCategory,
+    ProductTax,
+)
+from eggplant.market.models.cart import(
+    Basket,
+)
 
-
-class TestPayments(TestCase):
-
+class CommonSetUpPayments(TestCase):
     def setUp(self):
         self.test_user = UserFactory()
         self.assertTrue(UserProfile.objects.filter(user_id=self.test_user.id).exists())
@@ -35,6 +44,12 @@ class TestPayments(TestCase):
 
         self.client.login(username=self.test_user.username, password='pass')
 
+
+class TestPayments(CommonSetUpPayments):
+
+    def setUp(self):
+        super(TestPayments, self).setUp()
+
     def test_market_home(self):
         response = self.client.get(reverse('eggplant:market:market_home'))
         self.assertEqual(response.status_code, 200)
@@ -52,3 +67,65 @@ class TestPayments(TestCase):
             reverse('eggplant:market:payment_rejected',
                     kwargs=dict(pk=non_existent)))
         self.assertEqual(response.status_code, 404)
+
+
+class TestMarketModels(CommonSetUpPayments):
+
+    def setUp(self):
+        super(TestMarketModels, self).setUp()
+
+        self.test_category = ProductCategory.objects.create(title='test_category')
+        self.test_product_tax = ProductTax.objects.create(title='test_tax', tax=Decimal(0))
+
+        self.test_product_1 = Product.objects.create(
+            title='test_product_1',
+            category=self.test_category,
+            tax=self.test_product_tax)
+
+        self.test_product_1 = Product.objects.create(
+            title='test_product_2',
+            category=self.test_category,
+            tax=self.test_product_tax)
+
+        self.test_basket = Basket.objects.create(
+            user=self.test_user) 
+
+    def test_add_remove_products(self):
+
+        self.assertEqual(self.test_basket.get_items_count(), 0)
+
+        self.test_basket.add_to_items(product=self.test_product_1, quantity=2, delivery_date=None)
+        self.assertEqual(self.test_basket.get_items_count(), 1)
+        basket_items = self.test_basket.items.filter(product=self.test_product_1, delivery_date=None)
+
+        self.assertEqual(basket_items[0].quantity, 2)
+
+        # add the same product with the same delivery date => quantity is increased to 2+1
+        self.test_basket.add_to_items(product=self.test_product_1, quantity=1, delivery_date=None)
+        self.assertEqual(self.test_basket.get_items_count(), 1)
+
+        basket_items = self.test_basket.items.filter(product=self.test_product_1, delivery_date=None)
+        self.assertEqual(basket_items.count(), 1)
+        self.assertEqual(basket_items[0].quantity, 3)
+
+        # add the same product with a different delivery date
+        # => 2 products in the basket
+
+        self.test_basket.add_to_items(product=self.test_product_1, quantity=1, delivery_date=date.today())
+        self.assertEqual(self.test_basket.get_items_count(), 2)
+
+        basket_items = self.test_basket.items.filter(product=self.test_product_1, delivery_date=date.today())
+        self.assertEqual(basket_items[0].quantity, 1)
+
+        # remove product_1 with delivery date.today
+        self.test_basket.remove_from_items(product=self.test_product_1, quantity=1, delivery_date=date.today())
+        self.assertEqual(self.test_basket.get_items_count(), 1)
+
+        # test if item are deleted
+        basket_items = self.test_basket.items.filter(product=self.test_product_1, delivery_date=date.today())
+        self.assertEqual(basket_items.count(), 0)
+
+        # decrease quantity to 3-1 => 2
+        self.test_basket.remove_from_items(product=self.test_product_1, quantity=1, delivery_date=None)
+        basket_items = self.test_basket.items.filter(product=self.test_product_1, delivery_date=None)
+        self.assertEqual(basket_items[0].quantity, 2)
