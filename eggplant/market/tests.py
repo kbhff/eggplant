@@ -88,7 +88,7 @@ class TestMarketModels(CommonSetUpPayments):
             tax=self.test_product_tax)
 
         self.test_basket = Basket.objects.create(
-            user=self.test_user) 
+            user=self.test_user)
 
     def test_add_remove_products(self):
 
