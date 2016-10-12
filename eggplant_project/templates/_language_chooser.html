@@ -1,0 +1,10 @@
+<div class="language-chooser">
+    <div class="container">
+        <ul class="nav nav-pills pull-right">
+            {% for code, lang in LANGUAGE_CHOOSER.items %}
+            <li{% if lang.selected %} class="active"{% endif %}><a href="{{ lang.this_page }}">{{ code }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
