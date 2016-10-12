@@ -10,8 +10,8 @@ def coop_vars(request):
     # code.. so that's like a contract. Any page we render, we assume to be
     # through i18n_patterns
     LANGUAGE_CHOOSER = {}
+    path_components = request.path.split("/")
     for lang in settings.LANGUAGES:
-        path_components = request.path.split("/")
         lang_path = ["", lang[0]] + path_components[2:]
         LANGUAGE_CHOOSER[lang[0]] = {
             'name': lang[1],

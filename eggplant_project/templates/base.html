@@ -21,16 +21,7 @@
 </head>
 <body class="{% block body_classes %}{% endblock %}">
 
-    {# This is the language chooser #}
-    <div class="language-chooser">
-        <div class="container">
-            <ul class="nav nav-pills pull-right">
-                {% for code, lang in LANGUAGE_CHOOSER.items %}
-                <li{% if lang.selected %} class="active"{% endif %}><a href="{{ lang.this_page }}">{{ code }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+    {% include '_language_chooser.html' %}
 
     {% if user.is_authenticated %}
         <div class="container">
