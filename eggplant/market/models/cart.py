@@ -41,9 +41,8 @@ class Basket(models.Model):
     def add_to_items(self, product=None, quantity=1, delivery_date=None):
         current = self.items.filter(product=product,
                                     delivery_date=delivery_date)
-        if current.count():
-            current[0].quantity += quantity
-            current[0].save()
+        if current.exists():
+            current.update(quantity=models.F('quantity') + quantity)
         else:
             BasketItem.objects.create(
                 basket=self,
@@ -56,11 +55,10 @@ class Basket(models.Model):
         current = self.items.filter(product=product,
                                     delivery_date=delivery_date)
         if current.exists():
-            if current[0].quantity > 1:
-                current[0].quantity -= quantity
-                current[0].save()
+            if current[0].quantity - quantity > 1:
+                current.update(quantity=models.F('quantity') - quantity)
             else:
-                self.items.filter(basket=self, product=product).delete()
+                self.items.filter(basket=self, product=product, delivery_date=delivery_date).delete()
 
     def get_total_amount(self):
         # TODO: This should return a Money type instead of decimal
@@ -102,6 +100,6 @@ class BasketItem(models.Model):
 
     class Meta:
         unique_together = (
-            ('basket', 'product')
+            ('basket', 'product', 'delivery_date')
         )
         app_label = 'market'
