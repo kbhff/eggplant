@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # allauth signup is disabled - we have our own signup flow
     url(r'^account/signup/$',
-        RedirectView.as_view(url=settings.SIGNUP_URL_NAME, permanent=True),
+        RedirectView.as_view(url='eggplant:profiles:signup', permanent=True),
         name='account_signup'),
     # override django-allauth password set and change views
     url(r'^account/password/set/$',

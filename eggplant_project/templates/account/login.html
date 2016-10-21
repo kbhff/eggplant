@@ -35,10 +35,10 @@
                     </p>
                     
                     <p><strong>{% trans 'Want to become a member?' %}</strong></p>
-                    
-                    <p>{% blocktrans with coop_name=COOP_NAME signup_url=SIGNUP_URL %}
+                    {% url 'eggplant:profiles:signup' as signup_url %}
+                    <p>{% blocktrans with coop_name=COOP_NAME %}
                     You can read more about {{coop_name}} and sign-up
-                    <a href="{{signup_url}}">here</a>.
+                    <a href="{{ signup_url }}">here</a>.
                     {% endblocktrans %}
                     </p>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="panel-body">
                     <h3 class="text-center">{% trans "Member login" %}</h3>
                     {% if socialaccount.providers %}
-                        <p>{% blocktrans with site_name=site.name signup_url=SIGNUP_URL %}
+                        <p>{% blocktrans with site_name=site.name %}
                             Please sign in with one of your existing third party accounts.
                             Or, <a href="{{ signup_url }}">sign up</a> for a {{ site_name }}
                             account and sign in below:{% endblocktrans %}
@@ -88,7 +88,7 @@
                     <div class="text-center">
                         <p>
                             {% trans 'Not a member?' %}
-                            <a href="{{SIGNUP_URL}}">
+                            <a href="{{ signup_url }}">
                                 {% trans 'Sign-up here' %}
                             </a>
                         </p>

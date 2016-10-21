@@ -1,7 +1,7 @@
 import dj_database_url
 from .base import *  # @UnusedWildImport
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 COOP_NAME = 'EggPlant Demo'

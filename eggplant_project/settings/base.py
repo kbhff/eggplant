@@ -245,7 +245,6 @@ ACCOUNT_ADAPTER = 'eggplant_project.authnadapter.EggplantAccountAdapter'
 ACCOUNT_SESSION_REMEMBER = None
 
 SITE_OPEN_FOR_SIGNUP = True
-SIGNUP_URL_NAME = 'eggplant:profiles:signup'
 
 LOGOUT_URL = 'account_logout'
 LOGIN_URL = 'account_login'
