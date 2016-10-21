@@ -4,8 +4,8 @@ from datetime import date
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from allauth.account.models import EmailAddress
-
 from eggplant.profiles.models import UserProfile
+
 from eggplant.factories import (
     UserFactory,
     AccountFactory,
@@ -19,6 +19,7 @@ from eggplant.market.models.inventory import (
 from eggplant.market.models.cart import(
     Basket,
 )
+
 
 class CommonSetUpPayments(TestCase):
     def setUp(self):
