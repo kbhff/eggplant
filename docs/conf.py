@@ -17,16 +17,12 @@ import os
 import sys
 
 import django
-from django.db.models.fields.files import FileDescriptor
-from djmoney.models.fields import MoneyFieldProxy
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 sys.path.insert(0, os.path.abspath('..'))
-
-import eggplant  # noqa
 
 # -- General configuration ------------------------------------------------
 
@@ -37,6 +33,12 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "eggplant_project.settings.docs"
 
 django.setup()
 
+
+# These imports are dependent on Django's settings stack and need to be AFTER
+# django.setup()
+from django.db.models.fields.files import FileDescriptor  # noqa
+from djmoney.models.fields import MoneyFieldProxy  # noqa
+import eggplant  # noqa
 
 # Hacks for the autodoc introspector
 
