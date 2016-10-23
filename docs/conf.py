@@ -17,7 +17,6 @@ import os
 import sys
 
 import django
-import eggplant
 from django.db.models.fields.files import FileDescriptor
 from djmoney.models.fields import MoneyFieldProxy
 
@@ -26,6 +25,8 @@ from djmoney.models.fields import MoneyFieldProxy
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 sys.path.insert(0, os.path.abspath('..'))
+
+import eggplant  # noqa
 
 # -- General configuration ------------------------------------------------
 
